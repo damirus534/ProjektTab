@@ -1,0 +1,28 @@
+.image{
+  object-fit: cover;
+  background-size: cover;
+  width: 200px;
+  float:left;
+  margin-right:40px;
+
+}
+.content{
+  width: content-box;
+  height: 250px;
+  margin-top: 5px;
+  max-height: 600px;
+}
+.title{
+  font-size: large;
+  width: 600px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}
+.description{
+  margin-left: 100px;
+  text-align: center;
+}
