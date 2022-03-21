@@ -15,12 +15,21 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+import {AppRoutingModule,routingComponents} from "./app-routing.module";
+import { MainpageComponent } from './mainpage/mainpage.component';
+import { CartComponent } from './cart/cart.component';
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavibarComponent,
     SidenavComponent,
-    CardComponent
+    CardComponent,
+    routingComponents,
+    MainpageComponent,
+    CartComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +41,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
