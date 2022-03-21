@@ -19,6 +19,7 @@ import {AppRoutingModule,routingComponents} from "./app-routing.module";
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { CartComponent } from './cart/cart.component';
 import { LoginComponent } from './login/login.component';
+import { OfferComponent } from './offer/offer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LoginComponent } from './login/login.component';
     routingComponents,
     MainpageComponent,
     CartComponent,
-    LoginComponent
+    LoginComponent,
+    OfferComponent
   ],
   imports: [
     BrowserModule,

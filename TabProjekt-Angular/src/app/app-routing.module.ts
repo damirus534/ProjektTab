@@ -7,7 +7,7 @@ import {LoginComponent} from "./login/login.component";
 
 const routes:Routes=[
   {path:'offer',component:OfferComponent},
-  {path:'main',component:MainpageComponent},
+  {path:'',component:MainpageComponent},
   {path:'cart',component:CartComponent},
   {path:'login',component:LoginComponent}
 ];
