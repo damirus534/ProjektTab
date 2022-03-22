@@ -18,9 +18,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {AppRoutingModule,routingComponents} from "./app-routing.module";
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { CartComponent } from './cart/cart.component';
-import { LoginComponent } from './login/login.component';
 import { OfferComponent } from './offer/offer.component';
-
+import { LoginAndRegisterComponent } from './login-and-register/login-and-register.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,8 +31,9 @@ import { OfferComponent } from './offer/offer.component';
     routingComponents,
     MainpageComponent,
     CartComponent,
-    LoginComponent,
-    OfferComponent
+    OfferComponent,
+    CardComponent,
+    LoginAndRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,10 @@ import { OfferComponent } from './offer/offer.component';
     MatCardModule,
     MatButtonModule,
     MatTooltipModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
