@@ -1,0 +1,14 @@
+.material-card {
+    width: 80%;
+}
+
+.input-form {
+    width: 100% ;
+}
+
+.material-divider {
+    height: 80%;
+    opacity: 100%;
+    border-color: rgb(170, 170, 170);
+  }
+
