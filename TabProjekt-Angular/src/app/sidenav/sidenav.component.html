@@ -24,7 +24,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
 
-    <app-card ></app-card>
+    <app-card [product]="productList" (eventTask)="selected($event)"></app-card>
   </mat-sidenav-content>
 </mat-sidenav-container>
 

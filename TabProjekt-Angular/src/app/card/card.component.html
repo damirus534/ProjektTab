@@ -1,6 +1,6 @@
 
-<mat-card class="content" *ngFor="let photo of photos">
-  <mat-card-title ><button color="primary" class="title" mat-flat-button>{{photo.title}}</button></mat-card-title>
-  <mat-card-content><img class="image" [src]="photo.url"></mat-card-content>
-  <mat-card-content class="description"><div class="description"></div> <p>{{photo.describe}}</p></mat-card-content>
+<mat-card class="content">
+  <mat-card-title ><button (click)="select()" color="primary" class="title" mat-flat-button>{{product.name}}</button></mat-card-title>
+  <mat-card-content><img class="image" [src]="product.imageUrls[0]"></mat-card-content>
+  <mat-card-content class="description"><div class="description"></div> <p>{{product.description}}</p></mat-card-content>
 </mat-card>
