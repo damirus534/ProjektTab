@@ -22,6 +22,7 @@ import { OfferComponent } from './offer/offer.component';
 import { LoginAndRegisterComponent } from './login-and-register/login-and-register.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
+import { CartElementComponent } from './cart-element/cart-element.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import {MatDividerModule} from '@angular/material/divider';
     CartComponent,
     OfferComponent,
     CardComponent,
-    LoginAndRegisterComponent
+    LoginAndRegisterComponent,
+    CartElementComponent
   ],
   imports: [
     BrowserModule,
