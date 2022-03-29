@@ -14,17 +14,28 @@ import { CardComponent } from './card/card.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltipModule} from '@angular/material/tooltip';
+
+import {AppRoutingModule,routingComponents} from "./app-routing.module";
+import { MainpageComponent } from './mainpage/mainpage.component';
+import { CartComponent } from './cart/cart.component';
+import { OfferComponent } from './offer/offer.component';
 import { LoginAndRegisterComponent } from './login-and-register/login-and-register.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
-
+import { CartElementComponent } from './cart-element/cart-element.component';
 @NgModule({
   declarations: [
     AppComponent,
     NavibarComponent,
     SidenavComponent,
     CardComponent,
-    LoginAndRegisterComponent
+    routingComponents,
+    MainpageComponent,
+    CartComponent,
+    OfferComponent,
+    CardComponent,
+    LoginAndRegisterComponent,
+    CartElementComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +47,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
+    MatTooltipModule,
+    AppRoutingModule,
     MatTooltipModule,
     MatInputModule,
     MatDividerModule
