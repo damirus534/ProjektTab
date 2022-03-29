@@ -1,11 +1,11 @@
-<mat-toolbar color="primary" >
+<mat-toolbar color="primary"  >
   <span class="example-spacer"></span>
-  <span>Sklep</span>
+  <button color="primary" class="title" mat-flat-button routerLink="">Sklep</button>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="button" aria-label="Example icon-button with heart icon">
+  <button routerLink="/cart" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Koszyk" >
     <mat-icon>shopping_cart</mat-icon>
   </button>
-  <button mat-icon-button class="button" aria-label="Example icon-button with share icon">
+  <button routerLink="/login" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Konto">
     <mat-icon>person</mat-icon>
   </button>
 </mat-toolbar>

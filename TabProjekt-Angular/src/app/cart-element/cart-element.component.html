@@ -1,0 +1,25 @@
+<mat-card class="cart-element-container">
+    <mat-grid-list cols="11" rowHeight="100%">
+        <mat-grid-tile colspan="2">
+            <img class="cart-element-image" [src]="imageUrls[0]" alt="Product image">
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <p> {{ name }} </p>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <p> {{ size }} </p>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <p> {{ amount }} </p>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <p> {{ price }} </p>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1">
+            <button mat-icon-button>
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</mat-card>
+
