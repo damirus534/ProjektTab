@@ -13,13 +13,18 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import { CardComponent } from './card/card.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { LoginAndRegisterComponent } from './login-and-register/login-and-register.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavibarComponent,
     SidenavComponent,
-    CardComponent
+    CardComponent,
+    LoginAndRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,10 @@ import {MatButtonModule} from "@angular/material/button";
     MatExpansionModule,
     MatGridListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
