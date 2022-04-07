@@ -1,11 +1,10 @@
 package pl.polsl.ProjektTab.Service;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import pl.polsl.ProjektTab.Dao.UsersDao;
-import pl.polsl.ProjektTab.Model.Users;
+import pl.polsl.ProjektTab.Model.Uzytkownicy;
 
 import java.util.List;
 
@@ -20,11 +19,11 @@ public class UsersService {
         this.userDao = userDao;
     }
 
-    public int addUser(Users user){
+    public int addUser(Uzytkownicy user){
         return userDao.insertUser(user);
     }
 
-    public List<Users> getAllUsers(){
+    public List<Uzytkownicy> getAllUsers(){
         return userDao.selectAllUsers();
     }
 }
