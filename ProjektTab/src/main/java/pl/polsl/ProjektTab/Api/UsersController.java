@@ -1,9 +1,9 @@
 package pl.polsl.ProjektTab.Api;
 
-import lombok.AllArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pl.polsl.ProjektTab.Model.Users;
+import pl.polsl.ProjektTab.Model.Uzytkownicy;
 import pl.polsl.ProjektTab.Service.UsersService;
 
 import java.util.List;
@@ -19,12 +19,14 @@ public class UsersController {
         this.userService = usersService;
     }
     @PostMapping
-    public void addUser(@RequestBody Users user){
+
+    public void addUser(@RequestBody Uzytkownicy user){
+
         userService.addUser(user);
     }
 
     @GetMapping
-    public List<Users> getAllUsers(){
+    public List<Uzytkownicy> getAllUsers(){
         return userService.getAllUsers();
     }
 
