@@ -1,5 +1,6 @@
 package pl.polsl.ProjektTab.Api;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.ProjektTab.Model.Uzytkownicy;
@@ -18,7 +19,9 @@ public class UsersController {
         this.userService = usersService;
     }
     @PostMapping
+
     public void addUser(@RequestBody Uzytkownicy user){
+
         userService.addUser(user);
     }
 
