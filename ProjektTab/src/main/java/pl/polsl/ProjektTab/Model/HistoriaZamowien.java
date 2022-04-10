@@ -24,7 +24,7 @@ public class HistoriaZamowien {
     @Column(name = "suma_zakupu")
     private double sumaZakupu;
     @ManyToOne
-    @JoinColumn(name = "id_uzytkownika", referencedColumnName = "id_uzytkownika", nullable = false)
+    @JoinColumn(referencedColumnName = "id_uzytkownika", nullable = false)
     private Uzytkownicy uzytkownicyByIdUzytkownika;
     @OneToMany(mappedBy = "historiaZamowienByIdRekorduHistorii")
     private Collection<Zamowienia> zamowieniasByIdRekorduHistorii;

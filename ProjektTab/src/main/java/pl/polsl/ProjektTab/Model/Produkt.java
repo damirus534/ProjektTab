@@ -24,7 +24,7 @@ public class Produkt {
     @OneToMany(mappedBy = "produktByIdProduktu")
     private Collection<Koszyki> koszykisByIdProduktu;
     @ManyToOne
-    @JoinColumn(name = "id_info", referencedColumnName = "id_info", nullable = false)
+    @JoinColumn(referencedColumnName = "id_info", nullable = false)
     private ProduktInfo produktInfoByIdInfo;
     @OneToMany(mappedBy = "produktByIdProduktu")
     private Collection<Zamowienia> zamowieniasByIdProduktu;

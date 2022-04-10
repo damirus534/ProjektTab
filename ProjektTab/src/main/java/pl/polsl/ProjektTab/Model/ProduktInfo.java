@@ -31,7 +31,7 @@ public class ProduktInfo {
     @OneToMany(mappedBy = "produktInfoByIdInfo")
     private Collection<Produkt> produktsByIdInfo;
     @ManyToOne
-    @JoinColumn(name = "id_kategorii", referencedColumnName = "id_kategorii", nullable = false)
+    @JoinColumn(referencedColumnName = "id_kategorii", nullable = false)
     private KategorieProduktow kategorieProduktowByIdKategorii;
     @OneToMany(mappedBy = "produktInfoByIdInfo")
     private Collection<Zdjecia> zdjeciasByIdInfo;
