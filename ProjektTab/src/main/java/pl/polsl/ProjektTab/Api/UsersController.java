@@ -18,10 +18,9 @@ public class UsersController {
     public UsersController(UsersService usersService){
         this.userService = usersService;
     }
+
     @PostMapping
-
     public void addUser(@RequestBody Uzytkownicy user){
-
         userService.addUser(user);
     }
 
