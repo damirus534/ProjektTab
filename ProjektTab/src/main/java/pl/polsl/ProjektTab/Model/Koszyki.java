@@ -21,10 +21,10 @@ public class Koszyki {
     @Column(name = "ilosc_produktow")
     private int iloscProduktow;
     @ManyToOne
-    @JoinColumn(name = "id_uzytkownika", referencedColumnName = "id_uzytkownika", nullable = false)
+    @JoinColumn(referencedColumnName = "id_uzytkownika", nullable = false)
     private Uzytkownicy uzytkownicyByIdUzytkownika;
     @ManyToOne
-    @JoinColumn(name = "id_produktu", referencedColumnName = "id_produktu", nullable = false)
+    @JoinColumn(referencedColumnName = "id_produktu", nullable = false)
     private Produkt produktByIdProduktu;
 
 }

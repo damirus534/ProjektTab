@@ -24,10 +24,10 @@ public class Zamowienia {
     @Column(name = "cena_sprzedazy")
     private double cenaSprzedazy;
     @ManyToOne
-    @JoinColumn(name = "id_produktu", referencedColumnName = "id_produktu", nullable = false)
+    @JoinColumn(referencedColumnName = "id_produktu", nullable = false)
     private Produkt produktByIdProduktu;
     @ManyToOne
-    @JoinColumn(name = "id_rekordu_historii", referencedColumnName = "id_rekordu_historii", nullable = false)
+    @JoinColumn(referencedColumnName = "id_rekordu_historii", nullable = false)
     private HistoriaZamowien historiaZamowienByIdRekorduHistorii;
 
 }

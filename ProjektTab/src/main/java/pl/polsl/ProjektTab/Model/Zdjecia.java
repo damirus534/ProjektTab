@@ -18,7 +18,7 @@ public class Zdjecia {
     @Column(name = "url_zdjecia")
     private String urlZdjecia;
     @ManyToOne
-    @JoinColumn(name = "id_info", referencedColumnName = "id_info", nullable = false)
+    @JoinColumn(referencedColumnName = "id_info", nullable = false)
     private ProduktInfo produktInfoByIdInfo;
 
 }
