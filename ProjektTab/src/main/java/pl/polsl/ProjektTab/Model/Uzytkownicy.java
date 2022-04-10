@@ -8,7 +8,7 @@ import java.util.Collection;
 @Entity
 @Data
 public class Uzytkownicy {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id_uzytkownika")
     private int idUzytkownika;

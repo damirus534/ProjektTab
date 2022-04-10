@@ -1,19 +1,10 @@
 package pl.polsl.ProjektTab.Dao;
 
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import pl.polsl.ProjektTab.Model.Uzytkownicy;
-import java.util.List;
-import java.util.UUID;
 
-public interface UsersDao {
+@Repository
+public interface UsersDao extends JpaRepository<Uzytkownicy, Long> {
 
-    int insertUser(UUID id, Uzytkownicy user);
-
-    default int insertUser(Uzytkownicy user){
-        UUID id = UUID.randomUUID();
-        return insertUser(id, user);
-    }
-
-
-    List<Uzytkownicy> selectAllUsers();
 }
