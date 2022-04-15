@@ -4,24 +4,30 @@
     <mat-card class="material-card">
       <mat-card-title>Login</mat-card-title>
       <mat-card-content>
-        <form>
+        <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
           <p>
             <mat-form-field class="input-form">
-              <input type="text" matInput placeholder="Email" formControlName="email">
+              <input type="text" id="loginEmail" matInput placeholder="Email" formControlName="loginEmail">
             </mat-form-field>
+            <span class="validation-error" *ngIf="loginEmail && loginEmail.invalid && loginEmail.touched">Niepoprawne dane</span>
           </p>
+          
           
           <p>
             <mat-form-field class="input-form">
-              <input type="password" matInput placeholder="Hasło" formControlName="password">
+              <input type="password" id="loginPassword" matInput placeholder="Hasło" formControlName="loginPassword">
             </mat-form-field>
+            <span class="validation-error" *ngIf="loginPassword && loginPassword.invalid && loginPassword.touched">Niepoprawne dane</span>
           </p>
           
           <div class="button">
-            <button mat-raised-button color="primary">Zaloguj</button>
+            <button type="submit" [disabled]="loginForm.invalid" mat-raised-button color="primary">Zaloguj</button>
           </div>
         </form>
       </mat-card-content>
+      <mat-card class="failure-info" *ngIf="badCredentials">
+        Błędny email lub hasło
+      </mat-card>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile colspan="1">
@@ -31,32 +37,41 @@
     <mat-card class="material-card">
       <mat-card-title>Rejestracja</mat-card-title>
       <mat-card-content>
-        <form>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
           <p>
             <mat-form-field class="input-form">
-              <input type="text" matInput placeholder="Email" formControlName="email" required>
+              <input type="text" matInput placeholder="Email" formControlName="registerEmail" required>
             </mat-form-field>
+            <span class="validation-error" *ngIf="registerEmail && registerEmail.invalid && registerEmail.touched">Niepoprawne dane</span>
           </p>
           
           <p>
             <mat-form-field class="input-form">
-              <input type="password" matInput placeholder="Hasło" formControlName="password" required>
+              <input type="password" matInput placeholder="Hasło" formControlName="registerPassword" required>
             </mat-form-field>
+            <span class="validation-error" *ngIf="registerPassword && registerPassword.invalid && registerPassword.touched">Niepoprawne dane</span>
           </p>
 
           <p>
             <mat-form-field class="input-form">
-              <input type="text" matInput placeholder="Adres" formControlName="address" required>
+              <input type="text" matInput placeholder="Adres" formControlName="registerAddress" required>
             </mat-form-field>
+            <span class="validation-error" *ngIf="registerAddress && registerAddress.invalid && registerAddress.touched">Niepoprawne dane</span>
           </p>
           
           <div class="button">
-            <button mat-raised-button color="primary">
+            <button [disabled]="registerForm.invalid" type="submit" mat-raised-button color="primary">
               Zarejestruj
             </button>
           </div>
         </form>
       </mat-card-content>
+      <mat-card class="failure-info" *ngIf="userAlreadyExists">
+        Taki użytkownik już istnieje
+      </mat-card>
+      <mat-card class="success-info" *ngIf="accountCreated">
+        Konto zostało założone
+      </mat-card>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile colspan="2"></mat-grid-tile>

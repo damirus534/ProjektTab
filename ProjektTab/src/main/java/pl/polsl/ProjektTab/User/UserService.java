@@ -3,6 +3,8 @@ package pl.polsl.ProjektTab.User;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import pl.polsl.Exceptions.UserNotFoundException;
@@ -21,6 +23,25 @@ public class UserService {
 
     public List<User> getUsers() {
         return userRepository.findAll();
+    }
+
+    public boolean verifyLoginCredentials(User user) {
+        User checkUser = new User();
+        checkUser.setLogin(user.getLogin());
+        checkUser.setPassword(user.getPassword());
+        ExampleMatcher userMatcher = ExampleMatcher.matching()
+            .withIgnorePaths("id");
+        Example<User> userExample = Example.of(checkUser, userMatcher);
+        return userRepository.exists(userExample);
+    }
+
+    public boolean isUserExists(User user) {
+        User checkUser = new User();
+        checkUser.setLogin(user.getLogin());
+        ExampleMatcher userMatcher = ExampleMatcher.matching()
+            .withIgnorePaths("id");
+        Example<User> userExample = Example.of(checkUser, userMatcher);
+        return userRepository.exists(userExample);
     }
 
     public User addUser(User user) {
@@ -55,5 +76,5 @@ public class UserService {
         userRepository.delete(user);
         return user;
     }
-    
+
 }
