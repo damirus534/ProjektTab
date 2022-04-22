@@ -23,6 +23,8 @@ import { LoginAndRegisterComponent } from './login-and-register/login-and-regist
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
 import { CartElementComponent } from './cart-element/cart-element.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +53,10 @@ import { CartElementComponent } from './cart-element/cart-element.component';
     AppRoutingModule,
     MatTooltipModule,
     MatInputModule,
-    MatDividerModule
+    MatDividerModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../core/product';
+import { User } from '../core/user/user';
 
 @Component({
   selector: 'app-cart',
@@ -7,7 +7,7 @@ import { Product } from '../core/product';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-
+  
   cartContent : any[] = [
     {
       name: 'Wspaniałe buty',

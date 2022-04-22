@@ -1,11 +1,19 @@
-.example-spacer {
-  flex: 1 1 auto;
+.navibar-main {
+  height: 7vh;
+  display: flex;
+  justify-content: flex-end;
 }
+
+.title {
+  font-size: 30px;
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+}
+
 .button {
   background-color: Transparent;
   color: white;
   border: none;
 }
-.title{
-  font-size: larger;
-}
+
