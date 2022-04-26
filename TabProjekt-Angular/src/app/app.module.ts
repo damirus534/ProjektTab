@@ -25,6 +25,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import { CartElementComponent } from './cart-element/cart-element.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductOfferComponent } from './product-offer/product-offer.component';
+import {GalleryModule} from "ng-gallery";
+import {MatSelectModule} from "@angular/material/select";
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,27 +41,31 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OfferComponent,
     CardComponent,
     LoginAndRegisterComponent,
-    CartElementComponent
+    CartElementComponent,
+    ProductListComponent,
+    ProductOfferComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTooltipModule,
-    AppRoutingModule,
-    MatTooltipModule,
-    MatInputModule,
-    MatDividerModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatExpansionModule,
+        MatGridListModule,
+        MatCardModule,
+        MatButtonModule,
+        MatTooltipModule,
+        AppRoutingModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatDividerModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        GalleryModule,
+        MatSelectModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

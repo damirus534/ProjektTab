@@ -50,6 +50,12 @@ public class Product implements Serializable {
         this.amountAvailable = amountAvailable;
     }
 
+    public Product(Long id, Integer amountAvailable, String size) {
+        this.id = id;
+        this.size = size;
+        this.amountAvailable = amountAvailable;
+    }
+
     public Long getId() {
         return this.id;
     }

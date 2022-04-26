@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navibar',
@@ -7,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavibarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
 
   }
 
+  checkURL() {
+    console.log(this.router.url)
+    if(this.router.url==="/"){
+
+      window.location.reload();
+    }
+
+  }
 }

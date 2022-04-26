@@ -1,0 +1,39 @@
+
+.photogallery{
+  width: 100%;
+  height: 80%;
+}
+
+.gallery{
+
+  background-color: transparent;
+  max-width: 100%;
+  border-radius: 3%;
+  margin: auto;
+  margin-top: 10%;
+  max-height: 70%;
+}
+.card{
+  width: 90%;
+  height: 80%;
+  margin: auto;
+
+}
+.titleCard{
+  text-align: center;
+}
+.textCard{
+  margin-top: 4%;
+  font-size: larger;
+  height: 60%;
+
+
+}
+.sizeAmount{
+  margin: auto;
+  text-align: center;
+}
+.description{
+  height: 60%;
+}
+

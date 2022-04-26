@@ -1,0 +1,30 @@
+<mat-grid-list cols="2" rowHeight="2:1" >
+  <mat-grid-tile rowspan="2" colspan="1">
+<mat-card class="photogallery"><gallery class="gallery"  [items]="images"></gallery></mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile rowspan="2" colspan="1">
+    <mat-card *ngIf="productInfo" class="card">
+      <mat-card-title class="titleCard">{{productInfo.productName}}</mat-card-title>
+      <mat-card-content class="textCard">{{productInfo.description}}</mat-card-content>
+      <mat-card-content class="sizeAmount">
+        <mat-form-field >
+          <mat-label>Rozmiar</mat-label>
+          <mat-select [(ngModel)]="selectedValue">
+            <mat-option *ngFor="let prod of productOff" [value]="prod.id">
+              {{prod.size}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-content class="sizeAmount">
+        <mat-form-field *ngIf="selectedValue" >
+          <mat-label>Ilosc</mat-label>
+          <input matInput type="number" max="{{selectedValue.amountAvailable}}" min="0">
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-content class="sizeAmount"><button  color="primary" mat-flat-button>Dodaj Do Koszyka</button></mat-card-content>
+
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>

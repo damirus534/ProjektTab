@@ -28,6 +28,7 @@ public class PhotoService {
 
     public Photo addPhoto(Photo photo) {
         return photoRepository.save(photo);
+
     }
 
     public Photo assignProductInfoToPhoto(Long photoId, Long infoId) {
@@ -57,5 +58,7 @@ public class PhotoService {
         photoRepository.delete(photo);
         return photo;
     }
-
+    public List<String> getUrlsById(Long id){
+        return photoRepository.findAllPhotos(id);
+    }
 }
