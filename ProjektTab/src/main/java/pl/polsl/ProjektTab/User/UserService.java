@@ -2,7 +2,9 @@ package pl.polsl.ProjektTab.User;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.auth0.jwt.JWT;
@@ -32,16 +34,19 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String login(User user) {
+    public Map<String, String> login(User user) {
+        HashMap<String, String> map = new HashMap<>();
         Optional<User> verifiedUser = userRepository.findOne(Example.of(user));
         if(verifiedUser.isPresent()) {
             try {
                 Algorithm algorithm = Algorithm.HMAC256("sekret");
-                return JWT.create()
+                String token = JWT.create()
                     .withClaim("name", verifiedUser.get().getLogin())
                     .withClaim("role", verifiedUser.get().getStatus())
                     .withIssuedAt(Date.from(Instant.now()))
                     .sign(algorithm);
+                map.put("JWT_TOKEN", token);
+                return map;
             } catch (JWTCreationException e) {
                 System.out.println(e);
             }

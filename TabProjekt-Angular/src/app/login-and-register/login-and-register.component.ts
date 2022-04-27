@@ -4,6 +4,7 @@ import { User } from '../core/user/user';
 import { UserService } from '../core/user/user.service';
 import { AuthService } from '../services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-and-register',
@@ -34,7 +35,7 @@ export class LoginAndRegisterComponent implements OnInit {
     registerAddress: new FormControl('', [Validators.required])
   });
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     
@@ -43,13 +44,9 @@ export class LoginAndRegisterComponent implements OnInit {
   // Method which verifies correctness of input data - when it does not match, info is displayed.
   // TODO: logging in and rerouting to main page with offers
   public onLoginSubmit() {
-    this.doLogin();
-  }
-
-  private doLogin() {
-    this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe((token) => {
-      if(token != "") {
-        localStorage.setItem("JWT_TOKEN", token);
+    this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe(() => {
+      if(!!localStorage.getItem('JWT_TOKEN')) {
+        this.router.navigate(['/cart']);
       }
     });
   }

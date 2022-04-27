@@ -9,7 +9,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private authService: AuthService) {
+  private isLoggedIn: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) {
 
   }
 
@@ -17,15 +19,17 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    const helper = new JwtHelperService();
-    const token = localStorage.getItem('JWT_TOKEN');
-    if(token !== null) {
-      // TODO: zrobić walidację roli ORAZ PIERWEJ zrobić weryfikację zalogowania
-      const role = helper.decodeToken(token).role;
+    // TODO: figure out the way if token is valid when user wants to go back to page
+    this.authService.isLoggedIn.subscribe((result) => {
+      this.isLoggedIn = result;
+    });
+    if(this.isLoggedIn) {
       return true;
-    } else {
-      return false;
     }
+    window.alert("Wymagane logowanie");
+    this.router.navigate(['/login']);
+    return false;
+    
   }
-  
+
 }
