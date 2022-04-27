@@ -7,7 +7,7 @@
     <mat-icon>person</mat-icon>
   </button>
   <button routerLink="/login" *ngIf="this.authService.isLoggedIn | async" (click)="this.authService.logout()" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Wyloguj">
-    <mat-icon>forward</mat-icon>
+    <mat-icon>exit_to_app</mat-icon>
   </button>
 </mat-toolbar>
 

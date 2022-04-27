@@ -45,9 +45,11 @@ export class LoginAndRegisterComponent implements OnInit {
   // TODO: logging in and rerouting to main page with offers
   public onLoginSubmit() {
     this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe(() => {
-      if(!!localStorage.getItem('JWT_TOKEN')) {
-        this.router.navigate(['/cart']);
-      }
+      this.authService.isLoggedIn.subscribe((isLoggedIn) => {
+        if(isLoggedIn) {
+          this.router.navigate(['/cart']);
+        }
+      });
     });
   }
 

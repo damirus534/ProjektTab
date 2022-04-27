@@ -22,8 +22,10 @@ export class AuthService {
     const encryptedPassword = this.hashService.set(environment.hashSecret, password);
     return this.httpClient.post<any>(`${environment.baseUrl}/users/login`, { login: email, password: encryptedPassword }).pipe(
       tap((response: any) => {
-        localStorage.setItem('JWT_TOKEN', response.JWT_TOKEN);
-        this._isLoggedIn.next(true);
+        if(response != null) {
+          localStorage.setItem('JWT_TOKEN', response.JWT_TOKEN);
+          this._isLoggedIn.next(true);
+        }
       })
     );
   }
