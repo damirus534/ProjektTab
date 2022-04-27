@@ -14,10 +14,10 @@
 
   </mat-sidenav>
   <mat-sidenav-content>
-<div *ngIf="returnId<=0">
+<div *ngIf="mainService.getMain()==0">
     <app-product-list [productList]="productList" (eventTask)="selected($event)" ></app-product-list>
     </div>
-    <div *ngIf="returnId>0">
+    <div *ngIf="mainService.getMain()>0">
     <app-product-offer [id]="returnId" ></app-product-offer>
     </div>
   </mat-sidenav-content>

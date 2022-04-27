@@ -7,6 +7,10 @@ import {ProductInfoService} from "../core/product-info/product-info.service";
 import {ProductInfo} from "../core/product-info/product-info";
 import {ProductOffer} from "../core/product/productOffer";
 import {Observable} from "rxjs";
+import {CartService} from "../core/website-service/cart/cart.service";
+import {CartItem} from "../core/website-service/cart/CartItem";
+import {MatDialog} from "@angular/material/dialog";
+
 @Component({
   selector: 'app-product-offer',
   templateUrl: './product-offer.component.html',
@@ -14,12 +18,13 @@ import {Observable} from "rxjs";
 })
 export class ProductOfferComponent implements OnInit {
   @Input()id!:number
-  photoService!:PhotoService
+
 
   infoService!:ProductInfoService
 
   productService!:ProductService
 
+  amountValue:number=0;
   size!:String;
   urls!:String[]
 
@@ -29,10 +34,13 @@ export class ProductOfferComponent implements OnInit {
 
   selectedValue!:ProductOffer;
 
-  constructor(photoService:PhotoService,infoService:ProductInfoService,productService:ProductService) {
+  cartService!:CartService
+
+  constructor(public photoService:PhotoService,infoService:ProductInfoService,productService:ProductService,cartService:CartService) {
     this.photoService=photoService
     this.infoService=infoService
     this.productService=productService
+    this.cartService=cartService;
 
   }
 
@@ -46,7 +54,7 @@ export class ProductOfferComponent implements OnInit {
     this.productService.getProductsByCategoryId(this.id).subscribe(data=>{
       while (this.productOff==undefined){
       this.productOff=data
-      console.log(this.productOff)}})
+      }})
 
 
     this.infoService.getInfoById(this.id).subscribe(info=>{
@@ -57,9 +65,6 @@ export class ProductOfferComponent implements OnInit {
 
 
   }
-
-
-
   getItems(){
 
     this.photoService.getPhotosUrls(this.id).subscribe(photo=> {
@@ -80,4 +85,17 @@ export class ProductOfferComponent implements OnInit {
 
 
 }
+
+  addToCart() {
+
+    this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue))
+
+
+  }
+
+  change($event: Event) {
+
+
+  }
 }
+

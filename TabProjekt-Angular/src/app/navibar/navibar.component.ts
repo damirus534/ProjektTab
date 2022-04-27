@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {MainSideService} from "../core/website-service/main-side/main-side.service";
 
 @Component({
   selector: 'app-navibar',
@@ -7,19 +8,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./navibar.component.css']
 })
 export class NavibarComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  mainSide!:MainSideService
+  constructor(mainSide:MainSideService) {
+    this.mainSide=mainSide
+  }
 
   ngOnInit(): void {
 
   }
 
   checkURL() {
-    console.log(this.router.url)
-    if(this.router.url==="/"){
 
-      window.location.reload();
-    }
-
+      this.mainSide.setMain(0)
   }
 }

@@ -26,9 +26,10 @@ import { CartElementComponent } from './cart-element/cart-element.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductListComponent } from './product-list/product-list.component';
-import { ProductOfferComponent } from './product-offer/product-offer.component';
+import { ProductOfferComponent} from './product-offer/product-offer.component';
 import {GalleryModule} from "ng-gallery";
 import {MatSelectModule} from "@angular/material/select";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +65,8 @@ import {MatSelectModule} from "@angular/material/select";
         FormsModule,
         ReactiveFormsModule,
         GalleryModule,
-        MatSelectModule
+        MatSelectModule,
+
     ],
   providers: [],
   bootstrap: [AppComponent]
