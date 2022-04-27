@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../core/user/user';
 import { UserService } from '../core/user/user.service';
+import { AuthService } from '../services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'login-and-register',
@@ -32,7 +34,7 @@ export class LoginAndRegisterComponent implements OnInit {
     registerAddress: new FormControl('', [Validators.required])
   });
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService) { }
 
   ngOnInit(): void {
     
@@ -41,37 +43,41 @@ export class LoginAndRegisterComponent implements OnInit {
   // Method which verifies correctness of input data - when it does not match, info is displayed.
   // TODO: logging in and rerouting to main page with offers
   public onLoginSubmit() {
-    this.userService.verify(this.loginUser, this.loginForm).subscribe({
-      next: (verified) => {
-        console.log(verified);
-        this.badCredentials = !verified;
-      },
-      error: (e) => console.error
+    this.doLogin();
+  }
+
+  private doLogin() {
+    this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe((token) => {
+      if(token != "") {
+        localStorage.setItem("JWT_TOKEN", token);
+      }
     });
   }
 
   // Method which creates new user in database if they do not exist already. If they do, info is displayed.
   public onRegisterSubmit() {
-    this.userService.isUserExists(this.registerUser, this.registerForm).subscribe({
-      next: (isUserExists) => {
-        this.userAlreadyExists = isUserExists;
-      },
-      error: console.error,
-      complete: () => {
-        if(this.userAlreadyExists) {
-          this.accountCreated = false;
-        } 
-        else {
-          this.userService.saveUser(this.registerUser).subscribe({
-            error: console.error,
-            complete: () => {
-              console.log(this.registerUser);
-              this.accountCreated = true;
-            }
-          });
-        }
+    this.userService.isUserExists(this.registerUser, this.registerEmail?.value, this.registerPassword?.value, this.registerAddress?.value).subscribe((result) => {
+      this.userAlreadyExists = result;
+      if(!this.userAlreadyExists) {
+        this.userService.saveUser(this.registerUser).subscribe({
+          next: () => this.accountCreated = true,
+          error: console.error
+        });
+      } else {
+        this.accountCreated = false;
       }
     });
+  }
+
+  public checkToken() {
+    const helper = new JwtHelperService();
+    const token = localStorage.getItem('JWT_TOKEN');
+    if(token !== null) {
+      const role = helper.decodeToken(token).role;
+      console.log(role);
+    } else {
+      console.log('DUPSKO');
+    }
   }
 
   // Getters for FormGroups and validation checking - cleaner code in html template with *ngIf.
