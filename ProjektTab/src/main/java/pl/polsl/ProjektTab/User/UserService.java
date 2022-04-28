@@ -1,6 +1,15 @@
 package pl.polsl.ProjektTab.User;
 
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -25,15 +34,26 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public boolean verifyLoginCredentials(User user) {
-        User checkUser = new User();
-        checkUser.setLogin(user.getLogin());
-        checkUser.setPassword(user.getPassword());
-        ExampleMatcher userMatcher = ExampleMatcher.matching()
-            .withIgnorePaths("id");
-        Example<User> userExample = Example.of(checkUser, userMatcher);
-        return userRepository.exists(userExample);
+    public Map<String, String> login(User user) {
+        HashMap<String, String> map = new HashMap<>();
+        Optional<User> verifiedUser = userRepository.findOne(Example.of(user));
+        if(verifiedUser.isPresent()) {
+            try {
+                Algorithm algorithm = Algorithm.HMAC256("sekret");
+                String token = JWT.create()
+                    .withClaim("name", verifiedUser.get().getLogin())
+                    .withClaim("role", verifiedUser.get().getStatus())
+                    .withIssuedAt(Date.from(Instant.now()))
+                    .sign(algorithm);
+                map.put("JWT_TOKEN", token);
+                return map;
+            } catch (JWTCreationException e) {
+                System.out.println(e);
+            }
+        }
+        return null;
     }
+
 
     public boolean isUserExists(User user) {
         User checkUser = new User();
@@ -44,8 +64,8 @@ public class UserService {
         return userRepository.exists(userExample);
     }
 
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public void addUser(User user) {
+        userRepository.save(user); 
     }
 
     public User editUser(Long userId, User user) {

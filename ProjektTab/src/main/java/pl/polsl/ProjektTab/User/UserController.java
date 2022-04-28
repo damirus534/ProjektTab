@@ -1,6 +1,7 @@
 package pl.polsl.ProjektTab.User;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,10 +31,9 @@ public class UserController {
         return userService.getUsers();
     } 
 
-    // not sure if POST request is correct, but angular's HttpClient does not allow body with GET method
-    @PostMapping("/verify")
-    public boolean verifyLoginCredentials(@RequestBody User user) {
-        return userService.verifyLoginCredentials(user);
+    @PostMapping("/login")
+    public Map<String, String> login(@RequestBody User user) {
+        return userService.login(user);
     }
 
     @PostMapping("/exists")
@@ -42,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
     }
 
     @PutMapping("/edit/{userId}")

@@ -3,8 +3,11 @@
   <button routerLink="/cart" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Koszyk" >
     <mat-icon>shopping_cart</mat-icon>
   </button>
-  <button routerLink="/login" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Konto">
+  <button routerLink="/login" *ngIf="!(this.authService.isLoggedIn | async)" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Konto">
     <mat-icon>person</mat-icon>
+  </button>
+  <button routerLink="/login" *ngIf="this.authService.isLoggedIn | async" (click)="this.authService.logout()" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Wyloguj">
+    <mat-icon>exit_to_app</mat-icon>
   </button>
 </mat-toolbar>
 
