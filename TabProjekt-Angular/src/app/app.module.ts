@@ -25,6 +25,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { CartElementComponent } from './cart-element/cart-element.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

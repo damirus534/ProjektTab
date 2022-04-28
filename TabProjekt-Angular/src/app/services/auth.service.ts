@@ -9,13 +9,16 @@ import { HashService } from './hash.service';
 })
 export class AuthService {
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
+  private readonly TOKEN_NAME = 'JWT_TOKEN';
   isLoggedIn = this._isLoggedIn.asObservable();
 
-  constructor(private httpClient: HttpClient, private hashService: HashService) {
-    const token = localStorage.getItem('JWT_TOKEN');
+  get token() {
+    return localStorage.getItem(this.TOKEN_NAME);
+  }
 
+  constructor(private httpClient: HttpClient, private hashService: HashService) {
     // TODO: check if token is not expired
-    this._isLoggedIn.next(!!token);
+    this._isLoggedIn.next(!!this.token);
   }
 
   login(email: string, password: string): Observable<any> {
@@ -23,7 +26,7 @@ export class AuthService {
     return this.httpClient.post<any>(`${environment.baseUrl}/users/login`, { login: email, password: encryptedPassword }).pipe(
       tap((response: any) => {
         if(response != null) {
-          localStorage.setItem('JWT_TOKEN', response.JWT_TOKEN);
+          localStorage.setItem(this.TOKEN_NAME, response.JWT_TOKEN);
           this._isLoggedIn.next(true);
         }
       })
@@ -31,7 +34,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('JWT_TOKEN');
+    localStorage.removeItem(this.TOKEN_NAME);
     this._isLoggedIn.next(false);
   }
 

@@ -25,13 +25,13 @@ export class UserService {
     return this.httpClient.post<User>(`${environment.baseUrl}/users`, user);
   }
 
-  isUserExists(user: User, email: string, password: string, address: string) : Observable<Boolean> {
+  isUserExists(user: User, email: string, password: string, address: string) : Observable<boolean> {
     user.login = email;
     const encryptedPassword = this.hashService.set(environment.hashSecret, password);
     user.password = encryptedPassword;
     user.address = address;
     user.status = 'user';
-    return this.httpClient.post<Boolean>(`${environment.baseUrl}/users/exists`, user);
+    return this.httpClient.post<boolean>(`${environment.baseUrl}/users/exists`, user);
   }
 
 }

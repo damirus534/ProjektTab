@@ -14,13 +14,13 @@ import { Router } from '@angular/router';
 export class LoginAndRegisterComponent implements OnInit {
 
   // Fields and flags for logging in.
-  public loginUser: User = new User();
-  public badCredentials: Boolean = false;
+  loginUser: User = new User();
+  badCredentials: boolean = false;
 
   // Fields and flags for registration.
-  public registerUser: User = new User();
-  public userAlreadyExists: Boolean = false;
-  public accountCreated: Boolean = false;
+  registerUser: User = new User();
+  userAlreadyExists: boolean = false;
+  accountCreated: boolean = false;
 
   // Login form for validation.
   loginForm = new FormGroup({
@@ -43,9 +43,10 @@ export class LoginAndRegisterComponent implements OnInit {
 
   // Method which verifies correctness of input data - when it does not match, info is displayed.
   // TODO: logging in and rerouting to main page with offers
-  public onLoginSubmit() {
+  onLoginSubmit() {
     this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe(() => {
       this.authService.isLoggedIn.subscribe((isLoggedIn) => {
+        this.badCredentials = !isLoggedIn;
         if(isLoggedIn) {
           this.router.navigate(['/cart']);
         }
@@ -54,28 +55,26 @@ export class LoginAndRegisterComponent implements OnInit {
   }
 
   // Method which creates new user in database if they do not exist already. If they do, info is displayed.
-  public onRegisterSubmit() {
+  onRegisterSubmit() {
     this.userService.isUserExists(this.registerUser, this.registerEmail?.value, this.registerPassword?.value, this.registerAddress?.value).subscribe((result) => {
       this.userAlreadyExists = result;
       if(!this.userAlreadyExists) {
-        this.userService.saveUser(this.registerUser).subscribe({
-          next: () => this.accountCreated = true,
-          error: console.error
-        });
+        this.userService.saveUser(this.registerUser).subscribe();
+        this.accountCreated = true
       } else {
         this.accountCreated = false;
       }
     });
   }
 
-  public checkToken() {
+  checkToken() {
     const helper = new JwtHelperService();
     const token = localStorage.getItem('JWT_TOKEN');
     if(token !== null) {
       const role = helper.decodeToken(token).role;
       console.log(role);
     } else {
-      console.log('DUPSKO');
+      console.log('Ni ma');
     }
   }
 

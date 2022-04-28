@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -20,16 +20,14 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
     // TODO: figure out the way if token is valid when user wants to go back to page
-    this.authService.isLoggedIn.subscribe((result) => {
-      this.isLoggedIn = result;
-    });
-    if(this.isLoggedIn) {
-      return true;
-    }
-    window.alert("Wymagane logowanie");
-    this.router.navigate(['/login']);
-    return false;
-    
+    return this.authService.isLoggedIn.pipe(
+      tap((isLoggedIn) => {
+        if(!isLoggedIn) {
+          window.alert("Wymagane logowanie");
+          this.router.navigate(['/login']);
+        }
+      })
+    );
   }
 
 }
