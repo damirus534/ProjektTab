@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {MainSideService} from "../core/website-service/main-side/main-side.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-navibar',
@@ -9,7 +10,7 @@ import {MainSideService} from "../core/website-service/main-side/main-side.servi
 })
 export class NavibarComponent implements OnInit {
   mainSide!:MainSideService
-  constructor(mainSide:MainSideService) {
+  constructor(mainSide:MainSideService,public authService: AuthService) {
     this.mainSide=mainSide
   }
 

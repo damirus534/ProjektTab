@@ -13,6 +13,7 @@ export class CartService {
   }
   addItem(item:CartItem){
     this.actualCartList.push(item)
+    console.log(this.actualCartList)
   }
   getCartList():Array<CartItem>{
     return this.actualCartList

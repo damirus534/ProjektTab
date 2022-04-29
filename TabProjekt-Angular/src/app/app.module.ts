@@ -29,6 +29,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductOfferComponent} from './product-offer/product-offer.component';
 import {GalleryModule} from "ng-gallery";
 import {MatSelectModule} from "@angular/material/select";
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import {MatSelectModule} from "@angular/material/select";
         MatSelectModule,
 
     ],
-  providers: [],
+  providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
