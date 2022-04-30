@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserToken } from '../core/userToken.model';
@@ -13,17 +14,22 @@ export class AuthService {
   private readonly TOKEN_NAME = 'JWT_TOKEN';
   isLoggedIn = this._isLoggedIn.asObservable();
   userToken!: UserToken;
+  private jwtHelper = new JwtHelperService();
 
   get token() {
     return localStorage.getItem(this.TOKEN_NAME);
   }
 
   constructor(private httpClient: HttpClient, private hashService: HashService) {
-    // TODO: check if token is not expired
-    this._isLoggedIn.next(!!this.token);
-    if(!!this.token) {
-      this.userToken = this.getUserToken(this.token!);
+    // Check if token exists and is not expired
+    if(!!this.token && !this.jwtHelper.isTokenExpired(this.token)) {
+      this.userToken = this.getUserToken(this.token);
+      this._isLoggedIn.next(true);
+    } else {
+      this._isLoggedIn.next(false);
     }
+
+
   }
 
   login(email: string, password: string): Observable<any> {

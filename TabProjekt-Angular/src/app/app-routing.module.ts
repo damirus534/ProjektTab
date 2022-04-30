@@ -7,7 +7,7 @@ import { LoginAndRegisterComponent } from "./login-and-register/login-and-regist
 import { AuthGuard } from "./guards/auth.guard";
 import { RoleGuard } from "./guards/role.guard";
 
-const routes:Routes=[
+const routes: Routes = [
   {
     path: '',
     component: MainpageComponent

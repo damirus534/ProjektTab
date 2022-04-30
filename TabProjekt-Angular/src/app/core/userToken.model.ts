@@ -1,4 +1,4 @@
 export interface UserToken {
-    name: string,
+    id: number,
     role: string
 }
