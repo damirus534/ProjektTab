@@ -48,9 +48,6 @@ public class UserService {
                     .withExpiresAt(Date.from(Instant.now().plusSeconds(60 * 60 * 24)))  // 24 hours from the issuing time
                     .sign(algorithm);
                 map.put("JWT_TOKEN", token);
-                // Backend verification of JWT token - if signature is correct etc.
-                // JWTVerifier verifier = JWT.require(algorithm).build();
-                // verifier.verify(token);
                 return map;
             } catch (JWTCreationException e) {
                 System.out.println(e);

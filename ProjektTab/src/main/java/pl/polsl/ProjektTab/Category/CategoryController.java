@@ -3,17 +3,21 @@ package pl.polsl.ProjektTab.Category;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
+@CrossOrigin
 public class CategoryController {
     
     private final CategoryService categoryService;
@@ -24,23 +28,23 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<Category> getCategories() {
-        return categoryService.getCategories();
+    public ResponseEntity<List<Category>> getCategories(@RequestHeader(value = "Authorization") String token) {
+        return categoryService.getCategories(token);
     }
 
     @PostMapping
-    public Category addCategory(@RequestBody Category category) {
-        return categoryService.addCategory(category);
+    public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String token, @RequestBody Category category) {
+        return categoryService.addCategory(token, category);
     }
 
     @PutMapping("/edit/{categoryId}")
-    public Category editCategory(@PathVariable Long categoryId, @RequestBody Category category) {
-        return categoryService.editCategory(categoryId, category);
+    public Category editCategory(@RequestHeader(value = "Authorization") String token, @PathVariable Long categoryId, @RequestBody Category category) {
+        return categoryService.editCategory(token, categoryId, category);
     }
 
-    @DeleteMapping("/delete/{categoryId}")
-    public Category deleteCategory(@PathVariable Long categoryId) {
-        return categoryService.deleteCategory(categoryId);
+    @DeleteMapping("delete/{categoryId}")
+    public ResponseEntity<Category> deleteCategory(@RequestHeader(value = "Authorization") String token, @PathVariable Long categoryId) {
+        return categoryService.deleteCategory(token, categoryId);
     }
 
 }

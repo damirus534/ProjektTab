@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    border: 0;
+}
+
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-card-title {
+    margin: 15px;    
+}
+
+.input-container {
+    margin-top: 10px;
+    width: 20vw;
+}
+
+.input-container .mat-form-field {
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+

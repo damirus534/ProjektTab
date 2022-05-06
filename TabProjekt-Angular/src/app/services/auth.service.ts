@@ -28,8 +28,6 @@ export class AuthService {
     } else {
       this._isLoggedIn.next(false);
     }
-
-
   }
 
   login(email: string, password: string): Observable<any> {
@@ -50,7 +48,7 @@ export class AuthService {
     this._isLoggedIn.next(false);
   }
 
-  private getUserToken(token: string): UserToken {
+  getUserToken(token: string): UserToken {
     return JSON.parse(atob(token.split('.')[1])) as UserToken;
   }
 

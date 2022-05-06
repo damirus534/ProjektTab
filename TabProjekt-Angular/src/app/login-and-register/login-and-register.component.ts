@@ -42,13 +42,16 @@ export class LoginAndRegisterComponent implements OnInit {
   }
 
   // Method which verifies correctness of input data - when it does not match, info is displayed.
-  // TODO: logging in and rerouting to main page with offers
   onLoginSubmit() {
     this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe(() => {
       this.authService.isLoggedIn.subscribe((isLoggedIn) => {
         this.badCredentials = !isLoggedIn;
         if(isLoggedIn) {
-          this.router.navigate(['/cart']);
+          if(this.authService.userToken.role === 'admin') {
+            this.router.navigate(['/admin']);
+          } else if (this.authService.userToken.role === 'user') {
+            this.router.navigate(['/offer']);
+          }
         }
       });
     });

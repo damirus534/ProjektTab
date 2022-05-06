@@ -30,7 +30,11 @@ export class UserService {
     const encryptedPassword = this.hashService.set(environment.hashSecret, password);
     user.password = encryptedPassword;
     user.address = address;
-    user.status = 'user';
+    if(user.login === 'admin@admin.com') {  // for convenience after resetting database
+      user.status = 'admin';
+    } else {
+      user.status = 'user';
+    }
     return this.httpClient.post<boolean>(`${environment.baseUrl}/users/exists`, user);
   }
 

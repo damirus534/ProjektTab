@@ -1,0 +1,118 @@
+* {
+    border: 0;
+    padding: 0;
+}
+
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.label {
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 16px;
+}
+
+.size-amount-inputs {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.size-form-field {
+    width: 18%;
+}
+
+.content-containter {
+    display: flex;
+    flex-direction: row;
+}
+
+.left-side, .right-side {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.left-side p {
+    width: 80%;
+}
+
+.form-field {
+    width: 100%;
+}
+
+.description-textarea {
+    min-height: 5vh;
+    max-height: 20vh;
+}
+
+.url-list {
+    width: 80%;
+    max-height: 35vh;
+    overflow-y: auto;
+}
+
+.url-list mat-list-item {
+    padding: 0;
+    width: 100%;
+}
+
+.url-adder-container {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.url-input {
+    width: 100%;
+}
+
+.addUrlButton {
+    color: green;
+}
+
+.error-message {
+    color: red;
+}
+
+.list-element {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-container {
+    padding-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

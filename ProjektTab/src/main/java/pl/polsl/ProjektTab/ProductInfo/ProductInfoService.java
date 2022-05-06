@@ -24,15 +24,15 @@ public class ProductInfoService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<ProductInfo> getProductInfo() {
+    public List<ProductInfo> getProductInfo(String token) {
         return productInfoRepository.findAll();
     }
 
-    public ProductInfo addProductInfo(ProductInfo productInfo) {
+    public ProductInfo addProductInfo(String token, ProductInfo productInfo) {
         return productInfoRepository.save(productInfo);
     }
 
-    public ProductInfo assignCategoryToProductInfo(Long productInfoId, Long categoryId) {
+    public ProductInfo assignCategoryToProductInfo(String token, Long productInfoId, Long categoryId) {
         ProductInfo productInfo = productInfoRepository.findById(productInfoId).orElseThrow(() ->
             new ProductInfoNotFoundException(productInfoId)
         );
@@ -43,7 +43,7 @@ public class ProductInfoService {
         return productInfoRepository.save(productInfo);
     }
 
-    public ProductInfo editProductInfo(Long productInfoId, ProductInfo productInfo) {
+    public ProductInfo editProductInfo(String token, Long productInfoId, ProductInfo productInfo) {
         ProductInfo editedProductInfo = productInfoRepository.findById(productInfoId).orElseThrow(() ->
             new ProductInfoNotFoundException(productInfoId)
         );
@@ -58,7 +58,7 @@ public class ProductInfoService {
         return productInfoRepository.save(editedProductInfo);
     }
 
-    public ProductInfo deleteProductInfo(Long productInfoId) {
+    public ProductInfo deleteProductInfo(String token, Long productInfoId) {
         ProductInfo productInfo = productInfoRepository.findById(productInfoId).orElseThrow(() ->
             new ProductInfoNotFoundException(productInfoId)
         );

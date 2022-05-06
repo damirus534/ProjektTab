@@ -1,0 +1,14 @@
+<div class="dialog-container">
+    <mat-card-title>Edytuj kategorię</mat-card-title>
+    <div class="input-container">
+        <form>
+            <mat-form-field>
+                <input type="text" id="categoryName" name="nameInput" matInput placeholder="Nazwa kategorii" [(ngModel)]="name">
+            </mat-form-field>
+            <div class="button-container">
+                <button mat-button color="primary" mat-dialog-close> Anuluj </button>
+                <button mat-flat-button type="submit" color="primary" (click)="edit()"> Zapisz zmiany </button>
+            </div>
+        </form>
+    </div>
+</div>
