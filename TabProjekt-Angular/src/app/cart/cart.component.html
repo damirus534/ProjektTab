@@ -25,12 +25,12 @@
                 </p>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="buy-button" mat-raised-button color="primary">
+                <button class="buy-button" *ngIf="this.getRole() === 'user'" mat-raised-button color="primary">
                     Dokonaj zakupu
                 </button>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="log-button" mat-raised-button color="primary">
+                <button class="log-button" *ngIf="this.getRole() === 'user'" mat-raised-button color="primary">
                     Historia zamówień
                 </button>
             </mat-grid-tile>

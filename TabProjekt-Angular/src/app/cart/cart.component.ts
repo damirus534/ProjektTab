@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../core/user/user';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -60,13 +60,18 @@ export class CartComponent implements OnInit {
     }
   ];
   cartSum = 0;
-  constructor() { 
+
+  constructor(private authService: AuthService) { 
     this.cartContent.forEach( (item) => 
       this.cartSum+=item.price * item.amount
     );
   }
 
   ngOnInit(): void {
+  }
+
+  getRole(): string {
+    return this.authService.token ? this.authService.userToken.role : "";
   }
 
 }

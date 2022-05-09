@@ -17,6 +17,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import pl.polsl.Exceptions.UserNotFoundException;
+import pl.polsl.ProjektTab.Reference;
 import pl.polsl.ProjektTab.Cart.Cart;
 import pl.polsl.ProjektTab.OrderHistory.OrderHistory;
 
@@ -39,11 +40,12 @@ public class UserService {
         Optional<User> verifiedUser = userRepository.findOne(Example.of(user));
         if(verifiedUser.isPresent()) {
             try {
-                Algorithm algorithm = Algorithm.HMAC256("sekret");
+                Algorithm algorithm = Algorithm.HMAC256(Reference.JWTSecret);
                 String token = JWT.create()
-                    .withClaim("name", verifiedUser.get().getLogin())
+                    .withClaim("id", verifiedUser.get().getId())
                     .withClaim("role", verifiedUser.get().getStatus())
                     .withIssuedAt(Date.from(Instant.now()))
+                    .withExpiresAt(Date.from(Instant.now().plusSeconds(60 * 60 * 24)))  // 24 hours from the issuing time
                     .sign(algorithm);
                 map.put("JWT_TOKEN", token);
                 return map;

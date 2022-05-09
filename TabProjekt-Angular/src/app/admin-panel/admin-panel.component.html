@@ -1,0 +1,124 @@
+<div class="main">
+    <mat-card-title class="main-title"> Panel administratora</mat-card-title>
+    <mat-tab-group mat-stretch-tabs class="tab-group">
+        <mat-tab class="tab" label="Zarządzanie">
+            <div class="add-and-delete-tab">
+                <div class="control-panel">
+                    <button mat-flat-button color="primary" class="control-panel-button" (click)="showCategories()">Kategorie</button>
+                    <button mat-flat-button color="primary" class="control-panel-button" (click)="showProducts()">Produkty</button>
+                    <button mat-flat-button color="primary" class="control-panel-button" (click)="showAdminAccount()">Konta administratora</button>
+                </div>
+                <div class="content" *ngIf="isCategoriesShown">
+                    <div class="add-button-container">
+                        <button mat-flat-button class="add-button" (click)="openAddCategoryDialog()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title-container">
+                            <mat-card-title>Kategorie</mat-card-title>
+                        </div>
+                        <table class="category-table" mat-table [dataSource]="categoryList">
+        
+                            <ng-container matColumnDef="category-id">
+                                <th mat-header-cell *matHeaderCellDef> Id </th>
+                                <td mat-cell *matCellDef="let category"> {{category.id}} </td>
+                            </ng-container>
+        
+                            <ng-container matColumnDef="category-name">
+                                <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+                                <td mat-cell *matCellDef="let category"> {{category.categoryName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="edit-action">
+                                <th mat-header-cell *matHeaderCellDef> Edytuj </th>
+                                <td mat-cell *matCellDef="let category">
+                                    <button mat-icon-button (click)="openEditCategoryDialog(category.id)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+    
+                            <ng-container matColumnDef="delete-action">
+                                <th mat-header-cell *matHeaderCellDef> Usuń pozycję </th>
+                                <td mat-cell *matCellDef="let category">
+                                    <button mat-icon-button (click)="deleteCategory(category.id)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+        
+                            <tr mat-header-row *matHeaderRowDef="categoryColumnNames"></tr>
+                            <tr mat-row *matRowDef="let row; columns: categoryColumnNames"></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="content" *ngIf="isProductsShown">
+                    <div class="add-button-container">
+                        <button mat-flat-button class="add-button" (click)="openAddProductDialog()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <div class="table-title-container">
+                            <mat-card-title>Produkty</mat-card-title>
+                        </div>
+                        <table class="product-table" mat-table [dataSource]="productList">
+        
+                            <ng-container matColumnDef="product-id">
+                                <th mat-header-cell *matHeaderCellDef> Id </th>
+                                <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+                            </ng-container>
+        
+                            <ng-container matColumnDef="product-name">
+                                <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+                                <td mat-cell *matCellDef="let product"> {{product.productName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="product-category">
+                                <th mat-header-cell *matHeaderCellDef> Kategoria </th>
+                                <td mat-cell *matCellDef="let product"> {{matchCategoryToProduct(product.category.id)}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="product-buying-price">
+                                <th mat-header-cell *matHeaderCellDef> Cena zakupu </th>
+                                <td mat-cell *matCellDef="let product"> {{product.buyingPrice}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="product-selling-price">
+                                <th mat-header-cell *matHeaderCellDef> Cena sprzedaży </th>
+                                <td mat-cell *matCellDef="let product"> {{product.sellingPrice}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="edit-action">
+                                <th mat-header-cell *matHeaderCellDef> Edytuj </th>
+                                <td mat-cell *matCellDef="let product">
+                                    <button mat-icon-button (click)="openEditProductDialog(product.id)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="delete-action">
+                                <th mat-header-cell *matHeaderCellDef> Usuń pozycję </th>
+                                <td mat-cell *matCellDef="let product">
+                                    <button mat-icon-button>
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+        
+                            <tr mat-header-row *matHeaderRowDef="productColumnNames"></tr>
+                            <tr mat-row *matRowDef="let row; columns: productColumnNames"></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>   
+        </mat-tab>
+        <mat-tab class="tab" label="Raporty">
+            <div class="report-tab">
+                Content 2
+            </div>
+        </mat-tab>
+      </mat-tab-group>
+</div>

@@ -19,7 +19,6 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-    // TODO: figure out the way if token is valid when user wants to go back to page
     return this.authService.isLoggedIn.pipe(
       tap((isLoggedIn) => {
         if(!isLoggedIn) {
