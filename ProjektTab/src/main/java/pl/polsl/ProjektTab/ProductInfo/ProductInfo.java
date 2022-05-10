@@ -31,6 +31,7 @@ public class ProductInfo implements Serializable {
     private String description;
     private Float buyingPrice;
     private Float sellingPrice;
+    private Boolean isActive;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -47,11 +48,12 @@ public class ProductInfo implements Serializable {
     public ProductInfo() {
     }
 
-    public ProductInfo(String productName, String description, Float buyingPrice, Float sellingPrice) {
+    public ProductInfo(String productName, String description, Float buyingPrice, Float sellingPrice, Boolean isActive) {
         this.productName = productName;
         this.description = description;
         this.buyingPrice = buyingPrice;
         this.sellingPrice = sellingPrice;
+        this.isActive = isActive;
     }
 
     public Long getId() {
@@ -94,6 +96,14 @@ public class ProductInfo implements Serializable {
         this.sellingPrice = sellingPrice;
     }
 
+    public Boolean getIsActive() {
+        return this.isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public Category getCategory() {
         return this.category;
     }
@@ -126,12 +136,12 @@ public class ProductInfo implements Serializable {
             return false;
         }
         ProductInfo productInfo = (ProductInfo) o;
-        return Objects.equals(id, productInfo.id) && Objects.equals(productName, productInfo.productName) && Objects.equals(description, productInfo.description) && Objects.equals(buyingPrice, productInfo.buyingPrice) && Objects.equals(sellingPrice, productInfo.sellingPrice) && Objects.equals(category, productInfo.category) && Objects.equals(products, productInfo.products) && Objects.equals(photos, productInfo.photos);
+        return Objects.equals(id, productInfo.id) && Objects.equals(productName, productInfo.productName) && Objects.equals(description, productInfo.description) && Objects.equals(buyingPrice, productInfo.buyingPrice) && Objects.equals(sellingPrice, productInfo.sellingPrice) && Objects.equals(isActive, productInfo.isActive) && Objects.equals(category, productInfo.category) && Objects.equals(products, productInfo.products) && Objects.equals(photos, productInfo.photos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, description, buyingPrice, sellingPrice, category, products, photos);
+        return Objects.hash(id, productName, description, buyingPrice, sellingPrice, isActive, category, products, photos);
     }
 
     @Override
@@ -142,10 +152,12 @@ public class ProductInfo implements Serializable {
             ", description='" + getDescription() + "'" +
             ", buyingPrice='" + getBuyingPrice() + "'" +
             ", sellingPrice='" + getSellingPrice() + "'" +
+            ", isActive='" + getIsActive() + "'" +
             ", category='" + getCategory() + "'" +
             ", products='" + getProducts() + "'" +
             ", photos='" + getPhotos() + "'" +
             "}";
     }
+
 
 }

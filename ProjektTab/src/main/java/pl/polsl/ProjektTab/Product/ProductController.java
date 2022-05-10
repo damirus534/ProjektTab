@@ -30,19 +30,39 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    @GetMapping("/{productInfoId}")
+    public List<Product> getProductsByProductInfoId(@PathVariable Long productInfoId) {
+        return productService.getProductsByProductInfoId(productInfoId);
+    }
+
     @PostMapping
     public Product addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
     }
 
-    @PutMapping("/{productId}/product-info/{infoId}")
-    public Product assignProductInfoToProduct(@PathVariable Long productId, @PathVariable Long infoId) {
-        return productService.assignProductInfoToProduct(productId, infoId);
+    @PostMapping("/batch")
+    public List<Product> addProductBatch(@RequestBody List<Product> productList) {
+        return productService.addProductBatch(productList);
+    }
+
+    @PutMapping("/{productId}/product-info/{productInfoId}")
+    public Product assignProductInfoToProduct(@PathVariable Long productId, @PathVariable Long productInfoId) {
+        return productService.assignProductInfoToProduct(productId, productInfoId);
+    }
+
+    @PutMapping("/batch-assign/product-info/{productInfoId}")
+    public List<Product> batchAssignProductInfoToProduct(@PathVariable Long productInfoId, @RequestBody List<Product> productList) {
+        return productService.batchAssignProductInfoToProduct(productInfoId, productList);
     }
     
     @PutMapping("/edit/{productId}")
     public Product editProduct(@PathVariable Long productId, @RequestBody Product product) {
         return productService.editProduct(productId, product);
+    }
+
+    @PutMapping("/edit/batch")
+    public List<Product> batchEditProduct(@RequestBody List<Product> productList) {
+        return productService.batchEditProduct(productList);
     }
 
     @DeleteMapping("/delete/{productId}")

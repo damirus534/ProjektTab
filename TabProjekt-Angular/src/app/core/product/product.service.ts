@@ -13,14 +13,32 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   saveProduct(size: string, amountAvailable: number): Observable<Product> {
-    let product = new Product;
-    product.size = size;
-    product.amountAvailable = amountAvailable;
+    const product = new Product(null, null, size, amountAvailable);
     return this.httpClient.post<Product>(`${environment.baseUrl}/products`, product);
+  }
+
+  batchSaveProduct(products: Product[]) : Observable<Product[]> {
+    return this.httpClient.post<Product[]>(`${environment.baseUrl}/products/batch`, products);
   }
 
   assignProductInfoToProduct(id: number, productInfoId: number): Observable<Product> {
     return this.httpClient.put<Product>(`${environment.baseUrl}/products/${id}/product-info/${productInfoId}`, {});
+  }
+
+  batchAssignProductInfoToProduct(productList: Product[], productInfoId: number): Observable<Product[]> {
+    return this.httpClient.put<Product[]>(`${environment.baseUrl}/products/batch-assign/product-info/${productInfoId}`, productList);
+  }
+
+  getProductByProductInfoId(id: number): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(`${environment.baseUrl}/products/${id}`);
+  }
+
+  editProduct(product: Product): Observable<Product> {
+    return this.httpClient.put<Product>(`${environment.baseUrl}/products/edit/${product.id}`, { amountAvailable: product.amountAvailable });
+  }
+
+  batchEditProduct(productList: Product[]): Observable<Product[]> {
+    return this.httpClient.put<Product[]>(`${environment.baseUrl}/products/edit/batch`, productList);
   }
 
 }

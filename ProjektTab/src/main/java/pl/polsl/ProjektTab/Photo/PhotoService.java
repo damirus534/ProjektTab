@@ -1,5 +1,6 @@
 package pl.polsl.ProjektTab.Photo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +27,35 @@ public class PhotoService {
         return photoRepository.findAll();
     }
 
+    public List<Photo> getPhotosByProductInfoId(Long productInfoId) {
+        return photoRepository.findByProductInfoId(productInfoId);
+    }
+
     public Photo addPhoto(Photo photo) {
         return photoRepository.save(photo);
     }
 
-    public Photo assignProductInfoToPhoto(Long photoId, Long infoId) {
+    public List<Photo> batchAddPhoto(List<Photo> photoList) {
+        return photoRepository.saveAll(photoList);
+    }
+
+    public Photo assignProductInfoToPhoto(Long photoId, Long productInfoId) {
         Photo photo = photoRepository.findById(photoId).orElseThrow(() ->
             new PhotoNotFoundException(photoId)
         );
-        ProductInfo productInfo = productInfoRepository.findById(infoId).orElseThrow(() ->
-            new ProductInfoNotFoundException(infoId)
+        ProductInfo productInfo = productInfoRepository.findById(productInfoId).orElseThrow(() ->
+            new ProductInfoNotFoundException(productInfoId)
         );
         photo.setProductInfo(productInfo);
         return photoRepository.save(photo);
+    }
+
+    public List<Photo> batchAssignProductInfoToPhoto(Long productInfoId, List<Photo> photoList) {
+        List<Photo> assignedPhotos = new ArrayList<>();
+        for(Photo photo : photoList) {
+            assignedPhotos.add(assignProductInfoToPhoto(photo.getId(), productInfoId));
+        }
+        return assignedPhotos;
     }
 
     public Photo editPhoto(Long photoId, Photo photo) {

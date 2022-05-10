@@ -30,14 +30,29 @@ public class PhotoController {
         return photoService.getPhotos();
     }
 
+    @GetMapping("/{productInfoId}")
+    public List<Photo> getPhotosByProductInfoId(@PathVariable Long productInfoId) {
+        return photoService.getPhotosByProductInfoId(productInfoId);
+    }
+
     @PostMapping
     public Photo addPhoto(@RequestBody Photo photo) {
         return photoService.addPhoto(photo);
     }
 
-    @PutMapping("/{photoId}/product-info/{infoId}")
-    public Photo assignProductInfoToPhoto(@PathVariable Long photoId, @PathVariable Long infoId) {
-        return photoService.assignProductInfoToPhoto(photoId, infoId);
+    @PostMapping("/batch")
+    public List<Photo> batchAddPhoto(@RequestBody List<Photo> photoList) {
+        return photoService.batchAddPhoto(photoList);
+    }
+
+    @PutMapping("/{photoId}/product-info/{productInfoId}")
+    public Photo assignProductInfoToPhoto(@PathVariable Long photoId, @PathVariable Long productInfoId) {
+        return photoService.assignProductInfoToPhoto(photoId, productInfoId);
+    }
+
+    @PutMapping("/batch/product-info/{productInfoId}")
+    public List<Photo> batchAssignProductInfoToPhoto(@PathVariable Long productInfoId, @RequestBody List<Photo> photoList) {
+        return photoService.batchAssignProductInfoToPhoto(productInfoId, photoList);
     }
 
     @PutMapping("/edit/{photoId}")

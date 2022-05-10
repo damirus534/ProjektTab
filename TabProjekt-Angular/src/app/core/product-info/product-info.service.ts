@@ -13,26 +13,42 @@ import { ProductInfo } from './product-info';
 export class ProductInfoService {
 
   constructor(
-    private httpCilent: HttpClient,
+    private httpClient: HttpClient,
     private productService: ProductService,
     private photoService: PhotoService
   ) { }
 
   getProductInfo(): Observable<ProductInfo[]> {
-    return this.httpCilent.get<ProductInfo[]>(`${environment.baseUrl}/product-info`);
+    return this.httpClient.get<ProductInfo[]>(`${environment.baseUrl}/product-info`);
   }
 
   saveProductInfo(form: FormGroup): Observable<ProductInfo> {
     let productInfo: ProductInfo = new ProductInfo;
     productInfo.productName = form.controls['name'].value;
+    productInfo.category = form.controls['category'].value;
     productInfo.description = form.controls['descrption'].value;
     productInfo.buyingPrice = form.controls['buyingPrice'].value;
     productInfo.sellingPrice = form.controls['sellingPrice'].value;
-    return this.httpCilent.post<ProductInfo>(`${environment.baseUrl}/product-info`, productInfo);
+    productInfo.isActive = true;
+    return this.httpClient.post<ProductInfo>(`${environment.baseUrl}/product-info`, productInfo);
   }
 
   assignCategoryToProductInfo(id: number, categoryId: number): Observable<ProductInfo> {
-    return this.httpCilent.put<ProductInfo>(`${environment.baseUrl}/product-info/${id}/category/${categoryId}`, {});
+    return this.httpClient.put<ProductInfo>(`${environment.baseUrl}/product-info/${id}/category/${categoryId}`, {});
+  }
+  
+  editProductInfo(form: FormGroup, id: number): Observable<ProductInfo> {
+    let productInfo: ProductInfo = new ProductInfo;
+    productInfo.productName = form.controls['name'].value;
+    productInfo.category = form.controls['category'].value;
+    productInfo.description = form.controls['descrption'].value;
+    productInfo.buyingPrice = form.controls['buyingPrice'].value;
+    productInfo.sellingPrice = form.controls['sellingPrice'].value;
+    return this.httpClient.put<ProductInfo>(`${environment.baseUrl}/product-info/edit/${id}`, productInfo);
+  }
+
+  changeIsActive(productInfo: ProductInfo): Observable<ProductInfo> {
+    return this.httpClient.put<ProductInfo>(`${environment.baseUrl}/product-info/edit/${productInfo.id}`, { isActive: productInfo.isActive })
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from 'src/app/core/category/category';
 import { CategoryService } from 'src/app/core/category/category.service';
 
 @Component({
@@ -10,8 +10,12 @@ import { CategoryService } from 'src/app/core/category/category.service';
 })
 export class EditCategoryDialogComponent implements OnInit {
 
-  public name!: string;
-  private editedCategory!: Category;
+  public nameEmpty = false;
+
+  editForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required])
+  });
+
 
   constructor(
     private dialogRef: MatDialogRef<EditCategoryDialogComponent>,
@@ -19,8 +23,7 @@ export class EditCategoryDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { 
     if(this.data) {
-      this.name = this.data.category.categoryName;
-      this.editedCategory = this.data.category;
+      this.editForm.controls['name'].setValue(this.data.category.categoryName);
     }
   }
 
@@ -28,9 +31,19 @@ export class EditCategoryDialogComponent implements OnInit {
   }
 
   edit() {
-    this.editedCategory.categoryName = this.name;
-    this.categoryService.edit(this.editedCategory).subscribe();
-    this.dialogRef.close();
+    if(this.editForm.invalid) {
+      this.nameEmpty = true;
+      return;
+    }
+    this.nameEmpty = false;
+    this.data.category.categoryName = this.editForm.controls['name'].value;
+    this.categoryService.edit(this.data.category).subscribe((editedCategory) => {
+      const index = this.data.categoryList.indexOf(this.data.category);
+      this.data.categoryList[index] = editedCategory;
+      this.dialogRef.close({
+        categoryList: this.data.categoryList
+      });
+    });
   }
 
 }

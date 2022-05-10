@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Category } from '../core/category/category';
 import { CategoryService } from '../core/category/category.service';
 import { ProductInfo } from '../core/product-info/product-info';
@@ -18,38 +19,53 @@ export class AdminPanelComponent implements OnInit {
 
   categoryList: Category[] = [];
   categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'delete-action'];
+  categoryDataSource = new MatTableDataSource<Category>();
 
-  productList: ProductInfo[] = [];
-  productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'delete-action'];
+  productInfoList: ProductInfo[] = [];
+  productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'block-resume-action'];
+  productInfoDataSource = new MatTableDataSource<ProductInfo>();
 
   isCategoriesShown: boolean = true;
   isProductsShown: boolean = false;
-  isAdminAccountShown: boolean = false;
 
   constructor(
     private categoryService: CategoryService,
     private productInfoService: ProductInfoService,
     public dialog: MatDialog
   ) {
-    this.getCategories();
-    this.getProductInfo();
   }
 
   ngOnInit(): void {
+    this.getCategories();
+    this.getProductInfo();
   }
   
   private getCategories() {
-    this.categoryService.getCategories().subscribe((data) => {
-      this.categoryList = data;
+    this.categoryService.getCategories().subscribe((categoryList) => {
+      this.categoryList = categoryList;
+      this.refreshCategoryDataSource();
     });
   }
 
+  private refreshCategoryDataSource() {
+      this.categoryDataSource.data = this.categoryList;
+  }
+
+  private refreshProductInfoDataSource() {
+    this.productInfoDataSource.data = this.productInfoList;
+  }
+
   openAddCategoryDialog() {
-    const dialogRef = this.dialog.open(AddCategoryDialogComponent);
+    const dialogRef = this.dialog.open(AddCategoryDialogComponent, {
+      data: {
+        categoryList: this.categoryList
+      }
+    });
     
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
-        this.categoryList = result.data;
+        this.categoryList = result.categoryList;
+        this.refreshCategoryDataSource();
       }
     });
   }
@@ -57,7 +73,15 @@ export class AdminPanelComponent implements OnInit {
   openEditCategoryDialog(id: number) {
     const dialogRef = this.dialog.open(EditCategoryDialogComponent, {
       data: {
-        category: this.getCategoryById(id) ?? null
+        category: this.getCategoryById(id) ?? null,
+        categoryList: this.categoryList
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.categoryList = result.categoryList;
+        this.refreshCategoryDataSource();
       }
     });
   }
@@ -75,6 +99,7 @@ export class AdminPanelComponent implements OnInit {
       this.categoryList = this.categoryList.filter((category) => {
         return category.id !== id;
       });
+      this.refreshCategoryDataSource();
     } catch (e) {
       console.log(e);
     }
@@ -83,23 +108,30 @@ export class AdminPanelComponent implements OnInit {
   openAddProductDialog() {
     const dialogRef = this.dialog.open(AddProductDialogComponent, {
       data: {
-        categories: this.categoryList
+        categories: this.categoryList,
+        productInfoList: this.productInfoList
       }
     });
     dialogRef.afterClosed().subscribe((result) =>{
-      this.productList = result.data;
+      if(result) {
+        this.productInfoList = result.data;
+        this.refreshProductInfoDataSource();
+      }
     });
   }
 
   private getProductInfo() {
     this.productInfoService.getProductInfo().subscribe((data) => {
-      this.productList = data;
+      this.productInfoList = data;
+      this.refreshProductInfoDataSource();
     });
   }
 
-  matchCategoryToProduct(categoryId: number): string {
+  matchCategoryToProduct(category: Category): void | string {
+    if(!category)
+      return;
     let value = this.categoryList.filter((obj) => {
-      return obj.id === categoryId;
+      return obj.id === category.id;
     });
     return value.length ? value[0].categoryName : '-';
   }
@@ -107,34 +139,40 @@ export class AdminPanelComponent implements OnInit {
   openEditProductDialog(id: number) {
     const dialogRef = this.dialog.open(EditProductDialogComponent, {
       data: {
-        productInfo: this.getProductInfoById(id) ?? null
+        productInfo: this.getProductInfoById(id) ?? null,
+        categoryList: this.categoryList,
+        productInfoList: this.productInfoList
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.productInfoList = result.productInfoList;
+        this.refreshProductInfoDataSource();
       }
     });
   }
 
   private getProductInfoById(id: number) {
-    let value = this.productList.filter((obj) => {
+    let value = this.productInfoList.filter((obj) => {
       return obj.id === id;
     });
     return value ? value[0] : null;
   }
 
+  blockOrResumeOffer(productInfo: ProductInfo) {
+    productInfo.isActive = !productInfo.isActive;
+    this.productInfoService.changeIsActive(productInfo).subscribe();
+  }
+
   showCategories() {
     this.isCategoriesShown = true;
     this.isProductsShown = false;
-    this.isAdminAccountShown = false;
   }
 
   showProducts() {
     this.isCategoriesShown = false;
     this.isProductsShown = true;
-    this.isAdminAccountShown = false;
-  }
-
-  showAdminAccount() {
-    this.isCategoriesShown = false;
-    this.isProductsShown = false;
-    this.isAdminAccountShown = true;
   }
 
 }

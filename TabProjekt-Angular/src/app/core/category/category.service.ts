@@ -15,16 +15,16 @@ export class CategoryService {
     return this.httpClient.get<Category[]>(`${environment.baseUrl}/categories`);
   }
 
-  add(name: string): Observable<any> {
-    return this.httpClient.post<any>(`${environment.baseUrl}/categories`, { categoryName: name });
+  add(name: string): Observable<Category> {
+    return this.httpClient.post<Category>(`${environment.baseUrl}/categories`, { categoryName: name });
   }
 
-  delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(`${environment.baseUrl}/categories/delete/${id}`);
+  delete(id: number): Observable<Category> {
+    return this.httpClient.delete<Category>(`${environment.baseUrl}/categories/delete/${id}`);
   }
 
-  edit(category: Category): Observable<any> {
-    return this.httpClient.put<any>(`${environment.baseUrl}/categories/edit/${category.id}`, category);
+  edit(category: Category): Observable<Category> {
+    return this.httpClient.put<Category>(`${environment.baseUrl}/categories/edit/${category.id}`, category);
   }
 
 }

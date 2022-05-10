@@ -49,12 +49,16 @@ public class ProductInfoService {
         );
         if(productInfo.getProductName() != null)
             editedProductInfo.setProductName(productInfo.getProductName());
+        if(productInfo.getCategory() != null)
+            editedProductInfo.setCategory(productInfo.getCategory());
         if(productInfo.getDescription() != null)
             editedProductInfo.setDescription(productInfo.getDescription());
         if(productInfo.getBuyingPrice() != null)
             editedProductInfo.setBuyingPrice(productInfo.getBuyingPrice());
         if(productInfo.getSellingPrice() != null)
             editedProductInfo.setSellingPrice(productInfo.getSellingPrice());
+        if(productInfo.getIsActive() != null)
+            editedProductInfo.setIsActive(productInfo.getIsActive());
         return productInfoRepository.save(editedProductInfo);
     }
 

@@ -1,5 +1,6 @@
 package pl.polsl.ProjektTab.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,20 +28,36 @@ public class ProductService {
     public List<Product> getProducts() {
         return productRepository.findAll();
     }
+    
+    public List<Product> getProductsByProductInfoId(Long productInfoId) {
+        return productRepository.findByProductInfoId(productInfoId);
+    }
 
     public Product addProduct(Product product) {
         return productRepository.save(product);
     }
 
-    public Product assignProductInfoToProduct(Long productId, Long infoId) {
+    public List<Product> addProductBatch(List<Product> productList) {
+        return productRepository.saveAll(productList);
+    }
+
+    public Product assignProductInfoToProduct(Long productId, Long productInfoId) {
         Product product = productRepository.findById(productId).orElseThrow(() -> 
             new ProductNotFoundException(productId)
         );
-        ProductInfo productInfo = productInfoRepository.findById(infoId).orElseThrow(() ->
-            new ProductInfoNotFoundException(infoId)
+        ProductInfo productInfo = productInfoRepository.findById(productInfoId).orElseThrow(() ->
+            new ProductInfoNotFoundException(productInfoId)
         );
         product.setProductInfo(productInfo);
         return productRepository.save(product);
+    }
+
+    public List<Product> batchAssignProductInfoToProduct(Long productInfoId, List<Product> productList) {
+        List<Product> assignedProducts = new ArrayList<>();
+        for(Product product : productList) {
+            assignedProducts.add(assignProductInfoToProduct(product.getId(), productInfoId));
+        }
+        return assignedProducts;
     }
 
     public Product editProduct(Long productId, Product product) {
@@ -52,6 +69,14 @@ public class ProductService {
         if(product.getSize() != null)
             editedProduct.setSize(product.getSize());
         return productRepository.save(editedProduct);
+    }
+
+    public List<Product> batchEditProduct(List<Product> productList) {
+        List<Product> editedProducts = new ArrayList<>();
+        for(Product product : productList) {
+            editedProducts.add(editProduct(product.getId(), product));
+        }
+        return editedProducts;
     }
 
     public Product deleteProduct(Long productId) {

@@ -90,3 +90,16 @@
     width: calc(100%/7);
 }
 
+.block-resume-button {
+    min-width: 8vw;
+    max-width: 8vw;
+}
+
+.red {
+    background-color: rgb(243, 52, 52);
+}
+
+.green {
+    background-color: rgb(36, 163, 36);
+}
+
