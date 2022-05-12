@@ -101,7 +101,7 @@
                             <ng-container matColumnDef="block-resume-action">
                                 <th mat-header-cell *matHeaderCellDef>Zablokuj/wznów</th>
                                 <td mat-cell *matCellDef="let productInfo">
-                                    <button class="block-resume-button" mat-flat-button (click)="blockOrResumeOffer(productInfo)" [class.red]="!productInfo.isActive"  [class.green]="productInfo.isActive">
+                                    <button class="block-resume-button" mat-flat-button (click)="blockOrResumeOffer(productInfo)" [class.red]="!productInfo.isActive" [class.green]="productInfo.isActive">
                                         {{ productInfo.isActive ? 'Aktywna' : 'Nieaktywna' }}
                                     </button>
                                 </td>

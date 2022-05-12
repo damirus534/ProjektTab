@@ -28,46 +28,50 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-    public ResponseEntity<List<Category>> getCategories(String token) {
-        // Backend verification of JWT token - if signature is correct etc.
-        try {
-            token = token.substring(7);
-            verifier.verify(token);
-            return ResponseEntity.ok(categoryRepository.findAll());
-        } catch (JWTVerificationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
+    public ResponseEntity<List<Category>> getCategories() {
+        return ResponseEntity.ok(categoryRepository.findAll());
     }
 
     public ResponseEntity<Category> addCategory(String token, Category category) {
         try {
-            token = token.substring(7);
             verifier.verify(token);
+            
             return ResponseEntity.ok(categoryRepository.save(category));
         } catch (JWTVerificationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
-    public Category editCategory(String token, Long categoryId, Category category) {
-        Category editedCategory = categoryRepository.findById(categoryId).orElseThrow(() ->
-            new CategoryNotFoundException(categoryId)
-        );
-        if(category.getCategoryName() != null)
-            editedCategory.setCategoryName(category.getCategoryName());
-        return categoryRepository.save(editedCategory);
+    public ResponseEntity<Category> editCategory(String token, Long categoryId, Category category) {
+        try {
+            verifier.verify(token);
+            
+            Category editedCategory = categoryRepository.findById(categoryId).orElseThrow(() ->
+                new CategoryNotFoundException(categoryId)
+            );
+            if(category.getCategoryName() != null)
+                editedCategory.setCategoryName(category.getCategoryName());
+            return ResponseEntity.ok(categoryRepository.save(editedCategory));
+        } catch (JWTVerificationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-    public ResponseEntity<Category>  deleteCategory(String token, Long categoryId) {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() ->
-            new CategoryNotFoundException(categoryId)
-        );
-        for(ProductInfo productInfo : category.getProductInfo()) {
-            productInfo.setCategory(null);
+    public ResponseEntity<Category> deleteCategory(String token, Long categoryId) {
+        try {
+            verifier.verify(token);
+
+            Category category = categoryRepository.findById(categoryId).orElseThrow(() ->
+                new CategoryNotFoundException(categoryId)
+            );
+            for(ProductInfo productInfo : category.getProductInfo()) {
+                productInfo.setCategory(null);
+            }
+            categoryRepository.delete(category);
+            return ResponseEntity.status(HttpStatus.OK).build();    
+        } catch (JWTVerificationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        categoryRepository.delete(category);
-        return ResponseEntity.status(HttpStatus.OK).build();
     }
     
 }

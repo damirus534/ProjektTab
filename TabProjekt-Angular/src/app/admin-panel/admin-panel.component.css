@@ -91,15 +91,16 @@
 }
 
 .block-resume-button {
+    padding: 0 4px;
     min-width: 8vw;
     max-width: 8vw;
 }
 
 .red {
-    background-color: rgb(243, 52, 52);
+    background-color: rgb(253, 84, 84);
 }
 
 .green {
-    background-color: rgb(36, 163, 36);
+    background-color: rgb(71, 192, 71);
 }
 

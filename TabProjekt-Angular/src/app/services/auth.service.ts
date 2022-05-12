@@ -12,7 +12,7 @@ import { HashService } from './hash.service';
 export class AuthService {
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
   private readonly TOKEN_NAME = 'JWT_TOKEN';
-  isLoggedIn = this._isLoggedIn.asObservable();
+  isLoggedIn$ = this._isLoggedIn.asObservable();
   userToken!: UserToken;
   private jwtHelper = new JwtHelperService();
 
