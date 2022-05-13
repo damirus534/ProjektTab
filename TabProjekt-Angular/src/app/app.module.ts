@@ -36,6 +36,7 @@ import { AddCategoryDialogComponent } from './dialogs/add-category-dialog/add-ca
 import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit-category-dialog.component';
 import { AddProductDialogComponent } from './dialogs/add-product-dialog/add-product-dialog.component';
 import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-product-dialog.component';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { EditProductDialogComponent } from './dialogs/edit-product-dialog/edit-p
     MatDialogModule,
     MatTableModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatSortModule
   ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

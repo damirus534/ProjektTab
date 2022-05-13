@@ -17,15 +17,15 @@
                         <div class="table-title-container">
                             <mat-card-title>Kategorie</mat-card-title>
                         </div>
-                        <table class="category-table" mat-table [dataSource]="categoryDataSource">
+                        <table class="category-table" mat-table [dataSource]="categoryDataSource" matSort (matSortChange)="sortCategories($event)">
         
                             <ng-container matColumnDef="category-id">
-                                <th mat-header-cell *matHeaderCellDef>Id</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
                                 <td mat-cell *matCellDef="let category"> {{category.id}} </td>
                             </ng-container>
         
                             <ng-container matColumnDef="category-name">
-                                <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa</th>
                                 <td mat-cell *matCellDef="let category"> {{category.categoryName}} </td>
                             </ng-container>
 
@@ -62,30 +62,30 @@
                         <div class="table-title-container">
                             <mat-card-title>Produkty</mat-card-title>
                         </div>
-                        <table class="product-table" mat-table [dataSource]="productInfoDataSource">
+                        <table class="product-table" mat-table [dataSource]="productInfoDataSource" matSort (matSortChange)="sortProducts($event)">
         
                             <ng-container matColumnDef="product-id">
-                                <th mat-header-cell *matHeaderCellDef>Id</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
                                 <td mat-cell *matCellDef="let productInfo"> {{productInfo.id}} </td>
                             </ng-container>
         
                             <ng-container matColumnDef="product-name">
-                                <th mat-header-cell *matHeaderCellDef>Nazwa</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa</th>
                                 <td mat-cell *matCellDef="let productInfo"> {{productInfo.productName}} </td>
                             </ng-container>
 
                             <ng-container matColumnDef="product-category">
-                                <th mat-header-cell *matHeaderCellDef>Kategoria</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Kategoria</th>
                                 <td mat-cell *matCellDef="let productInfo"> {{matchCategoryToProduct(productInfo.category)}} </td>
                             </ng-container>
                             
                             <ng-container matColumnDef="product-buying-price">
-                                <th mat-header-cell *matHeaderCellDef>Cena zakupu</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena zakupu</th>
                                 <td mat-cell *matCellDef="let productInfo"> {{productInfo.buyingPrice}} </td>
                             </ng-container>
                             
                             <ng-container matColumnDef="product-selling-price">
-                                <th mat-header-cell *matHeaderCellDef>Cena sprzedaży</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Cena sprzedaży</th>
                                 <td mat-cell *matCellDef="let productInfo"> {{productInfo.sellingPrice}} </td>
                             </ng-container>
 
@@ -99,7 +99,7 @@
                             </ng-container>
 
                             <ng-container matColumnDef="block-resume-action">
-                                <th mat-header-cell *matHeaderCellDef>Zablokuj/wznów</th>
+                                <th mat-header-cell *matHeaderCellDef>Stan oferty</th>
                                 <td mat-cell *matCellDef="let productInfo">
                                     <button class="block-resume-button" mat-flat-button (click)="blockOrResumeOffer(productInfo)" [class.red]="!productInfo.isActive" [class.green]="productInfo.isActive">
                                         {{ productInfo.isActive ? 'Aktywna' : 'Nieaktywna' }}

@@ -78,16 +78,32 @@
     width: 100%;
 }
 
-.category-table td, th {
-    width: calc(100%/4);
-}
-
 .product-table {
     width: 100%;
 }
 
-.product-table td, th {
-    width: calc(100%/7);
+.mat-column-category-id, .mat-column-product-id {
+    width: 2vw;
+    padding-right: 24px;
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.mat-column-category-name, .mat-column-product-name {
+    padding-left: 24px;
+}
+
+.mat-column-delete-action, .mat-column-edit-action {
+    width: 10vw;
+    text-align: center;
+}
+
+.mat-column-product-selling-price, .mat-column-product-buying-price {
+    width: 7vw;
+}
+
+.mat-column-block-resume-action {
+    width: 10vw;
+    text-align: center;
 }
 
 .block-resume-button {
