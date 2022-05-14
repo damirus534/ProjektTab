@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Product} from "../core/product/product";
+import {ProductMainSide} from "../core/product/productMainSide";
 
 
 @Component({
@@ -10,7 +10,7 @@ import {Product} from "../core/product/product";
 export class CardComponent implements OnInit {
 
   constructor() { }
-  @Input() product!:Product ;
+  @Input() product!:ProductMainSide ;
   @Output() eventTask=new EventEmitter<number>();
   ngOnInit(): void {
   }

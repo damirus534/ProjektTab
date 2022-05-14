@@ -36,4 +36,13 @@
 .description{
   height: 60%;
 }
+.failure-info {
+  background-color: red;
+  font-size: normal;
+  color: white;
+  width: 30%;
+  margin: auto;
+  margin-top: 2%;
+  text-align: center;
 
+}

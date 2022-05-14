@@ -30,6 +30,16 @@ import { ProductOfferComponent} from './product-offer/product-offer.component';
 import {GalleryModule} from "ng-gallery";
 import {MatSelectModule} from "@angular/material/select";
 import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
+import {AddCategoryDialogComponent} from "./dialogs/add-category-dialog/add-category-dialog.component";
+import {EditCategoryDialogComponent} from "./dialogs/edit-category-dialog/edit-category-dialog.component";
+import {AddProductDialogComponent} from "./dialogs/add-product-dialog/add-product-dialog.component";
+import {EditProductDialogComponent} from "./dialogs/edit-product-dialog/edit-product-dialog.component";
+import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import { MatDialogModule} from "@angular/material/dialog";
+import { AddToCartComponent } from './dialogs/add-to-cart/add-to-cart.component';
 
 @NgModule({
   declarations: [
@@ -45,30 +55,43 @@ import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
     LoginAndRegisterComponent,
     CartElementComponent,
     ProductListComponent,
-    ProductOfferComponent
+    ProductOfferComponent,
+    AdminPanelComponent,
+    AddCategoryDialogComponent,
+    EditCategoryDialogComponent,
+    AddProductDialogComponent,
+    EditProductDialogComponent,
+    AddToCartComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatExpansionModule,
-        MatGridListModule,
-        MatCardModule,
-        MatButtonModule,
-        MatTooltipModule,
-        AppRoutingModule,
-        MatTooltipModule,
-        MatInputModule,
-        MatDividerModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        GalleryModule,
-        MatSelectModule,
-
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTooltipModule,
+    AppRoutingModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatDividerModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GalleryModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatListModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTableModule,
+    MatSelectModule,
+    MatListModule,
+    MatDialogModule
+  ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })

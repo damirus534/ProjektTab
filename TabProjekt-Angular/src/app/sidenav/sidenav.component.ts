@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {ProductService} from "../core/product/product.service";
-import {Product} from "../core/product/product";
+import {ProductMainSide} from "../core/product/productMainSide";
 import {newArray} from "@angular/compiler/src/util";
 import {Cart} from "../core/website-service/cart/cart";
 import {CartService} from "../core/website-service/cart/cart.service";
@@ -15,7 +15,7 @@ import {MainSideService} from "../core/website-service/main-side/main-side.servi
 })
 export class SidenavComponent implements OnInit {
 
-  productList!: Array<Product>;
+  productList!: Array<ProductMainSide>;
   productService!:ProductService
   mainService!:MainSideService
   constructor( productService:ProductService,mainService:MainSideService) {

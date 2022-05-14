@@ -26,6 +26,7 @@ public class PhotoController {
     public List<String> getUrlsById(Long id){
         return photoService.getUrlsById(id);
     }
+
     @PostMapping
     public Photo addPhoto(@RequestBody Photo photo) {
         return photoService.addPhoto(photo);

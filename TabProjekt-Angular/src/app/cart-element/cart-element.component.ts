@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CartElement} from "./cartElement";
 
 @Component({
   selector: 'cart-element',
@@ -6,23 +7,25 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./cart-element.component.css']
 })
 export class CartElementComponent implements OnInit {
-  
+  visible?:boolean=true
   @Input()
-  name!: string;
-  @Input()
-  size! : number;
-  @Input()
-  imageUrls!: string[];
-  @Input()
-  price!: number;
-  @Input()
-  amount! : number;
+  element?:CartElement;
+  @Output() eventTask=new EventEmitter<number>();
 
   constructor() {
-    
-   }
 
+   }
+ngOnChange():void{
+
+}
   ngOnInit(): void {
+
   }
 
+  select() {
+    console.log(this.element?.id)
+    this.eventTask.emit(this.element?.id)
+    this.element=undefined
+    this.visible=false
+  }
 }

@@ -38,7 +38,7 @@ export class LoginAndRegisterComponent implements OnInit {
   constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    
+
   }
 
   // Method which verifies correctness of input data - when it does not match, info is displayed.
@@ -50,7 +50,7 @@ export class LoginAndRegisterComponent implements OnInit {
           if(this.authService.userToken.role === 'admin') {
             this.router.navigate(['/admin']);
           } else if (this.authService.userToken.role === 'user') {
-            this.router.navigate(['/offer']);
+            this.router.navigate(['']);
           }
         }
       });

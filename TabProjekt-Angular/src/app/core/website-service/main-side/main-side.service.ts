@@ -12,7 +12,6 @@ export class MainSideService {
     this.main=main
   }
   getMain():number{
-    console.log(this.main)
     return this.main
   }
 }

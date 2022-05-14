@@ -30,6 +30,7 @@ public class ProductController {
     public List<ReturnValue> getSeperateProducts(){
         return productService.getProductsSeparated();
     }
+
     @GetMapping("/main/category")
     public List<ReturnValue> getProductsByFilter(@RequestParam Long id){
         return productService.getProductByKategory(id);

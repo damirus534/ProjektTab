@@ -9,7 +9,7 @@
       <mat-card-content class="sizeAmount">
         <mat-form-field >
           <mat-label>Rozmiar</mat-label>
-          <mat-select [(ngModel)]="selectedValue">
+          <mat-select [(ngModel)]="selectedValue" (selectionChange)="error=''">
             <mat-option *ngFor="let prod of productOff" [value]="prod">
               {{prod.size}}
             </mat-option>
@@ -19,11 +19,13 @@
       <mat-card-content class="sizeAmount">
         <mat-form-field *ngIf="selectedValue" >
           <mat-label>Ilosc</mat-label>
-          <input name="amount" matInput [(ngModel)]='amountValue' type="number" max="{{selectedValue.amountAvailable}}" min="0">
+          <input (ngModelChange)="error=''" name="amount" matInput [(ngModel)]='amountValue' type="number" max="{{selectedValue.amountAvailable}}" min="0">
         </mat-form-field>
       </mat-card-content>
       <mat-card-content class="sizeAmount"><button  color="primary" mat-flat-button (click)="addToCart()">Dodaj Do Koszyka</button></mat-card-content>
-
+      <mat-card class="failure-info" *ngIf="error">
+        {{error}}
+      </mat-card>
     </mat-card>
   </mat-grid-tile>
 

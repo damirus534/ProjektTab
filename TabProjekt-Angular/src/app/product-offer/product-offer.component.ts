@@ -10,6 +10,8 @@ import {Observable} from "rxjs";
 import {CartService} from "../core/website-service/cart/cart.service";
 import {CartItem} from "../core/website-service/cart/CartItem";
 import {MatDialog} from "@angular/material/dialog";
+import {AddToCartComponent} from "../dialogs/add-to-cart/add-to-cart.component";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-product-offer',
@@ -36,7 +38,9 @@ export class ProductOfferComponent implements OnInit {
 
   cartService!:CartService
 
-  constructor(public photoService:PhotoService,infoService:ProductInfoService,productService:ProductService,cartService:CartService) {
+  error?:String;
+
+  constructor(public photoService:PhotoService,infoService:ProductInfoService,productService:ProductService,cartService:CartService,private dialog: MatDialog,private authService:AuthService) {
     this.photoService=photoService
     this.infoService=infoService
     this.productService=productService
@@ -54,15 +58,13 @@ export class ProductOfferComponent implements OnInit {
     this.productService.getProductsByCategoryId(this.id).subscribe(data=>{
       while (this.productOff==undefined){
       this.productOff=data
+
       }})
 
 
     this.infoService.getInfoById(this.id).subscribe(info=>{
-
       this.productInfo=info
     })
-
-
 
   }
   getItems(){
@@ -71,24 +73,47 @@ export class ProductOfferComponent implements OnInit {
       var array=new Array<ImageItem>()
       photo.forEach(value => {
 
-
         array.push(new ImageItem({src:value.toString(),thumb:value.toString()}))
       })
       this.images=array
-
     });
-
-
-
-
-
-
 
 }
 
   addToCart() {
 
-    this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue))
+
+    if(this.selectedValue==null){
+      this.error="Wybierz rozmiar"
+
+    }else
+    if(this.amountValue==0){
+      this.error="Wybierz ilosc"
+    }
+    else {
+
+
+
+        const token=this.authService.token
+        if(token!=null){
+        const userToken=this.authService.getUserToken(token)
+          if(userToken!=null){
+
+          this.cartService.addToCart(userToken.id,this.selectedValue.id,this.amountValue).subscribe(date=>console.log(date))
+          }
+
+
+
+      }
+      else {
+
+        if(this.images[0].data.src!=null)
+        this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice))
+      }
+
+
+      this.dialog.open(AddToCartComponent)
+    }
 
 
   }

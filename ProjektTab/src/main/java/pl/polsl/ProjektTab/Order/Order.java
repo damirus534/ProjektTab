@@ -29,7 +29,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL    )
     @JoinColumn(name = "order_history_id", referencedColumnName = "id")
     private OrderHistory orderHistory;
 

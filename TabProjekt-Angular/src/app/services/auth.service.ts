@@ -35,6 +35,7 @@ export class AuthService {
     return this.httpClient.post<any>(`${environment.baseUrl}/users/login`, { login: email, password: encryptedPassword }).pipe(
       tap((response: any) => {
         if(response != null) {
+
           localStorage.setItem(this.TOKEN_NAME, response.JWT_TOKEN);
           this._isLoggedIn.next(true);
           this.userToken = this.getUserToken(this.token!);

@@ -37,6 +37,14 @@ public class Cart implements Serializable {
 
     public Cart(Integer amount) {
         this.amount = amount;
+
+    }
+
+    public Cart(Long id, Integer amount, User user, Product product) {
+        this.id = id;
+        this.amount = amount;
+        this.user = user;
+        this.product = product;
     }
 
     public Long getId() {
