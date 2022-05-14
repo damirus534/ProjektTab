@@ -2,7 +2,7 @@
   <mat-grid-tile colspan="2"></mat-grid-tile>
   <mat-grid-tile colspan="2">
     <mat-card class="material-card">
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>Logowanie</mat-card-title>
       <mat-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
           <p>
@@ -73,6 +73,7 @@
         Konto zostało założone
       </mat-card>
     </mat-card>
+    <button (click)="checkToken()"> Rola </button>
   </mat-grid-tile>
   <mat-grid-tile colspan="2"></mat-grid-tile>
 </mat-grid-list>

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../core/user/user';
 import { UserService } from '../core/user/user.service';
+import { AuthService } from '../services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-and-register',
@@ -11,13 +14,13 @@ import { UserService } from '../core/user/user.service';
 export class LoginAndRegisterComponent implements OnInit {
 
   // Fields and flags for logging in.
-  public loginUser: User = new User();
-  public badCredentials: Boolean = false;
+  loginUser: User = new User();
+  badCredentials: boolean = false;
 
   // Fields and flags for registration.
-  public registerUser: User = new User();
-  public userAlreadyExists: Boolean = false;
-  public accountCreated: Boolean = false;
+  registerUser: User = new User();
+  userAlreadyExists: boolean = false;
+  accountCreated: boolean = false;
 
   // Login form for validation.
   loginForm = new FormGroup({
@@ -32,46 +35,50 @@ export class LoginAndRegisterComponent implements OnInit {
     registerAddress: new FormControl('', [Validators.required])
   });
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     
   }
 
   // Method which verifies correctness of input data - when it does not match, info is displayed.
-  // TODO: logging in and rerouting to main page with offers
-  public onLoginSubmit() {
-    this.userService.verify(this.loginUser, this.loginForm).subscribe({
-      next: (verified) => {
-        console.log(verified);
-        this.badCredentials = !verified;
-      },
-      error: (e) => console.error
+  onLoginSubmit() {
+    this.authService.login(this.loginEmail?.value, this.loginPassword?.value).subscribe(() => {
+      this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+        this.badCredentials = !isLoggedIn;
+        if(isLoggedIn) {
+          if(this.authService.userToken.role === 'admin') {
+            this.router.navigate(['/admin']);
+          } else if (this.authService.userToken.role === 'user') {
+            this.router.navigate(['/offer']);
+          }
+        }
+      });
     });
   }
 
   // Method which creates new user in database if they do not exist already. If they do, info is displayed.
-  public onRegisterSubmit() {
-    this.userService.isUserExists(this.registerUser, this.registerForm).subscribe({
-      next: (isUserExists) => {
-        this.userAlreadyExists = isUserExists;
-      },
-      error: console.error,
-      complete: () => {
-        if(this.userAlreadyExists) {
-          this.accountCreated = false;
-        } 
-        else {
-          this.userService.saveUser(this.registerUser).subscribe({
-            error: console.error,
-            complete: () => {
-              console.log(this.registerUser);
-              this.accountCreated = true;
-            }
-          });
-        }
+  onRegisterSubmit() {
+    this.userService.isUserExists(this.registerUser, this.registerEmail?.value, this.registerPassword?.value, this.registerAddress?.value).subscribe((result) => {
+      this.userAlreadyExists = result;
+      if(!this.userAlreadyExists) {
+        this.userService.saveUser(this.registerUser).subscribe();
+        this.accountCreated = true
+      } else {
+        this.accountCreated = false;
       }
     });
+  }
+
+  checkToken() {
+    const helper = new JwtHelperService();
+    const token = localStorage.getItem('JWT_TOKEN');
+    if(token !== null) {
+      const role = helper.decodeToken(token).role;
+      console.log(role);
+    } else {
+      console.log('Ni ma');
+    }
   }
 
   // Getters for FormGroups and validation checking - cleaner code in html template with *ngIf.

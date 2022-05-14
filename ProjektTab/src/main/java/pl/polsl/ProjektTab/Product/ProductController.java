@@ -3,17 +3,21 @@ package pl.polsl.ProjektTab.Product;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin
 public class ProductController {
         
     private final ProductService productService;
@@ -24,27 +28,47 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getProducts() {
+    public ResponseEntity<List<Product>> getProducts() {
         return productService.getProducts();
     }
 
-    @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    @GetMapping("/{productInfoId}")
+    public ResponseEntity<List<Product>> getProductsByProductInfoId(@PathVariable Long productInfoId) {
+        return productService.getProductsByProductInfoId(productInfoId);
     }
 
-    @PutMapping("/{productId}/product-info/{infoId}")
-    public Product assignProductInfoToProduct(@PathVariable Long productId, @PathVariable Long infoId) {
-        return productService.assignProductInfoToProduct(productId, infoId);
+    @PostMapping
+    public ResponseEntity<Product> addProduct(@RequestHeader(value = "Authorization") String token, @RequestBody Product product) {
+        return productService.addProduct(token.substring(7), product);
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<List<Product>> addProductBatch(@RequestHeader(value = "Authorization") String token, @RequestBody List<Product> productList) {
+        return productService.addProductBatch(token.substring(7), productList);
+    }
+
+    @PutMapping("/{productId}/product-info/{productInfoId}")
+    public ResponseEntity<Product> assignProductInfoToProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId, @PathVariable Long productInfoId) {
+        return productService.assignProductInfoToProduct(token.substring(7), productId, productInfoId);
+    }
+
+    @PutMapping("/batch-assign/product-info/{productInfoId}")
+    public ResponseEntity<List<Product>> batchAssignProductInfoToProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productInfoId, @RequestBody List<Product> productList) {
+        return productService.batchAssignProductInfoToProduct(token.substring(7), productInfoId, productList);
     }
     
     @PutMapping("/edit/{productId}")
-    public Product editProduct(@PathVariable Long productId, @RequestBody Product product) {
-        return productService.editProduct(productId, product);
+    public ResponseEntity<Product> editProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId, @RequestBody Product product) {
+        return productService.editProduct(token.substring(7), productId, product);
+    }
+
+    @PutMapping("/edit/batch")
+    public ResponseEntity<List<Product>> batchEditProduct(@RequestHeader(value = "Authorization") String token, @RequestBody List<Product> productList) {
+        return productService.batchEditProduct(token.substring(7), productList);
     }
 
     @DeleteMapping("/delete/{productId}")
-    public Product deleteProduct(@PathVariable Long productId) {
-        return productService.deleteProduct(productId);
+    public ResponseEntity<Product> deleteProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId) {
+        return productService.deleteProduct(token.substring(7), productId);
     }
 }

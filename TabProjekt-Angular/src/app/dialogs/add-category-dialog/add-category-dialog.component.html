@@ -1,0 +1,15 @@
+<div class="dialog-container">
+    <mat-card-title>Dodaj kategorię</mat-card-title>
+    <div class="input-container">
+        <form [formGroup]="addForm">
+            <mat-form-field>
+                <input type="text" id="categoryName" name="nameInput" matInput placeholder="Nazwa kategorii" formControlName="name">
+            </mat-form-field>
+            <div *ngIf="nameEmpty" class="error-message">Nazwa nie może być pusta</div> 
+            <div class="button-container">
+                <button mat-button color="primary" mat-dialog-close> Anuluj </button>
+                <button mat-flat-button type="submit" color="primary" (click)="add()"> Dodaj </button>
+            </div>
+        </form>
+    </div>
+</div>
