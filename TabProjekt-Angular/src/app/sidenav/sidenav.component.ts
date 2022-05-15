@@ -34,9 +34,17 @@ export class SidenavComponent implements OnInit {
   categorys!:Category[];
 
   ngOnInit(): void {
+    this.mainService.getEvent().subscribe(event=>{
+      if(event==true){
+        this.reset()
+        this.mainService.setEvent(false);
+      }
+    })
 
 
-
+  }
+  ngOnChange(){
+    console.log(1)
   }
   getFilter(id:number){
 
@@ -45,32 +53,10 @@ export class SidenavComponent implements OnInit {
   }
 
   select($event: MouseEvent, type: Category) {
-    productService:ProductService;
     this.getFilter(type.id)
     this.returnId=0
     this.mainService.setMain(0)
-    /*switch (type){
-      case 'Wszystkie':{
-        this.productService.getProducts().subscribe(product=>this.productList=product)
-        this.returnId=0
-        this.mainService.setMain(0)
-      }break;
-      case 'Odzież':{
-        this.getFilter(1)
-        this.returnId=0
-        this.mainService.setMain(0)
-      }break;
-      case 'Obuwie':{
-        this.getFilter(2)
-        this.returnId=0
-        this.mainService.setMain(0)
-      }break;
-      case 'Akcesoria':{
-        this.getFilter(3)
-        this.returnId=0
-        this.mainService.setMain(0)
-      }break;
-    }*/
+
   }
   getService():number{
     return this.mainService.getMain()
@@ -79,5 +65,8 @@ export class SidenavComponent implements OnInit {
 
     this.returnId=$event;
     this.mainService.setMain($event)
+  }
+  reset(){
+    this.productService.getProducts().subscribe(date=>this.productList=date)
   }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Router} from "@angular/router";
 import {MainSideService} from "../core/website-service/main-side/main-side.service";
 import {AuthService} from "../services/auth.service";
+import {SidenavComponent} from "../sidenav/sidenav.component";
 
 @Component({
   selector: 'app-navibar',
@@ -12,7 +13,9 @@ export class NavibarComponent implements OnInit {
   mainSide!:MainSideService
   constructor(mainSide:MainSideService,public authService: AuthService) {
     this.mainSide=mainSide
+
   }
+
 
   ngOnInit(): void {
 
@@ -21,5 +24,6 @@ export class NavibarComponent implements OnInit {
   checkURL() {
 
       this.mainSide.setMain(0)
+      this.mainSide.setEvent(true);
   }
 }
