@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoryController {
     
     private final CategoryService categoryService;
@@ -31,6 +31,11 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getCategories(@RequestHeader(value = "Authorization") String token) {
         return categoryService.getCategories(token);
     }
+    @GetMapping("/all")
+    public List<Category> getCategoriesUnLog(){
+        return categoryService.getCategoriesUnLog();
+    }
+
 
     @PostMapping
     public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String token, @RequestBody Category category) {

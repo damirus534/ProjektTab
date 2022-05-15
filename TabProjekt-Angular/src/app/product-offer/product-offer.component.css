@@ -17,10 +17,14 @@
   width: 90%;
   height: 80%;
   margin: auto;
-
+  display: flex;
+  flex-direction: column;
+  position: absolute;
 }
 .titleCard{
   text-align: center;
+  font-weight: bold;
+  font-size: xx-large;
 }
 .textCard{
   margin-top: 4%;
@@ -30,8 +34,14 @@
 
 }
 .sizeAmount{
+  width: 100%;
+}
+.prize{
+  font-size:x-large;
+  font-weight: bold;
+}
+.sizeAmount{
   margin: auto;
-  text-align: center;
 }
 .description{
   height: 60%;

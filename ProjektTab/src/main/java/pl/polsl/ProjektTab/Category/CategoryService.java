@@ -69,5 +69,8 @@ public class CategoryService {
         categoryRepository.delete(category);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-    
+
+    public List<Category> getCategoriesUnLog() {
+        return categoryRepository.findAll();
+    }
 }

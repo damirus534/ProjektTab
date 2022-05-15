@@ -6,6 +6,9 @@ import {newArray} from "@angular/compiler/src/util";
 import {Cart} from "../core/website-service/cart/cart";
 import {CartService} from "../core/website-service/cart/cart.service";
 import {MainSideService} from "../core/website-service/main-side/main-side.service";
+import {CategoryService} from "../core/category/category.service";
+import {Category} from "../core/category/category";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -18,17 +21,20 @@ export class SidenavComponent implements OnInit {
   productList!: Array<ProductMainSide>;
   productService!:ProductService
   mainService!:MainSideService
-  constructor( productService:ProductService,mainService:MainSideService) {
-    //productService.getProducts().subscribe(product=>this.productList=product)
+
+  constructor( productService:ProductService,mainService:MainSideService, private categoryService: CategoryService) {
+    productService.getProducts().subscribe(product=>this.productList=product)
     this.productService=productService
     this.productService.getProducts().subscribe(product=>this.productList=product)
     this.returnId=0
     this.mainService=mainService
+    this.categoryService.unLogCategories().subscribe(date=>this.categorys=date)
   }
   returnId!:number;
-  types=['Wszystkie','Odzież','Obuwie','Akcesoria'];
+  categorys!:Category[];
 
   ngOnInit(): void {
+
 
 
   }
@@ -38,9 +44,12 @@ export class SidenavComponent implements OnInit {
 
   }
 
-  select($event: MouseEvent, type: string) {
+  select($event: MouseEvent, type: Category) {
     productService:ProductService;
-    switch (type){
+    this.getFilter(type.id)
+    this.returnId=0
+    this.mainService.setMain(0)
+    /*switch (type){
       case 'Wszystkie':{
         this.productService.getProducts().subscribe(product=>this.productList=product)
         this.returnId=0
@@ -61,10 +70,9 @@ export class SidenavComponent implements OnInit {
         this.returnId=0
         this.mainService.setMain(0)
       }break;
-    }
+    }*/
   }
   getService():number{
-    console.log(this.mainService.getMain())
     return this.mainService.getMain()
   }
   selected($event: number) {

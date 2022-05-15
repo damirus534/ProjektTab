@@ -13,6 +13,8 @@ export class CardComponent implements OnInit {
   @Input() product!:ProductMainSide ;
   @Output() eventTask=new EventEmitter<number>();
   ngOnInit(): void {
+    console.log(this.product)
+    console.log(this.product.prize)
   }
   select(){
     this.eventTask.emit(this.product.id);

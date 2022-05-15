@@ -23,6 +23,11 @@
 
 }
 .description{
-  margin-left: 100px;
-  text-align: center;
+  margin-left: 10%;
+
+  height: 60%;
 }
+.prize{
+  font-size: x-large;
+}
+

@@ -3,4 +3,5 @@ export class ProductMainSide {
   description :String=""
   productName:String=""
   photoUrl!:String;
+  prize!:number;
 }

@@ -11,4 +11,5 @@ public class ReturnValue {
     private String description;
     private String productName;
     private String photoUrl;
+    private Float prize;
 }

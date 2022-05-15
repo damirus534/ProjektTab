@@ -99,7 +99,7 @@ public class OrderService {
             a.setAmountPurchased(item.getAmount());
             a.setSellingPrice(a.getProduct().getProductInfo().getSellingPrice());
 
-            addOrder(a);
+            //addOrder(a);
             orderList.add(a);
             totalPrice += (item.getAmount() * a.getProduct().getProductInfo().getSellingPrice());
         }
@@ -109,9 +109,9 @@ public class OrderService {
         OrderHistory orderHistory=new OrderHistory(date,totalPrice,userRepository.getById(userID),orderList);
         orderHistory=orderHistoeyRepository.save(orderHistory);
 
-        /*for(Order order:orderList){
+        for(Order order:orderList){
             order.setOrderHistory(orderHistory);
-        }*/
+        }
         orderRepository.saveAll(orderList);
 
         cartRepository.deleteByUserId(userID);
