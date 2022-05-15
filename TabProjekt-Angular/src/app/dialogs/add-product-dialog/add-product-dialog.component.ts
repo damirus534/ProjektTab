@@ -2,9 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/core/category/category';
+import { Photo } from 'src/app/core/photo/photo';
 import { PhotoService } from 'src/app/core/photo/photo.service';
 import { ProductInfo } from 'src/app/core/product-info/product-info';
 import { ProductInfoService } from 'src/app/core/product-info/product-info.service';
+import { Product } from 'src/app/core/product/product';
 import { ProductService } from 'src/app/core/product/product.service';
 
 @Component({
@@ -16,7 +18,7 @@ export class AddProductDialogComponent implements OnInit {
 
   categoryList: Category[] = [];
   urlFromInput: string = '';
-  urlList: string[] = [];
+  photoList: Photo[] = [];
   urlInvalid = false;
   urlListEmpty = false;
 
@@ -44,12 +46,12 @@ export class AddProductDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   addUrl() {
+    this.urlListEmpty = false;
     if(this.isValidUrl(this.urlFromInput)) {
-      this.urlList.push(this.urlFromInput);
+      this.photoList.push(new Photo(null, null, this.urlFromInput));
       this.urlInvalid = false;
       this.urlFromInput = '';
     } else {
@@ -58,7 +60,7 @@ export class AddProductDialogComponent implements OnInit {
   }
 
   deleteUrl(index: number) {
-    this.urlList.splice(index, 1);
+    this.photoList.splice(index, 1);
   }
 
   isValidUrl(input: string): boolean {
@@ -72,45 +74,41 @@ export class AddProductDialogComponent implements OnInit {
   }
 
   add() {
-    if(this.urlList.length === 0 || this.addForm.invalid) {
-      if(this.urlList.length === 0) {
+    this.urlInvalid = false;
+    if(this.photoList.length === 0 || this.addForm.invalid) {
+      if(this.photoList.length === 0) {
         this.urlListEmpty = true;
       }
       return;
     }
     this.urlListEmpty = false;
     
-    let sizes = this.arrayOfSizes(this.addForm);
-    this.productInfoService.saveProductInfo(this.addForm).subscribe((result) => {
-      this.productInfoService.assignCategoryToProductInfo(result.id, this.addForm.controls['category'].value.id).subscribe(() => {
-        for(let url of this.urlList) {
-          this.photoService.savePhoto(url).subscribe((resultPhoto) => {
-            this.photoService.assignProductInfoToPhoto(resultPhoto.id, result.id).subscribe();
-          });
-        }
-        for(let size of sizes) {
-          this.productService.saveProduct(size.name, size.control.value).subscribe((resultProduct) => {
-            this.productService.assignProductInfoToProduct(resultProduct.id, result.id).subscribe();
-          });
-        }
-        this.productInfoService.getProductInfo().subscribe((result) => {
-          this.dialogRef.close({
-            data: result
-          });
-        });
+    this.productInfoService.saveProductInfo(this.addForm).subscribe((savedProductInfo) => {
+      const productList = this.createProductList(this.addForm, savedProductInfo);
+      this.setProductInfoOfPhotos(savedProductInfo);
+      this.photoService.batchSavePhoto(this.photoList).subscribe();
+      this.productService.batchSaveProduct(productList).subscribe();
+      this.data.productInfoList.push(savedProductInfo);
+      this.dialogRef.close({
+        data: this.data.productInfoList
       });
     });
   }
-
   
-  private arrayOfSizes(form: FormGroup): any[] {
-    let array = [];
-    array.push({ name: 'S', control: form.controls['sizeS']});
-    array.push({ name: 'M', control: form.controls['sizeM']});
-    array.push({ name: 'L', control: form.controls['sizeL']});
-    array.push({ name: 'XL', control: form.controls['sizeXL']});
-    array.push({ name: 'XXL', control: form.controls['sizeXXL']});
-    return array;
+  private createProductList(form: FormGroup, productInfo: ProductInfo): Product[] {
+    return new Array(
+      new Product(null, productInfo, 'S', form.controls['sizeS'].value),
+      new Product(null, productInfo, 'M', form.controls['sizeM'].value),
+      new Product(null, productInfo, 'L', form.controls['sizeL'].value),
+      new Product(null, productInfo, 'XL', form.controls['sizeXL'].value),
+      new Product(null, productInfo, 'XXL', form.controls['sizeXXL'].value)
+    )
+  }
+  
+  private setProductInfoOfPhotos(productInfo: ProductInfo) {
+    for(let element of this.photoList) {
+      element.productInfo = productInfo;
+    }
   }
 
 }

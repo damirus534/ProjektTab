@@ -28,8 +28,8 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories(@RequestHeader(value = "Authorization") String token) {
-        return categoryService.getCategories(token);
+    public ResponseEntity<List<Category>> getCategories() {
+        return categoryService.getCategories();
     }
     @GetMapping("/all")
     public List<Category> getCategoriesUnLog(){
@@ -39,17 +39,17 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String token, @RequestBody Category category) {
-        return categoryService.addCategory(token, category);
+        return categoryService.addCategory(token.substring(7), category);
     }
 
     @PutMapping("/edit/{categoryId}")
-    public Category editCategory(@RequestHeader(value = "Authorization") String token, @PathVariable Long categoryId, @RequestBody Category category) {
-        return categoryService.editCategory(token, categoryId, category);
+    public ResponseEntity<Category> editCategory(@RequestHeader(value = "Authorization") String token, @PathVariable Long categoryId, @RequestBody Category category) {
+        return categoryService.editCategory(token.substring(7), categoryId, category);
     }
 
     @DeleteMapping("delete/{categoryId}")
     public ResponseEntity<Category> deleteCategory(@RequestHeader(value = "Authorization") String token, @PathVariable Long categoryId) {
-        return categoryService.deleteCategory(token, categoryId);
+        return categoryService.deleteCategory(token.substring(7), categoryId);
     }
 
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from 'src/app/core/category/category.service';
 
 @Component({
@@ -9,9 +10,18 @@ import { CategoryService } from 'src/app/core/category/category.service';
 })
 export class AddCategoryDialogComponent implements OnInit {
 
-  public name: string = '';
+  public name = '';
+  public nameEmpty = false;
 
-  constructor(private dialogRef: MatDialogRef<AddCategoryDialogComponent>, private categoryService: CategoryService) {
+  addForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required])
+  });
+
+  constructor(
+    private dialogRef: MatDialogRef<AddCategoryDialogComponent>,
+    private categoryService: CategoryService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
 
   }
 
@@ -19,11 +29,17 @@ export class AddCategoryDialogComponent implements OnInit {
   }
 
   add() {
-    this.categoryService.add(this.name).subscribe(() => {
-      this.categoryService.getCategories().subscribe((data) => {
-        this.dialogRef.close({
-          data: data
-        });
+    if(this.addForm.invalid) {
+      this.nameEmpty = true;
+      return;
+    }
+    this.nameEmpty = false;
+
+    this.name = this.addForm.controls['name'].value;
+    this.categoryService.add(this.name).subscribe((savedCategory) => {
+      this.data.categoryList.push(savedCategory);
+      this.dialogRef.close({
+        categoryList: this.data.categoryList
       });
     });
   }

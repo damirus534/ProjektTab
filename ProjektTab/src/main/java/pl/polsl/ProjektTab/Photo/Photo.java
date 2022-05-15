@@ -3,7 +3,6 @@ package pl.polsl.ProjektTab.Photo;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +23,7 @@ public class Photo implements Serializable {
 
     private String photoUrl;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "info_id", referencedColumnName = "id")
     private ProductInfo productInfo;
 
