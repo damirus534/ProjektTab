@@ -50,7 +50,7 @@ export class LoginAndRegisterComponent implements OnInit {
           if(this.authService.userToken.role === 'admin') {
             this.router.navigate(['/admin']);
           } else if (this.authService.userToken.role === 'user') {
-            this.router.navigate(['/offer']);
+            this.router.navigate(['']);
           }
         }
       });

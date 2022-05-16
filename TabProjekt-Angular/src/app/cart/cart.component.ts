@@ -63,7 +63,7 @@ export class CartComponent implements OnInit {
 
   constructor(private authService: AuthService) { 
     this.cartContent.forEach( (item) => 
-      this.cartSum+=item.price * item.amount
+      this.cartSum += item.price * item.amount
     );
   }
 
