@@ -13,7 +13,7 @@ export class AuthService {
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
   private readonly TOKEN_NAME = 'JWT_TOKEN';
   isLoggedIn$ = this._isLoggedIn.asObservable();
-  userToken!: UserToken;
+  userToken = { id: 0, role: 'guest' } as UserToken;
   private jwtHelper = new JwtHelperService();
 
   get token() {
@@ -46,6 +46,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem(this.TOKEN_NAME);
     this._isLoggedIn.next(false);
+    this.userToken = { id: 0, role: 'guest'};
   }
 
   getUserToken(token: string): UserToken {
