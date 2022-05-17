@@ -12,7 +12,11 @@ import { AddProductDialogComponent } from "./dialogs/add-product-dialog/add-prod
 const routes: Routes = [
   {
     path: '',
-    component: MainpageComponent
+    component: MainpageComponent,
+    canActivate: [RoleGuard],
+    data: {
+      roles: ['user', 'guest']
+    }
   },
   {
     path: 'login',
@@ -21,27 +25,22 @@ const routes: Routes = [
   {
     path: 'offer',
     component: OfferComponent,
-    canActivate: [AuthGuard, RoleGuard],
+    canActivate: [RoleGuard],
     data: {
-      roles: ['user']
+      roles: ['user', 'guest']
     }
   },
   {
     path: 'cart',
     component: CartComponent,
-
+    canActivate: [RoleGuard],
+    data: {
+      roles: ['user', 'guest']
+    }
   },
   {
     path: 'admin',
     component: AdminPanelComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: {
-      roles: ['admin']
-    }
-  },
-  {
-    path: 'dialog-test',
-    component: AddProductDialogComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
       roles: ['admin']
