@@ -17,6 +17,8 @@ import pl.polsl.Exceptions.ProductInfoNotFoundException;
 import pl.polsl.Exceptions.ProductNotFoundException;
 import pl.polsl.ProjektTab.Reference;
 import pl.polsl.ProjektTab.Cart.Cart;
+import pl.polsl.ProjektTab.Filters.ProductOff;
+import pl.polsl.ProjektTab.Filters.ReturnValue;
 import pl.polsl.ProjektTab.Order.Order;
 import pl.polsl.ProjektTab.ProductInfo.ProductInfo;
 import pl.polsl.ProjektTab.ProductInfo.ProductInfoRepository;
@@ -33,6 +35,7 @@ public class ProductService {
     public ProductService(ProductRepository productRepository, ProductInfoRepository productInfoRepository) {
         this.productRepository = productRepository;
         this.productInfoRepository = productInfoRepository;
+
     }
 
     public ResponseEntity<List<Product>> getProducts() { 
@@ -146,4 +149,14 @@ public class ProductService {
         }
     }
 
+    public List<ReturnValue> getProductsSeparated(){
+        return productRepository.getSeperatedProduct();
+    }
+
+    public List<ReturnValue> getProductByKategory(Long id){return productRepository.getFilteredProduct(id);}
+
+    public List<ProductOff> getProductByCategoryId(Long id){
+        return productRepository.getProductByCategoryId(id);
+    }
 }
+

@@ -1,0 +1,58 @@
+
+.photogallery{
+  width: 100%;
+  height: 80%;
+}
+
+.gallery{
+
+  background-color: transparent;
+  max-width: 100%;
+  border-radius: 3%;
+  margin: auto;
+  margin-top: 10%;
+  max-height: 70%;
+}
+.card{
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+.titleCard{
+  text-align: center;
+  font-weight: bold;
+  font-size: xx-large;
+}
+.textCard{
+  margin-top: 4%;
+  font-size: larger;
+  height: 60%;
+
+
+}
+.sizeAmount{
+  width: 100%;
+}
+.prize{
+  font-size:x-large;
+  font-weight: bold;
+}
+.sizeAmount{
+  margin: auto;
+}
+.description{
+  height: 60%;
+}
+.failure-info {
+  background-color: red;
+  font-size: normal;
+  color: white;
+  width: 30%;
+  margin: auto;
+  margin-top: 2%;
+  text-align: center;
+
+}

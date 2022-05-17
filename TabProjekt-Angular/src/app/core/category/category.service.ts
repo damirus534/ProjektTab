@@ -26,5 +26,9 @@ export class CategoryService {
   edit(category: Category): Observable<Category> {
     return this.httpClient.put<Category>(`${environment.baseUrl}/categories/edit/${category.id}`, category);
   }
+  unLogCategories():Observable<Category[]>{
+    return this.httpClient.get<Category[]>(`${environment.baseUrl}/categories/all`)
+  }
+
 
 }

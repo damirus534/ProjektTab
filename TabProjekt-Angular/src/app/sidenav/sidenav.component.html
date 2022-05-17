@@ -1,21 +1,25 @@
 <mat-sidenav-container class="example-container" >
   <mat-sidenav mode="side" opened="true" >
-
     <mat-accordion>
-      <mat-expansion-panel hideToggle>
+      <mat-expansion-panel hideToggle >
         <mat-expansion-panel-header>
-          <mat-panel-title class="text1">
-            Kategoria
+          <mat-panel-title class="text1"  >
+            Kategorie
           </mat-panel-title>
         </mat-expansion-panel-header >
-        <p *ngFor="let type of types">{{type}}</p>
+        <p *ngFor="let type of categorys"><button (click)="select($event, type)" mat-flat-button>{{type.categoryName}}</button></p>
       </mat-expansion-panel>
     </mat-accordion>
 
+
   </mat-sidenav>
   <mat-sidenav-content>
-
-    <app-card [product]="productList" (eventTask)="selected($event)"></app-card>
+<div *ngIf="mainService.getMain()==0">
+    <app-product-list [productList]="productList" (eventTask)="selected($event)" ></app-product-list>
+    </div>
+    <div *ngIf="mainService.getMain()>0">
+    <app-product-offer [id]="returnId" ></app-product-offer>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
