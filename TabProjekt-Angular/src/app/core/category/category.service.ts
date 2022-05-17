@@ -30,4 +30,5 @@ export class CategoryService {
     return this.httpClient.get<Category[]>(`${environment.baseUrl}/categories/all`)
   }
 
+
 }

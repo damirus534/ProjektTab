@@ -40,6 +40,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import { MatDialogModule} from "@angular/material/dialog";
 import { AddToCartComponent } from './dialogs/add-to-cart/add-to-cart.component';
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -63,35 +64,36 @@ import { AddToCartComponent } from './dialogs/add-to-cart/add-to-cart.component'
     EditProductDialogComponent,
     AddToCartComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatExpansionModule,
-    MatGridListModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTooltipModule,
-    AppRoutingModule,
-    MatTooltipModule,
-    MatInputModule,
-    MatDividerModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    GalleryModule,
-    MatSelectModule,
-    MatTabsModule,
-    MatListModule,
-    MatTableModule,
-    MatTabsModule,
-    MatTableModule,
-    MatSelectModule,
-    MatListModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatExpansionModule,
+        MatGridListModule,
+        MatCardModule,
+        MatButtonModule,
+        MatTooltipModule,
+        AppRoutingModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatDividerModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        GalleryModule,
+        MatSelectModule,
+        MatTabsModule,
+        MatListModule,
+        MatTableModule,
+        MatTabsModule,
+        MatTableModule,
+        MatSelectModule,
+        MatListModule,
+        MatDialogModule,
+        MatSortModule
+    ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ package pl.polsl.ProjektTab.Product;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.ProjektTab.Filters.ProductOff;
 import pl.polsl.ProjektTab.Filters.ReturnValue;
@@ -22,8 +23,17 @@ public class ProductController {
 
 
     @GetMapping
-    public List<Product> getProducts() {
+    public ResponseEntity<List<Product>> getProducts() {
         return productService.getProducts();
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<List<Product>> addProductBatch(@RequestHeader(value = "Authorization") String token, @RequestBody List<Product> productList) {
+        return productService.addProductBatch(token.substring(7), productList);
+    }
+    @PutMapping("/batch-assign/product-info/{productInfoId}")
+    public ResponseEntity<List<Product>> batchAssignProductInfoToProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productInfoId, @RequestBody List<Product> productList) {
+        return productService.batchAssignProductInfoToProduct(token.substring(7), productInfoId, productList);
     }
 
     @GetMapping("/main")
@@ -42,22 +52,22 @@ public class ProductController {
 
 
     @PostMapping
-    public Product addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    public ResponseEntity<Product> addProduct(@RequestHeader(value = "Authorization") String token, @RequestBody Product product) {
+        return productService.addProduct(token.substring(7), product);
     }
 
-    @PutMapping("/{productId}/product-info/{infoId}")
-    public Product assignProductInfoToProduct(@PathVariable Long productId, @PathVariable Long infoId) {
-        return productService.assignProductInfoToProduct(productId, infoId);
+    @PutMapping("/{productId}/product-info/{productInfoId}")
+    public ResponseEntity<Product> assignProductInfoToProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId, @PathVariable Long productInfoId) {
+        return productService.assignProductInfoToProduct(token.substring(7), productId, productInfoId);
     }
-    
+
     @PutMapping("/edit/{productId}")
-    public Product editProduct(@PathVariable Long productId, @RequestBody Product product) {
-        return productService.editProduct(productId, product);
+    public ResponseEntity<Product> editProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId, @RequestBody Product product) {
+        return productService.editProduct(token.substring(7), productId, product);
     }
 
     @DeleteMapping("/delete/{productId}")
-    public Product deleteProduct(@PathVariable Long productId) {
-        return productService.deleteProduct(productId);
+    public ResponseEntity<Product> deleteProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId) {
+        return productService.deleteProduct(token.substring(7), productId);
     }
 }

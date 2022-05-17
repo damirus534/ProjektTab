@@ -19,5 +19,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
         @Query(value = "SELECT new pl.polsl.ProjektTab.Filters.ProductOff(p.id,p.amountAvailable,p.size) FROM Product p where p.productInfo.id=?1 ORDER BY p.size ASC ")
         public List<ProductOff> getProductByCategoryId(Long id);
-
+        @Query("SELECT p from Product p WHERE p.productInfo.id = ?1")
+        List<Product> findByProductInfoId(Long productInfoId);
 }

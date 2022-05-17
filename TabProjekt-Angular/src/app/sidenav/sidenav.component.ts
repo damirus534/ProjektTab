@@ -53,7 +53,7 @@ export class SidenavComponent implements OnInit {
   }
 
   select($event: MouseEvent, type: Category) {
-    this.getFilter(type.id)
+    this.getFilter(type.id!)
     this.returnId=0
     this.mainService.setMain(0)
 
