@@ -1,17 +1,15 @@
 package pl.polsl.ProjektTab.Filters;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @Data
 @NoArgsConstructor
-
 @ToString
 public class CategoryValue {
     private Long id;

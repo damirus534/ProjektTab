@@ -12,19 +12,23 @@ import java.util.List;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
-@Query(value = "SELECT new pl.polsl.ProjektTab.Filters.CartsItem(d.id,a.productName,b.size,c.photoUrl,a.sellingPrice,d.amount) from Cart d JOIN Product b On d.user.id=?1 AND d.product.id=b.id JOIN ProductInfo a ON b.productInfo.id=a.id JOIN Photo c ON c.productInfo.id=a.id GROUP BY d.id")
-    List<CartsItem> findCartByUserId(Long id);
-@Query(value = "SELECT c.id FROM Cart c WHERE  c.product.id=?1 AND c.user.id=?2 GROUP BY c.id")
-    Long findCartByProductId(Long ProductId,Long UserId);
-@Transactional
-@Modifying
-@Query("Update Cart c SET c.amount=c.amount+:add WHERE c.id=:cartID")
-    void updateCartAmount(@Param("add")Integer amount, @Param("cartID")Long id);
-@Transactional
-@Modifying
-@Query("delete from Cart c where c.user.id=:id")
-    void deleteByUserId(@Param("id")Long id);
 
-@Query(value = "SELECT new pl.polsl.ProjektTab.Cart.Cart(c.id,c.amount,c.user,c.product) FROM Cart c WHERE c.user.id=:id")
-    List<Cart> foundAllItemFromCart(@Param("id")Long id);
+    @Query(value = "SELECT new pl.polsl.ProjektTab.Filters.CartsItem(d.id,a.productName,b.size,c.photoUrl,a.sellingPrice,d.amount) from Cart d JOIN Product b On d.user.id=?1 AND d.product.id=b.id JOIN ProductInfo a ON b.productInfo.id=a.id JOIN Photo c ON c.productInfo.id=a.id GROUP BY d.id")
+        List<CartsItem> findCartByUserId(Long id);
+
+    @Query(value = "SELECT c.id FROM Cart c WHERE c.product.id=?1 AND c.user.id=?2 GROUP BY c.id")
+        Long findCartIdByProductIdAndUserId(Long ProductId, Long UserId);
+
+    @Transactional
+    @Modifying
+    @Query("Update Cart c SET c.amount=c.amount+:add WHERE c.id=:cartId")
+        void updateCartAmount(@Param("add")Integer amount, @Param("cartId")Long id);
+
+    @Transactional
+    @Modifying
+    @Query("delete from Cart c where c.user.id=:id")
+        void deleteByUserId(@Param("id")Long id);
+
+    @Query(value = "SELECT new pl.polsl.ProjektTab.Cart.Cart(c.id,c.amount,c.user,c.product) FROM Cart c WHERE c.user.id=:id")
+        List<Cart> foundAllItemFromCart(@Param("id")Long id);
 }

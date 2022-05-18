@@ -15,8 +15,8 @@
     </div>
 
     <mat-card-content class="element-list" >
-        <div class="element-containter" *ngFor="let element of content | async">
-            <cart-element [element]="element" (eventTask)="selected($event)"></cart-element>
+        <div class="element-containter" *ngFor="let element of cartContent">
+            <cart-element [element]="element" (eventTask)="deleteElement($event)"></cart-element>
         </div>
 
     </mat-card-content>

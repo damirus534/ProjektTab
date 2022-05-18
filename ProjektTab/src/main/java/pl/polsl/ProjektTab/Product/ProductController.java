@@ -20,8 +20,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-
-
     @GetMapping
     public ResponseEntity<List<Product>> getProducts() {
         return productService.getProducts();

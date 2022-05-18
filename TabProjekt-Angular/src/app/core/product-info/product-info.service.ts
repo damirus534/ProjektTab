@@ -10,12 +10,13 @@ import {ProductInfoAdmin} from "./ProductInfoAdmin";
   providedIn: 'root'
 })
 export class ProductInfoService {
- private baseUrl="http://localhost:8080/product-info";
 
   constructor(private httpClient: HttpClient) { }
+  
   getInfoById(id:number):Observable<ProductInfo>{
-    return this.httpClient.get<ProductInfo>(`${this.baseUrl}/info?id=`+id)
+    return this.httpClient.get<ProductInfo>(`${environment.baseUrl}/product-info/info?id=` + id)
   }
+  
   getProductInfo(): Observable<ProductInfoAdmin[]> {
     return this.httpClient.get<ProductInfoAdmin[]>(`${environment.baseUrl}/product-info`);
   }

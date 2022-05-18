@@ -19,108 +19,82 @@ import {AuthService} from "../services/auth.service";
   styleUrls: ['./product-offer.component.css']
 })
 export class ProductOfferComponent implements OnInit {
-  @Input()id!:number
+  @Input()id!: number;
 
+  amountValue: number=0;
+  size!: String;
+  urls!: String[];
 
-  infoService!:ProductInfoService
+  productInfo!: ProductInfo;
 
-  productService!:ProductService
+  productOff!: ProductOffer[];
 
-  amountValue:number=0;
-  size!:String;
-  urls!:String[]
+  selectedValue!: ProductOffer;
 
-  productInfo!:ProductInfo;
+  error?: String;
 
-  productOff!:ProductOffer[];
-
-  selectedValue!:ProductOffer;
-
-  cartService!:CartService
-
-  error?:String;
-
-  constructor(public photoService:PhotoService,infoService:ProductInfoService,productService:ProductService,cartService:CartService,private dialog: MatDialog,private authService:AuthService) {
-    this.photoService=photoService
-    this.infoService=infoService
-    this.productService=productService
-    this.cartService=cartService;
-
-  }
+  constructor(
+    private photoService: PhotoService,
+    private infoService: ProductInfoService,
+    private productService: ProductService,
+    private cartService: CartService,
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) { }
 
   images!: Array<ImageItem>;
+
   ngOnInit(): void {
 
   }
+
   ngOnChanges() {
     const _this = this;
-    this.getItems()
-    this.productService.getProductsByCategoryId(this.id).subscribe(data=>{
-      while (this.productOff==undefined){
-      this.productOff=data
-
-      }})
-
-
-    this.infoService.getInfoById(this.id).subscribe(info=>{
-      this.productInfo=info
-    })
-
-  }
-  getItems(){
-
-    this.photoService.getPhotosUrls(this.id).subscribe(photo=> {
-      var array=new Array<ImageItem>()
-      photo.forEach(value => {
-
-        array.push(new ImageItem({src:value.toString(),thumb:value.toString()}))
-      })
-      this.images=array
+    this.getItems();
+    this.productService.getProductsByCategoryId(this.id).subscribe(data => {
+      while (this.productOff == undefined){
+      this.productOff = data;
+      }
     });
+    this.infoService.getInfoById(this.id).subscribe(info => {
+      this.productInfo = info;
+    });
+  }
 
-}
+  getItems() {
+
+    this.photoService.getPhotosUrls(this.id).subscribe(photo => {
+      var array=new Array<ImageItem>();
+      photo.forEach(value => {
+        array.push(new ImageItem({ src:value.toString(), thumb:value.toString() }));
+      })
+      this.images = array;
+    });
+  }
 
   addToCart() {
-
-
-    if(this.selectedValue==null){
-      this.error="Wybierz rozmiar"
-
-    }else
-    if(this.amountValue==0){
-      this.error="Wybierz ilosc"
-    }
-    else {
-
-
-
-        const token=this.authService.token
-        if(token!=null){
-        const userToken=this.authService.getUserToken(token)
-          if(userToken!=null){
-
-          this.cartService.addToCart(userToken.id,this.selectedValue.id,this.amountValue).subscribe(date=>console.log(date))
+    if(this.selectedValue == null) {
+      this.error = "Wybierz rozmiar";
+    } else if(this.amountValue == 0) {
+      this.error = "Wybierz ilosc";
+    } else {
+        const token = this.authService.token;
+        if(token) {
+          const userToken = this.authService.getUserToken(token);
+          if(userToken) {
+            this.cartService.addToCart(userToken.id,this.selectedValue.id,this.amountValue).subscribe();
           }
-
-
-
-      }
-      else {
-
-        if(this.images[0].data.src!=null)
-        this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice))
-      }
-
-
-      this.dialog.open(AddToCartComponent)
+        } else {
+          if(this.images[0].data.src != null)
+            this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice));
+        }
+        this.dialog.open(AddToCartComponent)
     }
-
-
   }
 
   change($event: Event) {
 
-
   }
+
 }
 

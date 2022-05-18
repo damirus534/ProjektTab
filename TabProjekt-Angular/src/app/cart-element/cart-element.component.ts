@@ -7,25 +7,24 @@ import {CartElement} from "./cartElement";
   styleUrls: ['./cart-element.component.css']
 })
 export class CartElementComponent implements OnInit {
-  visible?:boolean=true
+
   @Input()
-  element?:CartElement;
-  @Output() eventTask=new EventEmitter<number>();
+  element?: CartElement;
+  @Output() eventTask = new EventEmitter<number>();
 
   constructor() {
 
-   }
-ngOnChange():void{
+  }
+   
+  ngOnChange():void{
 
-}
+  }
+
   ngOnInit(): void {
 
   }
 
   select() {
-    console.log(this.element?.id)
-    this.eventTask.emit(this.element?.id)
-    this.element=undefined
-    this.visible=false
+    this.eventTask.emit(this.element?.id);
   }
 }
