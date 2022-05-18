@@ -23,7 +23,7 @@ ngOnChange():void{
   }
 
   select() {
-    console.log(this.element?.id)
+
     this.eventTask.emit(this.element?.id)
     this.element=undefined
     this.visible=false

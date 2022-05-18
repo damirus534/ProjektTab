@@ -5,4 +5,9 @@
 }
 .text1{
   font-size: large;
+
 }
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+

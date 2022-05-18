@@ -2,6 +2,7 @@
   object-fit: cover;
   background-size: cover;
   width: 200px;
+  height: 20vh;
   float:left;
   margin-right:40px;
 
@@ -11,6 +12,7 @@
   height: 250px;
   margin-top: 5px;
   max-height: 600px;
+  overflow:auto;
 }
 .title{
   font-size: large;

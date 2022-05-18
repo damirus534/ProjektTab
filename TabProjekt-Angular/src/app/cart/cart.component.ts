@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
   cartSum = 0;
   content!:Observable<Array<CartElement>>
 
-  constructor(private authService: AuthService,private catsService:CartService,private buyService:BuyService) {
+  constructor(private authService: AuthService,private cartService:CartService,private buyService:BuyService) {
 
   }
 
@@ -32,7 +32,7 @@ export class CartComponent implements OnInit {
     else{
 
       this.cartContent=new Array();
-      this.catsService.getCartList().forEach(item=>{
+      this.cartService.getCartList().forEach(item=>{
         if(item!=null) {
           this.cartContent.push(new CartElement(item.product.id, item.productName, item.product.size, item.photoUrl, item.sellingPrize, item.amount))
         }
@@ -51,8 +51,9 @@ export class CartComponent implements OnInit {
   buyButt(){
     let num=this.authService.getUserToken(this.authService.token!)
     this.content=new Observable<Array<CartElement>>();
+this.buyService.buyCart(num.id).subscribe();
+this.cartSum=0;
 
-    this.buyService.buyCart(num.id).subscribe();
   }
 
   getRole(): string {
@@ -66,8 +67,8 @@ export class CartComponent implements OnInit {
       const token =  await this.authService.getUserToken(this.authService.token)
 
 
-     this.content=this.catsService.getCartByUser(token.id)
-      this.catsService.getCartByUser(token.id).subscribe(date=>{
+     this.content=this.cartService.getCartByUser(token.id)
+      this.cartService.getCartByUser(token.id).subscribe(date=>{
         date.forEach(element=>{
           this.cartSum+=element.price*element.amount
         })
@@ -78,16 +79,29 @@ export class CartComponent implements OnInit {
   selected($event: number) {
 
     if(this.authService.token!=null){
+      this.content.subscribe(result=>{
+        result.forEach(date=>{
+          if(date.id==$event){
+
+            this.cartSum-=(date.amount*date.price);
+          }
+        })
+      })
       const token = this.authService.getUserToken(this.authService.token)
-      this.catsService.deleteCartsItem($event)
-      console.log()
-
-
+      this.cartService.deleteCartsItem($event)
 
     }
     else{
-      this.catsService.deleteCartItemUnLog($event)
+      this.cartService.deleteCartItemUnLog($event)
+      this.cartContent.forEach(date=>{
+
+        if(date.id==$event){
+
+          this.cartSum-=(date.amount*date.price);
+        }
+      })
 
     }
+
   }
 }
