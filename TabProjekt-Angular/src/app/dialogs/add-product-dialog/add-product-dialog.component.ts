@@ -107,7 +107,7 @@ export class AddProductDialogComponent implements OnInit {
     )
   }
 
-  private setProductInfoOfPhotos(productInfo: ProductInfo) {
+  private setProductInfoOfPhotos(productInfo: ProductInfoAdmin) {
     for(let element of this.photoList) {
       element.productInfo = productInfo;
     }

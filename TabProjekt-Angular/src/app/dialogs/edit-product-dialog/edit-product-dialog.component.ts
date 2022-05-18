@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/core/category/category';
 import { Photo } from 'src/app/core/photo/photo';
 import { PhotoService } from 'src/app/core/photo/photo.service';
-import { ProductInfo } from 'src/app/core/product-info/product-info';
 import { ProductInfoService } from 'src/app/core/product-info/product-info.service';
+import { ProductInfoAdmin } from 'src/app/core/product-info/ProductInfoAdmin';
 import { Product } from 'src/app/core/product/product';
 import { ProductService } from 'src/app/core/product/product.service';
 
@@ -144,7 +144,7 @@ export class EditProductDialogComponent implements OnInit {
     this.getProductBySize('XXL')!.amountAvailable = form.controls['sizeXXL'].value;
   }
     
-  private setProductInfoOfPhotos(productInfo: ProductInfo) {
+  private setProductInfoOfPhotos(productInfo: ProductInfoAdmin) {
     for(let element of this.photoList) {
       element.productInfo = productInfo;
     }

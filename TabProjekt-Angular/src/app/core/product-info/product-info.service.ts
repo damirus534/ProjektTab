@@ -21,8 +21,9 @@ export class ProductInfoService {
   }
 
   saveProductInfo(form: FormGroup): Observable<ProductInfoAdmin> {
-    let productInfo: ProductInfo = new ProductInfo;
+    let productInfo: ProductInfoAdmin = new ProductInfoAdmin;
     productInfo.productName = form.controls['name'].value;
+    productInfo.category = form.controls['category'].value;
     productInfo.description = form.controls['descrption'].value;
     productInfo.buyingPrice = form.controls['buyingPrice'].value;
     productInfo.sellingPrice = form.controls['sellingPrice'].value;
