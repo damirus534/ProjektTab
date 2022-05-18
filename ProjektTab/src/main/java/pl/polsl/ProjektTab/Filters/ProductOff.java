@@ -17,14 +17,7 @@ public class ProductOff {
     String size;
 
 
-    public ProductOff(Long id, Integer amountAvailable, String size) {
-        this.id = id;
-        this.amountAvailable = amountAvailable;
-        this.size = size;
-    }
 
-    public ProductOff() {
-    }
 
     public Long getId() {
         return this.id;
