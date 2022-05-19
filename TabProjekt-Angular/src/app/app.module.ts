@@ -39,8 +39,8 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import { MatDialogModule} from "@angular/material/dialog";
-import { AddToCartComponent } from './dialogs/add-to-cart/add-to-cart.component';
 import {MatSortModule} from "@angular/material/sort";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -61,8 +61,7 @@ import {MatSortModule} from "@angular/material/sort";
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
     AddProductDialogComponent,
-    EditProductDialogComponent,
-    AddToCartComponent
+    EditProductDialogComponent
   ],
     imports: [
         BrowserModule,
@@ -92,7 +91,8 @@ import {MatSortModule} from "@angular/material/sort";
         MatSelectModule,
         MatListModule,
         MatDialogModule,
-        MatSortModule
+        MatSortModule,
+        MatSnackBarModule
     ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

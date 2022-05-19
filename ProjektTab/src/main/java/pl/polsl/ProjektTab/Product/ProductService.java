@@ -114,16 +114,14 @@ public class ProductService {
         }
     }
 
-    public ResponseEntity<List<Product>> batchEditProduct(String token, List<Product> productList) {
+    public ResponseEntity<Void> batchEditProduct(String token, List<Product> productList) {
         try {
             verifier.verify(token);
             
-            List<Product> editedProducts = new ArrayList<>();
             for(Product product : productList) {
-                ResponseEntity<Product> result = editProduct(token, product.getId(), product);
-                editedProducts.add(result.getBody());
+                productRepository.changeAmoutnAvailable(product.getAmountAvailable(), product.getId());
             }
-            return ResponseEntity.ok(editedProducts);
+            return ResponseEntity.ok().build();
         } catch (JWTVerificationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

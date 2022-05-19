@@ -43,16 +43,16 @@ export class ProductService {
     return this.httpClient.put<ProductAdmin[]>(`${environment.baseUrl}/products/batch-assign/product-info/${productInfoId}`, productList);
   }
 
-  getProductByProductInfoId(id: number): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${environment.baseUrl}/products/${id}`);
+  getProductByProductInfoId(id: number): Observable<ProductAdmin[]> {
+    return this.httpClient.get<ProductAdmin[]>(`${environment.baseUrl}/products/${id}`);
   }
 
-  editProduct(product: Product): Observable<Product> {
-    return this.httpClient.put<Product>(`${environment.baseUrl}/products/edit/${product.id}`, { amountAvailable: product.amountAvailable });
+  editProduct(product: ProductAdmin): Observable<ProductAdmin> {
+    return this.httpClient.put<ProductAdmin>(`${environment.baseUrl}/products/edit/${product.id}`, { amountAvailable: product.amountAvailable });
   }
 
-  batchEditProduct(productList: Product[]): Observable<Product[]> {
-    return this.httpClient.put<Product[]>(`${environment.baseUrl}/products/edit/batch`, productList);
+  batchEditProduct(productList: ProductAdmin[]): Observable<ProductAdmin[]> {
+    return this.httpClient.put<ProductAdmin[]>(`${environment.baseUrl}/products/edit/batch`, productList);
   }
 
 }

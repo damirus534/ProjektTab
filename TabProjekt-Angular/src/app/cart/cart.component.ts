@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import {CartService} from "../core/website-service/cart/cart.service";
 import {CartElement} from "../cart-element/cartElement";
@@ -17,8 +17,7 @@ export class CartComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private cartService: CartService,
-    private buyService: BuyService,
-    private changeDetector: ChangeDetectorRef
+    private buyService: BuyService
   ) {
 
   }
@@ -79,8 +78,8 @@ export class CartComponent implements OnInit {
       if(item) {
         this.cartContent.push(new CartElement(item.product.id, item.productName, item.product.size, item.photoUrl, item.sellingPrize, item.amount));
       }
-      this.refreshSum();
     });
+    this.refreshSum();
   }
   
   private refreshSum() {

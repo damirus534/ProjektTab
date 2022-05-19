@@ -1,8 +1,9 @@
 .example-container {
   width: available;
-  height: 100%;
-
+  height: 93vh;
 }
-.text1{
+
+.text1 {
   font-size: large;
 }
+

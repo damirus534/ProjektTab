@@ -2,13 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import {ProductService} from "../core/product/product.service";
 import {ProductMainSide} from "../core/product/productMainSide";
-import {newArray} from "@angular/compiler/src/util";
-import {Cart} from "../core/website-service/cart/cart";
-import {CartService} from "../core/website-service/cart/cart.service";
 import {MainSideService} from "../core/website-service/main-side/main-side.service";
 import {CategoryService} from "../core/category/category.service";
 import {Category} from "../core/category/category";
-import {Observable} from "rxjs";
 
 
 @Component({
@@ -21,7 +17,7 @@ export class SidenavComponent implements OnInit {
   productList!: Array<ProductMainSide>;
   mainService!: MainSideService;
 
-  constructor(private productService:ProductService,mainService:MainSideService, private categoryService: CategoryService) {
+  constructor(private productService: ProductService, mainService: MainSideService, private categoryService: CategoryService) {
     this.productService.getProducts().subscribe(product => this.productList = product);
     this.returnId = 0;
     this.mainService = mainService;
@@ -41,7 +37,7 @@ export class SidenavComponent implements OnInit {
   ngOnChange() {
     console.log(1)
   }
-  getFilter(id: number){
+  getFilter(id: number) {
     this.productService.getProductsByFilter(id).subscribe(product => this.productList = product);
   }
 
@@ -56,7 +52,7 @@ export class SidenavComponent implements OnInit {
   }
 
   selected($event: number) {
-    this.returnId=$event;
+    this.returnId = $event;
     this.mainService.setMain($event);
   }
 

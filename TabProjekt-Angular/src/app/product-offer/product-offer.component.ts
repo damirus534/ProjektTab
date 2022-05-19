@@ -1,17 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {GalleryItem,ImageItem} from "ng-gallery"
+import {ImageItem} from "ng-gallery"
 import {ProductService} from "../core/product/product.service";
 import {PhotoService} from "../core/photo/photo.service";
-import {newArray} from "@angular/compiler/src/util";
 import {ProductInfoService} from "../core/product-info/product-info.service";
 import {ProductInfo} from "../core/product-info/product-info";
 import {ProductOffer} from "../core/product/productOffer";
-import {Observable} from "rxjs";
 import {CartService} from "../core/website-service/cart/cart.service";
 import {CartItem} from "../core/website-service/cart/CartItem";
 import {MatDialog} from "@angular/material/dialog";
-import {AddToCartComponent} from "../dialogs/add-to-cart/add-to-cart.component";
 import {AuthService} from "../services/auth.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-offer',
@@ -19,9 +17,10 @@ import {AuthService} from "../services/auth.service";
   styleUrls: ['./product-offer.component.css']
 })
 export class ProductOfferComponent implements OnInit {
-  @Input()id!: number;
 
-  amountValue: number=0;
+  @Input() id!: number;
+
+  amountValue: number = 0;
   size!: String;
   urls!: String[];
 
@@ -39,7 +38,8 @@ export class ProductOfferComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
   ) { }
 
   images!: Array<ImageItem>;
@@ -64,7 +64,7 @@ export class ProductOfferComponent implements OnInit {
   getItems() {
 
     this.photoService.getPhotosUrls(this.id).subscribe(photo => {
-      var array=new Array<ImageItem>();
+      var array = new Array<ImageItem>();
       photo.forEach(value => {
         array.push(new ImageItem({ src:value.toString(), thumb:value.toString() }));
       })
@@ -88,7 +88,11 @@ export class ProductOfferComponent implements OnInit {
           if(this.images[0].data.src != null)
             this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice));
         }
-        this.dialog.open(AddToCartComponent)
+        this._snackBar.open("Element został dodany do koszyka", "OK", {
+          duration: 3000,
+          panelClass: ['added-to-cart-snackbar']
+        });
+        
     }
   }
 

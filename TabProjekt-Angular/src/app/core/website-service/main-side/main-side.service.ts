@@ -6,7 +6,7 @@ import {BehaviorSubject} from "rxjs";
 })
 export class MainSideService {
 
-  main:number;
+  main: number;
   private event$:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {
@@ -14,7 +14,7 @@ export class MainSideService {
   }
 
   setMain(main: number) {
-    this.main=main
+    this.main = main;
   }
 
   getMain(): number {
