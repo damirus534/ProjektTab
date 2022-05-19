@@ -86,33 +86,34 @@ public class OrderService {
         orderRepository.delete(order);
         return order;
     }
-    public float addOrderById(Long userID){
-        Logger as=LoggerFactory.getLogger(pl.polsl.ProjektTab.ProjektTabApplication.class);
+
+    public float addOrderById(Long userID) {
+        // TODO: PLACING ORDER DOES NOT CHANGE THE VALUE OF AVAILABLE PRODUCTS
+        Logger as = LoggerFactory.getLogger(pl.polsl.ProjektTab.ProjektTabApplication.class);
         as.info(userID.toString());
-        List<Cart> items=cartRepository.foundAllItemFromCart(userID);
-        float totalPrice=0;
-        List<Order> orderList=new ArrayList<>();
+        List<Cart> items = cartRepository.foundAllItemFromCart(userID);
+        float totalPrice = 0;
+        List<Order> orderList = new ArrayList<>();
         for(Cart item:items) {
-            Order a = new Order();
-            a.setProduct(item.getProduct());
-            a.setAmountPurchased(item.getAmount());
-            a.setSellingPrice(a.getProduct().getProductInfo().getSellingPrice());
+            Order order = new Order();
+            order.setProduct(item.getProduct());
+            order.setAmountPurchased(item.getAmount());
+            order.setSellingPrice(order.getProduct().getProductInfo().getSellingPrice());
 
             //addOrder(a);
-            orderList.add(a);
-            totalPrice += (item.getAmount() * a.getProduct().getProductInfo().getSellingPrice());
+            orderList.add(order);
+            totalPrice += (item.getAmount() * order.getProduct().getProductInfo().getSellingPrice());
         }
 
 
-        java.sql.Date date= new java.sql.Date(Calendar.getInstance().getTime().getTime());
-        OrderHistory orderHistory=new OrderHistory(date,totalPrice,userRepository.getById(userID),orderList);
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        OrderHistory orderHistory = new OrderHistory(date, totalPrice, userRepository.getById(userID), orderList);
         orderHistory=orderHistoeyRepository.save(orderHistory);
 
         for(Order order:orderList){
             order.setOrderHistory(orderHistory);
         }
         orderRepository.saveAll(orderList);
-
         cartRepository.deleteByUserId(userID);
         return totalPrice;
     }

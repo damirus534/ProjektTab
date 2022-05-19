@@ -30,6 +30,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         @Transactional
         @Modifying
         @Query("UPDATE Product p SET p.amountAvailable=:amountAvailable WHERE p.id=:productId")
-        void changeAmoutnAvailable(@Param("amountAvailable") Integer amountAvailable, @Param("productId") Long productId);
+        void changeAmountAvailable(@Param("amountAvailable") Integer amountAvailable, @Param("productId") Long productId);
 
 }

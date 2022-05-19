@@ -119,7 +119,7 @@ public class ProductService {
             verifier.verify(token);
             
             for(Product product : productList) {
-                productRepository.changeAmoutnAvailable(product.getAmountAvailable(), product.getId());
+                productRepository.changeAmountAvailable(product.getAmountAvailable(), product.getId());
             }
             return ResponseEntity.ok().build();
         } catch (JWTVerificationException e) {
