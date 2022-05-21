@@ -147,11 +147,11 @@ public class ProductService {
         }
     }
 
-    public List<ReturnValue> getProductsSeparated(){
+    public List<ReturnValue> getSeperatedProduct(){
         return productRepository.getSeperatedProduct();
     }
 
-    public List<ReturnValue> getProductByKategory(Long id){return productRepository.getFilteredProduct(id);}
+    public List<ReturnValue> getProductByCategory(Long id){return productRepository.getFilteredProduct(id);}
 
     public List<ProductOff> getProductByCategoryId(Long id){
         return productRepository.getProductByCategoryId(id);

@@ -15,16 +15,14 @@ import {Category} from "../core/category/category";
 export class SidenavComponent implements OnInit {
 
   productList!: Array<ProductMainSide>;
-  mainService!: MainSideService;
 
-  constructor(private productService: ProductService, mainService: MainSideService, private categoryService: CategoryService) {
+  constructor(private productService: ProductService, public mainService: MainSideService, private categoryService: CategoryService) {
     this.productService.getProducts().subscribe(product => this.productList = product);
     this.returnId = 0;
-    this.mainService = mainService;
-    this.categoryService.getCategories().subscribe(date => this.categorys=date);
+    this.categoryService.getCategories().subscribe(date => this.categories = date);
   }
   returnId!: number;
-  categorys!: Category[];
+  categories!: Category[];
 
   ngOnInit(): void {
     this.mainService.getEvent().subscribe(event => {
@@ -47,7 +45,7 @@ export class SidenavComponent implements OnInit {
     this.mainService.setMain(0);
   }
 
-  getService():number {
+  getService(): number {
     return this.mainService.getMain();
   }
 
@@ -57,7 +55,7 @@ export class SidenavComponent implements OnInit {
   }
 
   reset() {
-    this.productService.getProducts().subscribe(date => this.productList = date);
+    this.productService.getProducts().subscribe(data => this.productList = data);
   }
   
 }

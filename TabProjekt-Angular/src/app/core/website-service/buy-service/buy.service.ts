@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class BuyService {
 
-  constructor(private httpClient:HttpClient) {
+  constructor(private httpClient: HttpClient) {
 
   }
   
-  buyCart(userId: number): Observable<any>{
+  buyCart(userId: number): Observable<any> {
     return this.httpClient.post(`${environment.baseUrl}/orders/buy`, userId);
   }
 }

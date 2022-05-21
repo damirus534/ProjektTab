@@ -16,7 +16,7 @@ export class CartService {
     
   }
 
-  addToCart(userId: number, productId: number,amount: number): Observable<any> {
+  addToCart(userId: number, productId: number, amount: number): Observable<any> {
     return this.httpClient.put(`${environment.baseUrl}/carts/${userId}/product/${productId}/amount/${amount}`, null);
   }
 

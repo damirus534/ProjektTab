@@ -7,7 +7,7 @@
             Kategorie
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <p *ngFor="let type of categorys">
+        <p *ngFor="let type of categories">
           <button (click)="select($event, type)" mat-flat-button>
             {{type.categoryName}}
           </button>

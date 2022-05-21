@@ -67,12 +67,12 @@ public class ProductController {
 
     @GetMapping("/main")
     public List<ReturnValue> getSeperateProducts(){
-        return productService.getProductsSeparated();
+        return productService.getSeperatedProduct();
     }
 
     @GetMapping("/main/category")
     public List<ReturnValue> getProductsByFilter(@RequestParam Long id){
-        return productService.getProductByKategory(id);
+        return productService.getProductByCategory(id);
     }
     @GetMapping("/main/category/id")
     public List<ProductOff> getProductsByCategoryId(Long id){

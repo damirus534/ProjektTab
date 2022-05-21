@@ -1,10 +1,10 @@
 
-.photogallery{
+.photo-gallery {
   width: 100%;
   height: 80%;
 }
 
-.gallery{
+.gallery {
 
   background-color: transparent;
   max-width: 100%;
@@ -13,7 +13,8 @@
   margin-top: 10%;
   max-height: 70%;
 }
-.card{
+
+.card {
   width: 90%;
   height: 80%;
   margin: auto;
@@ -21,38 +22,42 @@
   flex-direction: column;
   position: absolute;
 }
-.titleCard{
+
+.title-card {
   text-align: center;
   font-weight: bold;
   font-size: xx-large;
 }
-.textCard{
+
+.text-card {
   margin-top: 4%;
   font-size: larger;
   height: 60%;
-
-
 }
-.sizeAmount{
+
+.size-amount {
   width: 100%;
 }
-.prize{
+
+.prize {
   font-size:x-large;
   font-weight: bold;
 }
-.sizeAmount{
+
+.size-amount {
   margin: auto;
 }
-.description{
+
+.description {
   height: 60%;
 }
+
 .failure-info {
   background-color: red;
   font-size: normal;
   color: white;
-  width: 30%;
+  width: 60%;
   margin: auto;
   margin-top: 2%;
   text-align: center;
-
 }

@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-        @Query("SELECT new pl.polsl.ProjektTab.Filters.ReturnValue(c.id,c.description,c.productName,p.photoUrl,p.productInfo.sellingPrice) FROM ProductInfo c JOIN c.photos p ON  c.id=p.productInfo.id group by c.id")
+        @Query("SELECT new pl.polsl.ProjektTab.Filters.ReturnValue(c.id,c.description,c.productName,p.photoUrl,p.productInfo.sellingPrice) FROM ProductInfo c JOIN c.photos p ON c.id=p.productInfo.id where c.isActive=true group by c.id")
         public List<ReturnValue> getSeperatedProduct();
 
         @Query("SELECT new pl.polsl.ProjektTab.Filters.ReturnValue(c.id,c.description,c.productName,p.photoUrl,p.productInfo.sellingPrice) FROM ProductInfo c JOIN c.photos p ON  c.id=p.productInfo.id AND c.id=?1 group by c.id")

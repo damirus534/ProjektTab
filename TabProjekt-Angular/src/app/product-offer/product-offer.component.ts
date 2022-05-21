@@ -23,13 +23,9 @@ export class ProductOfferComponent implements OnInit {
   amountValue: number = 0;
   size!: String;
   urls!: String[];
-
   productInfo!: ProductInfo;
-
   productOff!: ProductOffer[];
-
   selectedValue!: ProductOffer;
-
   error?: String;
 
   constructor(
@@ -37,7 +33,6 @@ export class ProductOfferComponent implements OnInit {
     private infoService: ProductInfoService,
     private productService: ProductService,
     private cartService: CartService,
-    private dialog: MatDialog,
     private authService: AuthService,
     private _snackBar: MatSnackBar
   ) { }
@@ -52,7 +47,7 @@ export class ProductOfferComponent implements OnInit {
     const _this = this;
     this.getItems();
     this.productService.getProductsByCategoryId(this.id).subscribe(data => {
-      while (this.productOff == undefined){
+      while (this.productOff == undefined) {
       this.productOff = data;
       }
     });
@@ -62,7 +57,6 @@ export class ProductOfferComponent implements OnInit {
   }
 
   getItems() {
-
     this.photoService.getPhotosUrls(this.id).subscribe(photo => {
       var array = new Array<ImageItem>();
       photo.forEach(value => {
@@ -73,26 +67,27 @@ export class ProductOfferComponent implements OnInit {
   }
 
   addToCart() {
-    if(this.selectedValue == null) {
+    if (this.selectedValue == null) {
       this.error = "Wybierz rozmiar";
-    } else if(this.amountValue == 0) {
+    } else if (this.amountValue == 0) {
       this.error = "Wybierz ilosc";
+    } else if (this.amountValue > this.selectedValue.amountAvailable) {
+      this.error = "Niewystarczająca ilość produktów w magazynie";
     } else {
-        const token = this.authService.token;
-        if(token) {
-          const userToken = this.authService.getUserToken(token);
-          if(userToken) {
-            this.cartService.addToCart(userToken.id,this.selectedValue.id,this.amountValue).subscribe();
-          }
-        } else {
-          if(this.images[0].data.src != null)
-            this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice));
+      const token = this.authService.token;
+      if (token) {
+        const userToken = this.authService.getUserToken(token);
+        if (userToken) {
+          this.cartService.addToCart(userToken.id, this.selectedValue.id, this.amountValue).subscribe();
         }
-        this._snackBar.open("Element został dodany do koszyka", "OK", {
-          duration: 3000,
-          panelClass: ['added-to-cart-snackbar']
-        });
-        
+      } else {
+        if (this.images[0].data.src != null)
+          this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice));
+      }
+      this._snackBar.open("Element został dodany do koszyka", "OK", {
+        duration: 3000,
+        panelClass: ['added-to-cart-snackbar']
+      }); 
     }
   }
 

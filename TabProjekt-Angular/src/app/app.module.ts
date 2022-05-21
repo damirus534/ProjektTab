@@ -40,6 +40,7 @@ import {MatTableModule} from "@angular/material/table";
 import { MatDialogModule} from "@angular/material/dialog";
 import {MatSortModule} from "@angular/material/sort";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AmountIncorrectSnackbarComponent } from './snackbars/amount-incorrect-snackbar/amount-incorrect-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
     AddProductDialogComponent,
-    EditProductDialogComponent
+    EditProductDialogComponent,
+    AmountIncorrectSnackbarComponent
   ],
     imports: [
         BrowserModule,
