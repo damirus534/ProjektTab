@@ -1,9 +1,11 @@
-import { NumberInput } from '@angular/cdk/coercion';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Product } from './product';
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {ProductMainSide} from "./productMainSide";
+import {Observable} from "rxjs";
+import {ProductOffer} from "./productOffer";
+import {environment} from "../../../environments/environment";
+import {Product} from "./product";
+import {ProductAdmin} from "./productAdmin";
 
 @Injectable({
   providedIn: 'root'
@@ -12,33 +14,45 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  saveProduct(size: string, amountAvailable: number): Observable<Product> {
-    const product = new Product(null, null, size, amountAvailable);
-    return this.httpClient.post<Product>(`${environment.baseUrl}/products`, product);
+  getProducts(): Observable<Array<ProductMainSide>> {
+    return this.httpClient.get<Array<ProductMainSide>>(`${environment.baseUrl}/products/main`);
   }
 
-  batchSaveProduct(products: Product[]) : Observable<Product[]> {
-    return this.httpClient.post<Product[]>(`${environment.baseUrl}/products/batch`, products);
+  getProductsByFilter(id: number): Observable<Array<ProductMainSide>> {
+      return this.httpClient.get<Array<ProductMainSide>>(`${environment.baseUrl}/products/main/category?id=` + id);
+  }
+
+  getProductsByCategoryId(id: number): Observable<Array<ProductOffer>> {
+    return this.httpClient.get<Array<ProductOffer>>(`${environment.baseUrl}/products/main/category/id?id=` + id);
   }
 
   assignProductInfoToProduct(id: number, productInfoId: number): Observable<Product> {
     return this.httpClient.put<Product>(`${environment.baseUrl}/products/${id}/product-info/${productInfoId}`, {});
   }
 
-  batchAssignProductInfoToProduct(productList: Product[], productInfoId: number): Observable<Product[]> {
-    return this.httpClient.put<Product[]>(`${environment.baseUrl}/products/batch-assign/product-info/${productInfoId}`, productList);
+  saveProduct(size: string, amountAvailable: number): Observable<ProductAdmin> {
+    const product = new ProductAdmin(null, null, size, amountAvailable);
+    return this.httpClient.post<ProductAdmin>(`${environment.baseUrl}/products`, product);
   }
 
-  getProductByProductInfoId(id: number): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${environment.baseUrl}/products/${id}`);
+  batchSaveProduct(products: ProductAdmin[]) : Observable<ProductAdmin[]> {
+    return this.httpClient.post<ProductAdmin[]>(`${environment.baseUrl}/products/batch`, products);
   }
 
-  editProduct(product: Product): Observable<Product> {
-    return this.httpClient.put<Product>(`${environment.baseUrl}/products/edit/${product.id}`, { amountAvailable: product.amountAvailable });
+  batchAssignProductInfoToProduct(productList: ProductAdmin[], productInfoId: number): Observable<ProductAdmin[]> {
+    return this.httpClient.put<ProductAdmin[]>(`${environment.baseUrl}/products/batch-assign/product-info/${productInfoId}`, productList);
   }
 
-  batchEditProduct(productList: Product[]): Observable<Product[]> {
-    return this.httpClient.put<Product[]>(`${environment.baseUrl}/products/edit/batch`, productList);
+  getProductByProductInfoId(id: number): Observable<ProductAdmin[]> {
+    return this.httpClient.get<ProductAdmin[]>(`${environment.baseUrl}/products/${id}`);
+  }
+
+  editProduct(product: ProductAdmin): Observable<ProductAdmin> {
+    return this.httpClient.put<ProductAdmin>(`${environment.baseUrl}/products/edit/${product.id}`, { amountAvailable: product.amountAvailable });
+  }
+
+  batchEditProduct(productList: ProductAdmin[]): Observable<ProductAdmin[]> {
+    return this.httpClient.put<ProductAdmin[]>(`${environment.baseUrl}/products/edit/batch`, productList);
   }
 
 }

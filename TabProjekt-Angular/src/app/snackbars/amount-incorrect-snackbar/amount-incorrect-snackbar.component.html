@@ -1,0 +1,10 @@
+<div class="main-content">
+    <div class="faulty-products-containter">
+        <p>Zakup niemożliwy. Brak dostępnych egzemplarzy dla:</p>
+        <p *ngFor="let cartElement of data">
+            {{cartElement.name}}, Rozmiar: {{cartElement.size}}, Ilość: {{cartElement.amount}}, Dostępnych: {{cartElement.amountAvailable}}
+        </p>
+    </div>
+    <button mat-flat-button (click)="dismiss()">OK</button>
+</div>
+

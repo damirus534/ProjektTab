@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Photo } from './photo';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {ProductMainSide} from "../product/productMainSide";
+import {ProductOffer} from "../product/productOffer";
+import {Photo} from "./photo";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,10 @@ import { Photo } from './photo';
 export class PhotoService {
 
   constructor(private httpClient: HttpClient) { }
+
+  getPhotosUrls(id:number): Observable<Array<String>> {
+        return this.httpClient.get<Array<String>>(`${environment.baseUrl}/photos/urls?id=`+id)
+  }
 
   savePhoto(url: string): Observable<Photo> {
     return this.httpClient.post<Photo>(`${environment.baseUrl}/photos`, { photoUrl: url });
@@ -26,7 +32,7 @@ export class PhotoService {
   batchAssignProductInfoToPhoto(savedPhotos: Photo[], id: number): Observable<Photo[]> {
     return this.httpClient.put<Photo[]>(`${environment.baseUrl}/photos/batch/product-info/${id}`, savedPhotos);
   }
-  
+
   getPhotosByProductInfoId(id: number): Observable<Photo[]> {
     return this.httpClient.get<Photo[]>(`${environment.baseUrl}/photos/${id}`);
   }

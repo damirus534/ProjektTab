@@ -8,6 +8,8 @@ import { ProductInfo } from 'src/app/core/product-info/product-info';
 import { ProductInfoService } from 'src/app/core/product-info/product-info.service';
 import { Product } from 'src/app/core/product/product';
 import { ProductService } from 'src/app/core/product/product.service';
+import {ProductInfoAdmin} from "../../core/product-info/ProductInfoAdmin";
+import {ProductAdmin} from "../../core/product/productAdmin";
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -64,11 +66,11 @@ export class AddProductDialogComponent implements OnInit {
   }
 
   isValidUrl(input: string): boolean {
-    let url_string; 
+    let url_string;
     try {
       url_string = new URL(input);
     } catch (e) {
-      return false;  
+      return false;
     }
     return url_string.protocol === "http:" || url_string.protocol === "https:" ;
   }
@@ -82,7 +84,7 @@ export class AddProductDialogComponent implements OnInit {
       return;
     }
     this.urlListEmpty = false;
-    
+
     this.productInfoService.saveProductInfo(this.addForm).subscribe((savedProductInfo) => {
       const productList = this.createProductList(this.addForm, savedProductInfo);
       this.setProductInfoOfPhotos(savedProductInfo);
@@ -94,18 +96,18 @@ export class AddProductDialogComponent implements OnInit {
       });
     });
   }
-  
-  private createProductList(form: FormGroup, productInfo: ProductInfo): Product[] {
+
+  private createProductList(form: FormGroup, productInfo: ProductInfoAdmin): ProductAdmin[] {
     return new Array(
-      new Product(null, productInfo, 'S', form.controls['sizeS'].value),
-      new Product(null, productInfo, 'M', form.controls['sizeM'].value),
-      new Product(null, productInfo, 'L', form.controls['sizeL'].value),
-      new Product(null, productInfo, 'XL', form.controls['sizeXL'].value),
-      new Product(null, productInfo, 'XXL', form.controls['sizeXXL'].value)
+      new ProductAdmin(null, productInfo, 'S', form.controls['sizeS'].value),
+      new ProductAdmin(null, productInfo, 'M', form.controls['sizeM'].value),
+      new ProductAdmin(null, productInfo, 'L', form.controls['sizeL'].value),
+      new ProductAdmin(null, productInfo, 'XL', form.controls['sizeXL'].value),
+      new ProductAdmin(null, productInfo, 'XXL', form.controls['sizeXXL'].value)
     )
   }
-  
-  private setProductInfoOfPhotos(productInfo: ProductInfo) {
+
+  private setProductInfoOfPhotos(productInfo: ProductInfoAdmin) {
     for(let element of this.photoList) {
       element.productInfo = productInfo;
     }

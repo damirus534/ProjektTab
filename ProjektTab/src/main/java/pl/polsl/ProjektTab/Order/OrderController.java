@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class OrderController {
     
     private final OrderService orderService;
@@ -23,6 +23,11 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @PostMapping("/buy")
+    public float buyButton(@RequestBody Long id){
+        return this.orderService.buyCartContent(id);
     }
 
     @GetMapping

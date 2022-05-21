@@ -1,6 +1,24 @@
 
 <mat-card class="content">
-  <mat-card-title ><button (click)="select()" color="primary" class="title" mat-flat-button>{{product.name}}</button></mat-card-title>
-  <mat-card-content><img class="image" [src]="product.imageUrls[0]"></mat-card-content>
-  <mat-card-content class="description"><div class="description"></div> <p>{{product.description}}</p></mat-card-content>
+  <div class="title-container">
+    <mat-card-title>
+      <button (click)="select()" color="primary" class="title" mat-flat-button>
+        {{product.productName}}
+      </button>
+    </mat-card-title>
+  </div>
+  <div class="content-container">
+    <div class="image-container">
+      <img class="image" [src]="product.photoUrl">
+    </div>
+    <div class="information-container">
+      <div class="description">
+        {{product.description}}
+      </div> 
+      <div class="prize">
+        Cena: {{product.prize}} zł
+      </div>
+    </div>
+  </div>
+
 </mat-card>

@@ -10,6 +10,7 @@ import { AddCategoryDialogComponent } from '../dialogs/add-category-dialog/add-c
 import { AddProductDialogComponent } from '../dialogs/add-product-dialog/add-product-dialog.component';
 import { EditCategoryDialogComponent } from '../dialogs/edit-category-dialog/edit-category-dialog.component';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
+import {ProductInfoAdmin} from "../core/product-info/ProductInfoAdmin";
 
 @Component({
   selector: 'app-admin-panel',
@@ -23,9 +24,9 @@ export class AdminPanelComponent implements OnInit {
   categoryDataSource = new MatTableDataSource<Category>();
   private activeCategorySort: Sort | null = null;
 
-  private productInfoList: ProductInfo[] = [];
+  private productInfoList: ProductInfoAdmin[] = [];
   productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'block-resume-action'];
-  productInfoDataSource = new MatTableDataSource<ProductInfo>();
+  productInfoDataSource = new MatTableDataSource<ProductInfoAdmin>();
   private activeProductSort: Sort | null = null;
 
   isCategoriesShown: boolean = true;
@@ -42,7 +43,7 @@ export class AdminPanelComponent implements OnInit {
     this.getCategories();
     this.getProductInfo();
   }
-  
+
   private getCategories() {
     this.categoryService.getCategories().subscribe((categoryList) => {
       this.categoryList = categoryList;
@@ -72,7 +73,7 @@ export class AdminPanelComponent implements OnInit {
         categoryList: this.categoryList
       }
     });
-    
+
     dialogRef.afterClosed().subscribe((result) => {
       if(result) {
         this.categoryList = result.categoryList;
@@ -171,7 +172,7 @@ export class AdminPanelComponent implements OnInit {
     return value ? value[0] : null;
   }
 
-  blockOrResumeOffer(productInfo: ProductInfo) {
+  blockOrResumeOffer(productInfo: ProductInfoAdmin) {
     productInfo.isActive = !productInfo.isActive;
     this.productInfoService.changeIsActive(productInfo).subscribe();
   }

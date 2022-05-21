@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import {CartService} from "../core/website-service/cart/cart.service";
+import {CartElement} from "../cart-element/cartElement";
+import {BuyService} from "../core/website-service/buy-service/buy.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AmountIncorrectSnackbarComponent } from '../snackbars/amount-incorrect-snackbar/amount-incorrect-snackbar.component';
 
 @Component({
   selector: 'app-cart',
@@ -7,71 +12,99 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  
-  cartContent : any[] = [
-    {
-      name: 'Wspaniałe buty',
-      size: 'M',
-      imageUrls: ['https://64.media.tumblr.com/e4a53bd7ea4addde5fe25c9b7b9fcad1/558ff8b529c84eeb-e0/s640x960/cb04c1fa2834c1dc75fb6444c17c144f98f98d9f.jpg'],
-      price: 69.69,
-      amount: 3
-    },
-    {
-      name: 'Przepiękne rękawiczki',
-      size: 'L',
-      imageUrls: ['https://elektrykapradnietyka.com/wp-content/uploads/2021/03/kastet_na_trytytki-1.jpg'],
-      price: 0.04,
-      amount: 2
-    },
-    {
-      name: 'Przepiękne rękawiczki',
-      size: 'S',
-      imageUrls: ['https://elektrykapradnietyka.com/wp-content/uploads/2021/03/kastet_na_trytytki-1.jpg'],
-      price: 0.04,
-      amount: 2
-    },
-    {
-      name: 'Przepiękne rękawiczki',
-      size: 'XXXL',
-      imageUrls: ['https://elektrykapradnietyka.com/wp-content/uploads/2021/03/kastet_na_trytytki-1.jpg'],
-      price: 0.04,
-      amount: 2
-    },
-    {
-      name: 'Przepiękne rękawiczki',
-      size: 'XXL',
-      imageUrls: ['https://elektrykapradnietyka.com/wp-content/uploads/2021/03/kastet_na_trytytki-1.jpg'],
-      price: 0.04,
-      amount: 2
-    },
-    {
-      name: 'Przepiękne rękawiczki',
-      size: 'XL',
-      imageUrls: ['https://elektrykapradnietyka.com/wp-content/uploads/2021/03/kastet_na_trytytki-1.jpg'],
-      price: 0.04,
-      amount: 2
-    },
-    {
-      name: 'Przepiękne rękawiczki',
-      size: 'BigBoi',
-      imageUrls: ['https://elektrykapradnietyka.com/wp-content/uploads/2021/03/kastet_na_trytytki-1.jpg'],
-      price: 0.04,
-      amount: 2
-    }
-  ];
+
+  cartContent: CartElement[] = [];
   cartSum = 0;
 
-  constructor(private authService: AuthService) { 
-    this.cartContent.forEach( (item) => 
-      this.cartSum += item.price * item.amount
-    );
+  constructor(
+    private authService: AuthService,
+    private cartService: CartService,
+    private buyService: BuyService,
+    private _snackBar: MatSnackBar
+  ) {
+
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    if(this.authService.token) {
+      this.getContent();
+    } else {
+      this.refreshAnonymousCart();
+    }
+  }
+
+  buyButt() {
+    const userToken = this.authService.getUserToken(this.authService.token!);
+    const invalidAmountToBuy: CartElement[] = this.cartContent.filter((cartElement) => {
+      return cartElement.amount > cartElement.amountAvailable;
+    });
+
+    if (invalidAmountToBuy.length !== 0) {
+      this._snackBar.openFromComponent(AmountIncorrectSnackbarComponent, {
+        data: invalidAmountToBuy
+      });
+      return;
+    }
+
+    this.buyService.buyCart(userToken.id).subscribe(() => {
+      this.cartContent = [];
+      this.cartSum = 0;
+      this._snackBar.open("Dokonano zakupu! Dziękujemy!", "OK", {
+        duration: 3000,
+        panelClass: ['added-to-cart-snackbar']
+      });
+    });
   }
 
   getRole(): string {
     return this.authService.token ? this.authService.userToken.role : "";
+  }
+
+  getContent() {
+    const token = this.authService.getUserToken(this.authService.token!);
+    this.cartService.getCartByUser(token.id).subscribe(userCart => {
+      this.cartContent = userCart;
+      this.refreshSum();
+    });
+  }
+
+  deleteElement(itemId: number) {
+    if (this.authService.token) {
+      this.cartService.deleteCartItem(itemId).subscribe(() => {
+        const elementToDelete = this.findCartElemenetById(itemId);
+        const indexToDelete = this.cartContent.indexOf(elementToDelete);
+        this.cartContent.splice(indexToDelete, 1);
+        this.refreshSum();
+      });
+    }
+    else {
+      this.cartService.deleteCartItemUnLog(itemId);
+      this.refreshAnonymousCart();
+    }
+  }
+
+  private findCartElemenetById(id: number): CartElement {
+    let value = this.cartContent.filter((element) => {
+      return element.id === id;
+    });
+    return value[0];
+  }
+
+  private refreshAnonymousCart() {
+    this.cartContent = [];
+    this.cartService.getCartList().forEach(item => {
+      if (item) {
+        this.cartContent.push(new CartElement(item.product.id, item.productName, item.product.size, item.photoUrl, item.sellingPrize, item.amount, 0));
+      }
+    });
+    this.refreshSum();
+  }
+  
+  private refreshSum() {
+    this.cartSum = 0;
+    this.cartContent.forEach((cartElement) => {
+      this.cartSum += cartElement.price * cartElement.amount;
+    });
   }
 
 }

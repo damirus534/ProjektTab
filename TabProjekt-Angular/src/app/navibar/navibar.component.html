@@ -1,5 +1,5 @@
 <mat-toolbar class="navibar-main" color="primary">
-  <button color="primary" class="title" mat-flat-button routerLink="">Sklep</button>
+  <button color="primary" class="title" mat-flat-button routerLink="" (click)="checkURL()" >Sklep</button>
   <button routerLink="/cart" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Koszyk" *ngIf="authService.userToken.role !== 'admin'">
     <mat-icon>shopping_cart</mat-icon>
   </button>

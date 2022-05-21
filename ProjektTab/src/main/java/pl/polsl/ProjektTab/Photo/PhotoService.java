@@ -37,6 +37,10 @@ public class PhotoService {
         return ResponseEntity.ok(photoRepository.findAll());
     }
 
+    public List<String> getUrlsById(Long id){
+        return photoRepository.findAllPhotos(id);
+    }
+
     public ResponseEntity<List<Photo>> getPhotosByProductInfoId(Long productInfoId) {
         return ResponseEntity.ok(photoRepository.findByProductInfoId(productInfoId));
     }

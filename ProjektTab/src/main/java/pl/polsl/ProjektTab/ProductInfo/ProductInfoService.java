@@ -32,6 +32,7 @@ public class ProductInfoService {
     public ProductInfoService(ProductInfoRepository productInfoRepository, CategoryRepository categoryRepository) {
         this.productInfoRepository = productInfoRepository;
         this.categoryRepository = categoryRepository;
+
     }
 
     public ResponseEntity<List<ProductInfo>> getProductInfo() {
@@ -109,6 +110,9 @@ public class ProductInfoService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
+        public ProductInfo getProductInfoById(long id){
+        ProductInfo temp= productInfoRepository.findById(id).orElseThrow(()->new ProductInfoNotFoundException(id));
+        return temp;
+        }
 }
 

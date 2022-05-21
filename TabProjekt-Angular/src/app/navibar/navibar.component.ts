@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {MainSideService} from "../core/website-service/main-side/main-side.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-navibar',
@@ -8,10 +9,16 @@ import { AuthService } from '../services/auth.service';
 })
 export class NavibarComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  constructor(public mainSide: MainSideService, public authService: AuthService) {
+
+  }
 
   ngOnInit(): void {
 
   }
 
+  checkURL() {
+    this.mainSide.setMain(0)
+    this.mainSide.setEvent(true);
+  }
 }

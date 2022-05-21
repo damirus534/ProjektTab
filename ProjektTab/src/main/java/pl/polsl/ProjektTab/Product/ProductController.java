@@ -4,16 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import pl.polsl.ProjektTab.Filters.ProductOff;
+import pl.polsl.ProjektTab.Filters.ReturnValue;
 
 @RestController
 @RequestMapping("/products")
@@ -63,7 +56,7 @@ public class ProductController {
     }
 
     @PutMapping("/edit/batch")
-    public ResponseEntity<List<Product>> batchEditProduct(@RequestHeader(value = "Authorization") String token, @RequestBody List<Product> productList) {
+    public ResponseEntity<Void> batchEditProduct(@RequestHeader(value = "Authorization") String token, @RequestBody List<Product> productList) {
         return productService.batchEditProduct(token.substring(7), productList);
     }
 
@@ -71,4 +64,19 @@ public class ProductController {
     public ResponseEntity<Product> deleteProduct(@RequestHeader(value = "Authorization") String token, @PathVariable Long productId) {
         return productService.deleteProduct(token.substring(7), productId);
     }
+
+    @GetMapping("/main")
+    public List<ReturnValue> getSeperateProducts(){
+        return productService.getSeperatedProduct();
+    }
+
+    @GetMapping("/main/category")
+    public List<ReturnValue> getProductsByFilter(@RequestParam Long id){
+        return productService.getProductByCategory(id);
+    }
+    @GetMapping("/main/category/id")
+    public List<ProductOff> getProductsByCategoryId(Long id){
+        return productService.getProductByCategoryId(id);
+    }
+
 }

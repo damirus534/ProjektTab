@@ -73,5 +73,8 @@ public class CategoryService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-    
+
+    public List<Category> getCategoriesUnLog() {
+        return categoryRepository.findAll();
+    }
 }

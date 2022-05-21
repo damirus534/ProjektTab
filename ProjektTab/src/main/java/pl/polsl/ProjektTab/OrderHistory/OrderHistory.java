@@ -47,6 +47,28 @@ public class OrderHistory implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    public OrderHistory(Date date, Float totalPrice, User user, List<Order> orders) {
+        this.date = date;
+        this.totalPrice = totalPrice;
+        this.user = user;
+        this.orders = orders;
+    }
+
+    public OrderHistory(Long id, Date date, Float totalPrice, User user) {
+        this.id = id;
+        this.date = date;
+        this.totalPrice = totalPrice;
+        this.user = user;
+    }
+
+    public OrderHistory(Long id, Date date, Float totalPrice, User user, List<Order> orders) {
+        this.id = id;
+        this.date = date;
+        this.totalPrice = totalPrice;
+        this.user = user;
+        this.orders = orders;
+    }
+
     public Long getId() {
         return this.id;
     }

@@ -17,6 +17,8 @@ import pl.polsl.Exceptions.ProductInfoNotFoundException;
 import pl.polsl.Exceptions.ProductNotFoundException;
 import pl.polsl.ProjektTab.Reference;
 import pl.polsl.ProjektTab.Cart.Cart;
+import pl.polsl.ProjektTab.Filters.ProductOff;
+import pl.polsl.ProjektTab.Filters.ReturnValue;
 import pl.polsl.ProjektTab.Order.Order;
 import pl.polsl.ProjektTab.ProductInfo.ProductInfo;
 import pl.polsl.ProjektTab.ProductInfo.ProductInfoRepository;
@@ -33,6 +35,7 @@ public class ProductService {
     public ProductService(ProductRepository productRepository, ProductInfoRepository productInfoRepository) {
         this.productRepository = productRepository;
         this.productInfoRepository = productInfoRepository;
+
     }
 
     public ResponseEntity<List<Product>> getProducts() { 
@@ -111,16 +114,14 @@ public class ProductService {
         }
     }
 
-    public ResponseEntity<List<Product>> batchEditProduct(String token, List<Product> productList) {
+    public ResponseEntity<Void> batchEditProduct(String token, List<Product> productList) {
         try {
             verifier.verify(token);
             
-            List<Product> editedProducts = new ArrayList<>();
             for(Product product : productList) {
-                ResponseEntity<Product> result = editProduct(token, product.getId(), product);
-                editedProducts.add(result.getBody());
+                productRepository.changeAmountAvailable(product.getAmountAvailable(), product.getId());
             }
-            return ResponseEntity.ok(editedProducts);
+            return ResponseEntity.ok().build();
         } catch (JWTVerificationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
@@ -146,4 +147,14 @@ public class ProductService {
         }
     }
 
+    public List<ReturnValue> getSeperatedProduct(){
+        return productRepository.getSeperatedProduct();
+    }
+
+    public List<ReturnValue> getProductByCategory(Long id){return productRepository.getFilteredProduct(id);}
+
+    public List<ProductOff> getProductByCategoryId(Long id){
+        return productRepository.getProductByCategoryId(id);
+    }
 }
+

@@ -38,7 +38,7 @@ export class LoginAndRegisterComponent implements OnInit {
   constructor(private userService: UserService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    
+
   }
 
   // Method which verifies correctness of input data - when it does not match, info is displayed.
@@ -68,17 +68,6 @@ export class LoginAndRegisterComponent implements OnInit {
         this.accountCreated = false;
       }
     });
-  }
-
-  checkToken() {
-    const helper = new JwtHelperService();
-    const token = localStorage.getItem('JWT_TOKEN');
-    if(token !== null) {
-      const role = helper.decodeToken(token).role;
-      console.log(role);
-    } else {
-      console.log('Ni ma');
-    }
   }
 
   // Getters for FormGroups and validation checking - cleaner code in html template with *ngIf.
