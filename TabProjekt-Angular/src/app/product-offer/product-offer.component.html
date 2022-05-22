@@ -1,0 +1,35 @@
+<mat-grid-list cols="2" rowHeight="2:1" >
+  <mat-grid-tile rowspan="2" colspan="1">
+<mat-card class="photo-gallery"><gallery class="gallery"  [items]="images"></gallery></mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile  rowspan="2" colspan="1">
+    <mat-card *ngIf="productInfo" class="card">
+      <mat-card-title class="title-card">{{productInfo.productName}}</mat-card-title>
+      <mat-card-content class="text-card">{{productInfo.description}}</mat-card-content>
+      <mat-card-content class="prize">Cena: {{productInfo.sellingPrice}} zł</mat-card-content>
+      <mat-card-content class="size-amount">
+        <mat-form-field class="size-amount" >
+          <mat-label>Rozmiar</mat-label>
+          <mat-select [(ngModel)]="selectedValue" (selectionChange)="error=''">
+            <mat-option *ngFor="let prod of productOff" [value]="prod">
+              {{prod.size}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-content class="size-amount">
+        <mat-form-field class="size-amount" *ngIf="selectedValue" >
+          <mat-label>Ilość (dostępnych: {{selectedValue.amountAvailable}})</mat-label>
+          <input (ngModelChange)="error = ''" name="amount" matInput [(ngModel)]='amountValue' type="number" max="{{selectedValue.amountAvailable}}" min="0">
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-content class="size-amount">
+        <button class="size-amount"  color="primary" mat-flat-button (click)="addToCart()">Dodaj do koszyka</button>
+      </mat-card-content>
+      <mat-card class="failure-info" *ngIf="error">
+        {{error}}
+      </mat-card>
+    </mat-card>
+  </mat-grid-tile>
+
+</mat-grid-list>

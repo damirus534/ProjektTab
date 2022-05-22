@@ -1,0 +1,112 @@
+<div class="dialog-container">
+    <mat-card-title class="title">Edytuj produkt</mat-card-title>
+    <div class="content">
+        <form [formGroup]="editForm">
+            <div class="content-containter">
+                <div class="left-side">
+                    <mat-label class="label">Szczegóły produktu</mat-label>
+
+                    <p>
+                        <mat-form-field class="form-field">
+                          <input type="text" matInput placeholder="Nazwa" formControlName="name">
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                          <textarea class="description-textarea" matInput placeholder="Opis" formControlName="descrption"></textarea>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                          <mat-select formControlName="category" placeholder="Kategoria" [compareWith]="compareCategories" [(value)]="data.productInfo.category">
+                            <mat-option> </mat-option>
+                            <mat-option *ngFor="let category of categoryList" [value]="category">
+                                {{category.categoryName}}
+                            </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="editForm.controls['category'].hasError('required')">Wybierz kategorię</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                          <input type="number" matInput placeholder="Cena zakupu" formControlName="buyingPrice" readonly>
+                        </mat-form-field>
+
+                        <mat-form-field class="form-field">
+                          <input type="number" matInput placeholder="Cena sprzedaży" formControlName="sellingPrice">
+                        </mat-form-field>
+                    </p>
+
+                    <mat-label class="label">Ilość produktów</mat-label>
+                    
+                    <div class="size-amount-inputs">
+                        <mat-form-field class="size-form-field">
+                            <input type="number" matInput placeholder="Rozmiar S" formControlName="sizeS">
+                        </mat-form-field>
+        
+                        <mat-form-field class="size-form-field">
+                            <input type="number" matInput placeholder="Rozmiar M" formControlName="sizeM">
+                        </mat-form-field>
+                    
+                        <mat-form-field class="size-form-field">
+                            <input type="number" matInput placeholder="Rozmiar L" formControlName="sizeL">
+                        </mat-form-field>
+                    
+                        <mat-form-field class="size-form-field">
+                            <input type="number" matInput placeholder="Rozmiar XL" formControlName="sizeXL">
+                        </mat-form-field>
+                    
+                        <mat-form-field class="size-form-field">
+                            <input type="number" matInput placeholder="Rozmiar XXL" formControlName="sizeXXL">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="right-side">
+                    <mat-label class="label">Zdjęcia</mat-label>
+                    <div class="url-adder-container">
+                        <mat-form-field class="url-input">
+                            <input type="text" matInput placeholder="Adres URL" [(ngModel)]="urlFromInput" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                        <button mat-icon-button class="addUrlButton" (click)="addUrl()">
+                            <mat-icon>
+                                add_circle_outline
+                            </mat-icon>
+                        </button>
+                    </div>
+                    <span class="error-message" *ngIf="urlInvalid">Niepoprawny adres URL</span>
+                    <span class="error-message" *ngIf="urlListEmpty">Dodaj conajmniej jedno zdjęcie, by kontynuować</span>
+                    <mat-list class="url-list">
+                        <mat-list-item class="list-subsection">Nowe zdjęcia</mat-list-item>
+                        <mat-list-item *ngFor="let photo of photoList; let i = index">
+                            <div class="list-element">
+                                <div class="url-container">
+                                    <a [href]="photo.photoUrl" target="_blank" rel="noreferrer noopener">Zdjęcie {{i + 1}}</a>
+                                </div>
+                                <button mat-icon-button color="warn" (click)="deleteUrl(i)">
+                                    <mat-icon>
+                                        remove_circle_outline
+                                    </mat-icon>
+                                </button>
+                            </div>
+                        </mat-list-item>
+                        <mat-divider> </mat-divider>
+                        <mat-list-item class="list-subsection">Zapisane zdjęcia</mat-list-item>
+                        <mat-list-item *ngFor="let photo of savedPhotoList; let i = index">
+                            <div class="list-element">
+                                <div class="url-container">
+                                    <a [href]="photo.photoUrl" target="_blank" rel="noreferrer noopener">Zapisane zdjęcie {{i + 1}}</a>
+                                </div>
+                                <button mat-icon-button color="warn" (click)="deleteSavedPhoto(photo.id!, i)">
+                                    <mat-icon>
+                                        remove_circle_outline
+                                    </mat-icon>
+                                </button>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+            </div>
+            <div class="button-container">
+                <button mat-button color="primary" mat-dialog-close> Anuluj </button>
+                <button mat-flat-button type="submit" color="primary" (click)="edit()"> Zapisz zmiany </button>
+            </div>
+        </form>
+    </div>
+</div>

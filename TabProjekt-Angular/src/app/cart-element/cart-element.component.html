@@ -1,22 +1,22 @@
-<mat-card class="cart-element-container">
+<mat-card class="cart-element-container" *ngIf="element" >
     <mat-grid-list cols="11" rowHeight="100%">
         <mat-grid-tile colspan="2">
-            <img class="cart-element-image" [src]="imageUrls[0]" alt="Product image">
+            <img class="cart-element-image" [src]="element.imageUrl" alt="Product image">
         </mat-grid-tile>
         <mat-grid-tile colspan="2">
-            <p> {{ name }} </p>
+            <p> {{ element.name }} </p>
         </mat-grid-tile>
         <mat-grid-tile colspan="2">
-            <p> {{ size }} </p>
+            <p> {{ element.size }} </p>
         </mat-grid-tile>
         <mat-grid-tile colspan="2">
-            <p> {{ amount }} </p>
+            <p> {{ element.amount }} </p>
         </mat-grid-tile>
         <mat-grid-tile colspan="2">
-            <p> {{ price }} </p>
+            <p> {{ element.price }} </p>
         </mat-grid-tile>
         <mat-grid-tile colspan="1">
-            <button mat-icon-button>
+            <button mat-icon-button (click)="select()">
                 <mat-icon>delete</mat-icon>
             </button>
         </mat-grid-tile>

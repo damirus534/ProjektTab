@@ -1,7 +1,8 @@
-<mat-card class="main-card">
+<mat-card class="main-card" >
     <mat-card-title class="card-title">Twój koszyk</mat-card-title>
     <div class="category-bar-wrapper">
         <div class="category-bar">
+
             <mat-grid-list cols="11" rowHeight="5vh">
                 <mat-grid-tile colspan="2">Zdjęcie produktu</mat-grid-tile>
                 <mat-grid-tile colspan="2">Nazwa</mat-grid-tile>
@@ -12,25 +13,27 @@
             </mat-grid-list>
         </div>
     </div>
-    <mat-card-content class="element-list">
+
+    <mat-card-content class="element-list" >
         <div class="element-containter" *ngFor="let element of cartContent">
-            <cart-element [name]="element.name" [size]="element.size" [imageUrls]="element.imageUrls" [price]="element.price" [amount]="element.amount"></cart-element>
+            <cart-element [element]="element" (eventTask)="deleteElement($event)"></cart-element>
         </div>
+
     </mat-card-content>
     <form class="form-container">
         <mat-grid-list cols="3" rowHeight="75px">
             <mat-grid-tile>
                 <p>
-                    Suma koszyka: {{ cartSum.toFixed(2) }}zł
+                    Suma koszyka: {{ this.cartSum }}zł
                 </p>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="buy-button" mat-raised-button color="primary">
+                <button class="buy-button" *ngIf="getRole() === 'user'" mat-raised-button color="primary" (click)="buyButt()">
                     Dokonaj zakupu
                 </button>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="log-button" mat-raised-button color="primary">
+                <button class="log-button" *ngIf="getRole() === 'user'" mat-raised-button color="primary">
                     Historia zamówień
                 </button>
             </mat-grid-tile>

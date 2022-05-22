@@ -1,12 +1,13 @@
-<mat-toolbar color="primary"  >
-  <span class="example-spacer"></span>
-  <button color="primary" class="title" mat-flat-button routerLink="">Sklep</button>
-  <span class="example-spacer"></span>
-  <button routerLink="/cart" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Koszyk" >
+<mat-toolbar class="navibar-main" color="primary">
+  <button color="primary" class="title" mat-flat-button routerLink="" (click)="checkURL()" >Sklep</button>
+  <button routerLink="/cart" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Koszyk" *ngIf="authService.userToken.role !== 'admin'">
     <mat-icon>shopping_cart</mat-icon>
   </button>
-  <button routerLink="/login" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Konto">
-    <mat-icon>person</mat-icon>
+  <button routerLink="/login" *ngIf="!(this.authService.isLoggedIn$ | async)" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Zaloguj/Zarejestruj">
+    <mat-icon>login</mat-icon>
+  </button>
+  <button routerLink="/login" *ngIf="this.authService.isLoggedIn$ | async" (click)="this.authService.logout()" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Wyloguj">
+    <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>
 

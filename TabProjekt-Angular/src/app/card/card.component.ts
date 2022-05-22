@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Product} from "../core/product";
+import {ProductMainSide} from "../core/product/productMainSide";
+
 
 @Component({
   selector: 'app-card',
@@ -9,9 +10,10 @@ import {Product} from "../core/product";
 export class CardComponent implements OnInit {
 
   constructor() { }
-  @Input() product!:Product ;
+  @Input() product!:ProductMainSide ;
   @Output() eventTask=new EventEmitter<number>();
   ngOnInit(): void {
+
   }
   select(){
     this.eventTask.emit(this.product.id);
