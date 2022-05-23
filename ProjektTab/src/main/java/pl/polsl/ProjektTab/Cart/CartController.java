@@ -52,12 +52,12 @@ public class CartController {
     }
 
     @PutMapping ("{userId}/product/{productId}/amount/{amount}")
-    public Cart addToCart(@PathVariable Long userId, @PathVariable Long productId,@PathVariable Integer amount){
-        return cartService.addToCart(productId,userId,amount);
+    public Cart addToCart(@PathVariable Long userId, @PathVariable Long productId, @PathVariable Integer amount) {
+        return cartService.addToCart(productId, userId, amount);
     }
 
     @GetMapping("/users")
-    public List<CartsItem> getCartsItemByUserId(@RequestParam Long id){
+    public List<CartsItem> getCartsItemByUserId(@RequestParam Long id) {
         return cartService.findCartItemByUserId(id);
     }
 }

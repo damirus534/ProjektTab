@@ -1,35 +1,57 @@
-.image{
+.content {
+  width: content-box;
+  height: 260px;
+  margin-top: 5px;
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  width: 100%;
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: large;
+  width: 40vw;
+}
+
+.content-container {
+  width: 100%;
+  height: calc(80% - 10px);
+  display: flex;
+}
+
+.image-container {
+  margin-right: 40px;
+}
+
+.image {
   object-fit: cover;
   background-size: cover;
   width: 200px;
-  height: 20vh;
-  float:left;
-  margin-right:40px;
-
+  height: 100%;
 }
-.content{
-  width: content-box;
-  height: 250px;
-  margin-top: 5px;
-  max-height: 600px;
-  overflow:auto;
-}
-.title{
-  font-size: large;
-  width: 600px;
-  text-align: center;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 
+.information-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
 }
-.description{
-  margin-left: 10%;
 
+.description {
   height: 60%;
+  font-size: large;
 }
-.prize{
-  font-size: x-large;
+
+.prize {
+  font-size: large;
+  margin: 10px 0;
 }
 

@@ -15,10 +15,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltipModule} from '@angular/material/tooltip';
 
-import {AppRoutingModule,routingComponents} from "./app-routing.module";
+import {AppRoutingModule} from "./app-routing.module";
 import { MainpageComponent } from './mainpage/mainpage.component';
 import { CartComponent } from './cart/cart.component';
-import { OfferComponent } from './offer/offer.component';
 import { LoginAndRegisterComponent } from './login-and-register/login-and-register.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider';
@@ -39,8 +38,9 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import { MatDialogModule} from "@angular/material/dialog";
-import { AddToCartComponent } from './dialogs/add-to-cart/add-to-cart.component';
 import {MatSortModule} from "@angular/material/sort";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AmountIncorrectSnackbarComponent } from './snackbars/amount-incorrect-snackbar/amount-incorrect-snackbar.component';
 
 @NgModule({
   declarations: [
@@ -48,10 +48,8 @@ import {MatSortModule} from "@angular/material/sort";
     NavibarComponent,
     SidenavComponent,
     CardComponent,
-    routingComponents,
     MainpageComponent,
     CartComponent,
-    OfferComponent,
     CardComponent,
     LoginAndRegisterComponent,
     CartElementComponent,
@@ -62,7 +60,7 @@ import {MatSortModule} from "@angular/material/sort";
     EditCategoryDialogComponent,
     AddProductDialogComponent,
     EditProductDialogComponent,
-    AddToCartComponent
+    AmountIncorrectSnackbarComponent
   ],
     imports: [
         BrowserModule,
@@ -92,7 +90,8 @@ import {MatSortModule} from "@angular/material/sort";
         MatSelectModule,
         MatListModule,
         MatDialogModule,
-        MatSortModule
+        MatSortModule,
+        MatSnackBarModule
     ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]

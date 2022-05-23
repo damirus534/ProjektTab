@@ -2,14 +2,13 @@ package pl.polsl.ProjektTab.Filters;
 
 import java.util.Objects;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+
 @ToString
 public class CartsItem {
     Long id;
@@ -18,10 +17,20 @@ public class CartsItem {
     String imageUrl;
     Float price;
     Integer amount;
+    Integer amountAvailable;
 
+    public CartsItem(Long id, String name, String size, String imageUrl, Float price, Integer amount, Integer amountAvailable) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.amount = amount;
+        this.amountAvailable = amountAvailable;
+    }
 
-
-
+    public CartsItem() {
+    }
 
     public Long getId() {
         return this.id;
@@ -71,6 +80,14 @@ public class CartsItem {
         this.amount = amount;
     }
 
+    public Integer getAmountAvailable() {
+        return this.amountAvailable;
+    }
+
+    public void setAmountAvailable(Integer amountAvailable) {
+        this.amountAvailable = amountAvailable;
+    }
+
     public CartsItem id(Long id) {
         setId(id);
         return this;
@@ -100,6 +117,11 @@ public class CartsItem {
         setAmount(amount);
         return this;
     }
+    
+    public CartsItem amountAvailable(Integer amountAvailable) {
+        setAmountAvailable(amountAvailable);
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -109,12 +131,12 @@ public class CartsItem {
             return false;
         }
         CartsItem cartsItem = (CartsItem) o;
-        return Objects.equals(id, cartsItem.id) && Objects.equals(name, cartsItem.name) && Objects.equals(size, cartsItem.size) && Objects.equals(imageUrl, cartsItem.imageUrl) && Objects.equals(price, cartsItem.price) && Objects.equals(amount, cartsItem.amount);
+        return Objects.equals(id, cartsItem.id) && Objects.equals(name, cartsItem.name) && Objects.equals(size, cartsItem.size) && Objects.equals(imageUrl, cartsItem.imageUrl) && Objects.equals(price, cartsItem.price) && Objects.equals(amount, cartsItem.amount) && Objects.equals(amountAvailable, cartsItem.amountAvailable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, size, imageUrl, price, amount);
+        return Objects.hash(id, name, size, imageUrl, price, amount, amountAvailable);
     }
 
     @Override
@@ -126,7 +148,9 @@ public class CartsItem {
             ", imageUrl='" + getImageUrl() + "'" +
             ", price='" + getPrice() + "'" +
             ", amount='" + getAmount() + "'" +
+            ", amountAvailable='" + getAmountAvailable() + "'" +
             "}";
     }
 
+    
 }

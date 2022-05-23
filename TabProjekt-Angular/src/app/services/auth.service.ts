@@ -22,7 +22,7 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private hashService: HashService) {
     // Check if token exists and is not expired
-    if(!!this.token && !this.jwtHelper.isTokenExpired(this.token)) {
+    if (!!this.token && !this.jwtHelper.isTokenExpired(this.token)) {
       this.userToken = this.getUserToken(this.token);
       this._isLoggedIn.next(true);
     } else {
@@ -34,8 +34,7 @@ export class AuthService {
     const encryptedPassword = this.hashService.set(environment.hashSecret, password);
     return this.httpClient.post<any>(`${environment.baseUrl}/users/login`, { login: email, password: encryptedPassword }).pipe(
       tap((response: any) => {
-        if(response != null) {
-
+        if (response) {
           localStorage.setItem(this.TOKEN_NAME, response.JWT_TOKEN);
           this._isLoggedIn.next(true);
           this.userToken = this.getUserToken(this.token!);

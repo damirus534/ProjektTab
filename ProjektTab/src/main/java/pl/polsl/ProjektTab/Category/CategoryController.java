@@ -31,11 +31,6 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getCategories() {
         return categoryService.getCategories();
     }
-    @GetMapping("/all")
-    public List<Category> getCategoriesUnLog(){
-        return categoryService.getCategoriesUnLog();
-    }
-
 
     @PostMapping
     public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String token, @RequestBody Category category) {

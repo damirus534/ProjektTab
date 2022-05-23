@@ -6,8 +6,8 @@ import { Photo } from 'src/app/core/photo/photo';
 import { PhotoService } from 'src/app/core/photo/photo.service';
 import { ProductInfoService } from 'src/app/core/product-info/product-info.service';
 import { ProductInfoAdmin } from 'src/app/core/product-info/ProductInfoAdmin';
-import { Product } from 'src/app/core/product/product';
 import { ProductService } from 'src/app/core/product/product.service';
+import { ProductAdmin } from 'src/app/core/product/productAdmin';
 
 @Component({
   selector: 'app-edit-product-dialog',
@@ -16,7 +16,7 @@ import { ProductService } from 'src/app/core/product/product.service';
 })
 export class EditProductDialogComponent implements OnInit {
 
-  productList: Product[] = [];
+  productList: ProductAdmin[] = [];
   categoryList: Category[] = [];
   savedPhotoList: Photo[] = [];
   photoList: Photo[] = [];

@@ -70,17 +70,6 @@ export class LoginAndRegisterComponent implements OnInit {
     });
   }
 
-  checkToken() {
-    const helper = new JwtHelperService();
-    const token = localStorage.getItem('JWT_TOKEN');
-    if(token !== null) {
-      const role = helper.decodeToken(token).role;
-      console.log(role);
-    } else {
-      console.log('Ni ma');
-    }
-  }
-
   // Getters for FormGroups and validation checking - cleaner code in html template with *ngIf.
   get loginEmail() {
     return this.loginForm.get('loginEmail');

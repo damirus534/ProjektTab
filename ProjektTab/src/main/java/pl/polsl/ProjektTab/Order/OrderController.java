@@ -27,7 +27,7 @@ public class OrderController {
 
     @PostMapping("/buy")
     public float buyButton(@RequestBody Long id){
-        return this.orderService.addOrderById(id);
+        return this.orderService.buyCartContent(id);
     }
 
     @GetMapping

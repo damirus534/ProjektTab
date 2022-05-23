@@ -1,17 +1,15 @@
 package pl.polsl.ProjektTab.Filters;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class CategoryValue {
     private Long id;
@@ -19,7 +17,23 @@ public class CategoryValue {
     private String productName;
     private List<String> photoUrl;
 
+    public CategoryValue(Long id, String description, String productName,String photoURL) {
+        this.id = id;
+        this.description = description;
+        this.productName = productName;
+        this.photoUrl=new ArrayList<>();
+        this.photoUrl.add(photoURL);
+    }
 
+    public CategoryValue() {
+    }
+
+    public CategoryValue(Long id, String description, String productName, List<String> photoUrl) {
+        this.id = id;
+        this.description = description;
+        this.productName = productName;
+        this.photoUrl = photoUrl;
+    }
 
     public Long getId() {
         return this.id;
