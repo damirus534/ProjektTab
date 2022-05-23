@@ -10,6 +10,8 @@ import {CartItem} from "../core/website-service/cart/CartItem";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "../services/auth.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {Router} from "@angular/router";
+import {MainSideService} from "../core/website-service/main-side/main-side.service";
 
 @Component({
   selector: 'app-product-offer',
@@ -34,7 +36,8 @@ export class ProductOfferComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private mainService:MainSideService
   ) { }
 
   images!: Array<ImageItem>;
@@ -44,6 +47,9 @@ export class ProductOfferComponent implements OnInit {
   }
 
   ngOnChanges() {
+    if(this.id==0){
+      this.id=this.mainService.getMain();
+    }
     const _this = this;
     this.getItems();
     this.productService.getProductsByCategoryId(this.id).subscribe(data => {
@@ -87,7 +93,7 @@ export class ProductOfferComponent implements OnInit {
       this._snackBar.open("Element został dodany do koszyka", "OK", {
         duration: 3000,
         panelClass: ['added-to-cart-snackbar']
-      }); 
+      });
     }
   }
 
@@ -95,5 +101,9 @@ export class ProductOfferComponent implements OnInit {
 
   }
 
+  return() {
+    this.mainService.setMain(0)
+    this.mainService.setEvent(true);
+  }
 }
 
