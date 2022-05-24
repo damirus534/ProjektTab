@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.polsl.ProjektTab.Filters.AdminRaportFilterProfit;
+import pl.polsl.ProjektTab.Filters.AdminRaportFilterReqBody;
 import pl.polsl.ProjektTab.Filters.RaportFilter;
 import pl.polsl.ProjektTab.Filters.UserRaportFilterReqBody;
 
@@ -55,6 +57,11 @@ public class OrderHistoryController {
     @PostMapping("/{userId}")
     public List<RaportFilter> getUserRaport(@PathVariable Long userId, @RequestBody UserRaportFilterReqBody reqBody){
         return orderHistoryService.getUserRaport(userId, reqBody.getBeginning(), reqBody.getEnding());
+    }
+
+    @PostMapping("/adminRaport")
+    public List<AdminRaportFilterProfit> getAdminRaport(@RequestBody AdminRaportFilterReqBody reqBody){
+        return orderHistoryService.getAdminRaport(reqBody.getCategoryId(), reqBody.getBeginning(), reqBody.getEnding(), reqBody.getRaportType());
     }
 
 }

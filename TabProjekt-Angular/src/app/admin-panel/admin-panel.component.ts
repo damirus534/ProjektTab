@@ -11,6 +11,7 @@ import { AddProductDialogComponent } from '../dialogs/add-product-dialog/add-pro
 import { EditCategoryDialogComponent } from '../dialogs/edit-category-dialog/edit-category-dialog.component';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 import {ProductInfoAdmin} from "../core/product-info/ProductInfoAdmin";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-panel',
@@ -34,7 +35,11 @@ export class AdminPanelComponent implements OnInit {
 
   generateButton: boolean = false;
   inputHidden = true;
-
+  dateForm = new FormGroup({
+    beginningDateControl: new FormControl('', [Validators.required]),
+    endingDateControl: new FormControl('', [Validators.required])
+  });
+  
   constructor(
     private categoryService: CategoryService,
     private productInfoService: ProductInfoService,
@@ -47,8 +52,24 @@ export class AdminPanelComponent implements OnInit {
     this.getProductInfo();
   }
 
-  displayOrHideDatapickers(){
+  displayOrHideDatapickers() {
     this.inputHidden= !this.inputHidden;
+  }
+
+  disableGenerateButton(): boolean {
+    if (!this.inputHidden && this.dateForm.invalid) {
+      return true;
+    }
+    else if (this.inputHidden || !this.inputHidden && this.dateForm.valid) {
+      return false;
+    }
+    else {
+      return true;
+    };
+  }
+
+  generateRaport() {
+    // WALIDACJA czy daty zostały wprowadzone
   }
 
   private getCategories() {
