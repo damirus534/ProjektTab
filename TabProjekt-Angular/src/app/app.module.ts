@@ -46,6 +46,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { MatNativeDateModule } from '@angular/material/core';
+import { AdminRaportComponent } from './admin-raport/admin-raport/admin-raport.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 
 @NgModule({
@@ -68,6 +69,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
     EditProductDialogComponent,
     AmountIncorrectSnackbarComponent,
     RaportUserDialogComponent,
+    AdminRaportComponent
     OrderHistoryComponent
   ],
   imports: [

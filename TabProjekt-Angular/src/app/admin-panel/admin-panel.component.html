@@ -119,16 +119,18 @@
             <mat-label class="headerRaportLabel">Wypełnij, co ma zawierać raport</mat-label>
             <form [formGroup]="dateForm">
               <div class="radioGroupButtons">
-                <mat-radio-group>
-                  <mat-radio-button value="1" [checked]="true">Zyski</mat-radio-button>
-                  <mat-radio-button value="2">Przychody</mat-radio-button>
+                <mat-radio-group [(ngModel)]="radio1" >
+
+                  <mat-radio-button  [value]="1" [checked]="true" (click)="radio1=1">Przychody</mat-radio-button>
+                  <mat-radio-button [value]="2" (click)="radio1=2">Zyski</mat-radio-button>
                 </mat-radio-group>
+
                 </div>
                 <div class="category">
-                <mat-form-field appearance="fill">
+                <mat-form-field appearance="fill" [(ngModel)]="categoryId">
                   <mat-label>Wybierz Kategorie</mat-label>
                   <mat-select class="categoryMatSelect">
-                  <mat-option *ngFor="let category of categoryList" [value]="category.categoryName">{{category.categoryName}}</mat-option>
+                  <mat-option *ngFor="let category of categoryList" (onSelectionChange)="categoryId=category.id" [value]="category.id">{{category.categoryName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 </div>
@@ -162,3 +164,4 @@
         </mat-tab>
       </mat-tab-group>
 </div>
+<app-admin-raport [body]="raportBody" [id]="outPut" *ngIf="raportBody"></app-admin-raport>
