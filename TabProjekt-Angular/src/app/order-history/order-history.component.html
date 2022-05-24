@@ -1,0 +1,43 @@
+<mat-card class="main-card" >
+  <mat-card-title class="card-title">Historia Zamówień</mat-card-title>
+  <div class="category-bar-wrapper">
+    <div class="category-bar">
+
+      <mat-grid-list cols="11" rowHeight="5vh">
+        <mat-grid-tile colspan="2">{{displayedColumns[0]}}</mat-grid-tile>
+        <mat-grid-tile colspan="2">{{displayedColumns[1]}}</mat-grid-tile>
+        <mat-grid-tile colspan="2">{{displayedColumns[2]}}</mat-grid-tile>
+        <mat-grid-tile colspan="2">{{displayedColumns[3]}}</mat-grid-tile>
+        <mat-grid-tile colspan="2">{{displayedColumns[4]}}</mat-grid-tile>
+        <mat-grid-tile colspan="1">{{displayedColumns[5]}}</mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+
+  <mat-card-content class="element-list"*ngIf="displayRow" >
+    <div class="element-containter" *ngFor="let element of displayRow">
+      <mat-card class="cart-element-container"  >
+        <mat-grid-list cols="11" rowHeight="100%">
+          <mat-grid-tile colspan="2">
+            <p> {{ element.orderHistoryDate!.substring(0,10)}} </p>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <p> {{ element.productName }} </p>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <p> {{ element.orderAmount }} </p>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <p> {{ element.orderSellPrice }} </p>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+            <p> {{ element.productSize }} </p>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+      </mat-card>
+
+    </div>
+
+  </mat-card-content>
+  </mat-card>

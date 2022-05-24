@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @ToString
+@AllArgsConstructor
 public class CategoryValue {
     private Long id;
     private String description;
@@ -24,15 +25,6 @@ public class CategoryValue {
         this.photoUrl.add(photoURL);
     }
 
-    public CategoryValue() {
-    }
-
-    public CategoryValue(Long id, String description, String productName, List<String> photoUrl) {
-        this.id = id;
-        this.description = description;
-        this.productName = productName;
-        this.photoUrl = photoUrl;
-    }
 
     public Long getId() {
         return this.id;

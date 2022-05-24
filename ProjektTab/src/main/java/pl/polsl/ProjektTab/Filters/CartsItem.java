@@ -2,12 +2,12 @@ package pl.polsl.ProjektTab.Filters;
 
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-
+@AllArgsConstructor
 @ToString
 public class CartsItem {
     Long id;
@@ -18,18 +18,6 @@ public class CartsItem {
     Integer amount;
     Integer amountAvailable;
 
-    public CartsItem(Long id, String name, String size, String imageUrl, Float price, Integer amount, Integer amountAvailable) {
-        this.id = id;
-        this.name = name;
-        this.size = size;
-        this.imageUrl = imageUrl;
-        this.price = price;
-        this.amount = amount;
-        this.amountAvailable = amountAvailable;
-    }
-
-    public CartsItem() {
-    }
 
     public Long getId() {
         return this.id;
