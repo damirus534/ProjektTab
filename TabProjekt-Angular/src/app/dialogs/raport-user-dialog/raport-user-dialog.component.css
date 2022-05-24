@@ -1,0 +1,21 @@
+* {
+  border: 0;
+  margin: 0;
+}
+
+.dialog-container{
+  display: flow;
+}
+
+.buttonDivider{
+  text-align: center;
+  margin-top: 1vh;
+}
+
+.buttonClass{
+  width: 70%;
+}
+
+.myTitle{
+  margin-bottom: 1vh;
+}

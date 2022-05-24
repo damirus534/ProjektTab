@@ -41,6 +41,11 @@ import { MatDialogModule} from "@angular/material/dialog";
 import {MatSortModule} from "@angular/material/sort";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AmountIncorrectSnackbarComponent } from './snackbars/amount-incorrect-snackbar/amount-incorrect-snackbar.component';
+import { RaportUserDialogComponent } from './dialogs/raport-user-dialog/raport-user-dialog.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -60,39 +65,44 @@ import { AmountIncorrectSnackbarComponent } from './snackbars/amount-incorrect-s
     EditCategoryDialogComponent,
     AddProductDialogComponent,
     EditProductDialogComponent,
-    AmountIncorrectSnackbarComponent
+    AmountIncorrectSnackbarComponent,
+    RaportUserDialogComponent
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatSidenavModule,
-        MatExpansionModule,
-        MatGridListModule,
-        MatCardModule,
-        MatButtonModule,
-        MatTooltipModule,
-        AppRoutingModule,
-        MatTooltipModule,
-        MatInputModule,
-        MatDividerModule,
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        GalleryModule,
-        MatSelectModule,
-        MatTabsModule,
-        MatListModule,
-        MatTableModule,
-        MatTabsModule,
-        MatTableModule,
-        MatSelectModule,
-        MatListModule,
-        MatDialogModule,
-        MatSortModule,
-        MatSnackBarModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTooltipModule,
+    AppRoutingModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatDividerModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GalleryModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatListModule,
+    MatTableModule,
+    MatTabsModule,
+    MatTableModule,
+    MatSelectModule,
+    MatListModule,
+    MatDialogModule,
+    MatSortModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatNativeDateModule
+  ],
   providers: [AuthInterceptorProvider],
   bootstrap: [AppComponent]
 })

@@ -19,7 +19,7 @@ import {ProductInfoAdmin} from "../core/product-info/ProductInfoAdmin";
 })
 export class AdminPanelComponent implements OnInit {
 
-  private categoryList: Category[] = [];
+  public categoryList: Category[] = [];
   categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'delete-action'];
   categoryDataSource = new MatTableDataSource<Category>();
   private activeCategorySort: Sort | null = null;
@@ -32,6 +32,9 @@ export class AdminPanelComponent implements OnInit {
   isCategoriesShown: boolean = true;
   isProductsShown: boolean = false;
 
+  generateButton: boolean = false;
+  inputHidden = true;
+
   constructor(
     private categoryService: CategoryService,
     private productInfoService: ProductInfoService,
@@ -42,6 +45,10 @@ export class AdminPanelComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.getProductInfo();
+  }
+
+  displayOrHideDatapickers(){
+    this.inputHidden= !this.inputHidden;
   }
 
   private getCategories() {
