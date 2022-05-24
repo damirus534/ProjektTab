@@ -13,4 +13,21 @@ public class UserRaportFilterReqBody {
         this.beginning = beginning;
         this.ending = ending;
     }
+
+    public Date getBeginning() {
+        return this.beginning;
+    }
+
+    public void setBeginning(Date beginning) {
+        this.beginning = beginning;
+    }
+
+    public Date getEnding() {
+        return this.ending;
+    }
+
+    public void setEnding(Date ending) {
+        this.ending = ending;
+    }
+
 }
