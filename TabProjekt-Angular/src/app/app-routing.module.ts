@@ -6,6 +6,7 @@ import { LoginAndRegisterComponent } from "./login-and-register/login-and-regist
 import { AuthGuard } from "./guards/auth.guard";
 import { RoleGuard } from "./guards/role.guard";
 import { AdminPanelComponent } from "./admin-panel/admin-panel.component";
+import {OrderHistoryComponent} from "./order-history/order-history.component";
 
 const routes: Routes = [
   {
@@ -37,9 +38,18 @@ const routes: Routes = [
     }
   },
   {
+    path:'history',
+    component:OrderHistoryComponent,
+    canActivate:[AuthGuard,RoleGuard],
+    data: {
+      roles: ['user']
+    }
+  },
+  {
     path: '**',
     redirectTo: ''
-  }
+  },
+
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
