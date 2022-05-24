@@ -1,6 +1,6 @@
 <mat-grid-list cols="2" rowHeight="2:1" >
   <mat-grid-tile rowspan="2" colspan="1">
-<mat-card class="photo-gallery"><gallery class="gallery"  [items]="images"></gallery></mat-card>
+    <mat-card class="photo-gallery"><button mat-flat-button (click)="return()"> <mat-icon>keyboard_arrow_left</mat-icon></button><gallery class="gallery"  [items]="images"></gallery></mat-card>
   </mat-grid-tile>
   <mat-grid-tile  rowspan="2" colspan="1">
     <mat-card *ngIf="productInfo" class="card">

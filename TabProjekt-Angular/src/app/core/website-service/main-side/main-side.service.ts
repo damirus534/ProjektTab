@@ -5,12 +5,21 @@ import {BehaviorSubject} from "rxjs";
   providedIn: 'root'
 })
 export class MainSideService {
+  get category(): number {
+    return this._category;
+  }
+
+  set category(value: number) {
+    this._category = value;
+  }
 
   main: number;
+  private _category :number;
   private event$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.main = 0;
+    this._category=0
   }
 
   setMain(main: number) {

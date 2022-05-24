@@ -6,6 +6,7 @@ import lombok.*;
 
 @Data
 @ToString
+@AllArgsConstructor
 public class ReturnValue {
     private Long id;
     private String description;
@@ -14,16 +15,7 @@ public class ReturnValue {
     private Float prize;
 
 
-    public ReturnValue(Long id, String description, String productName, String photoUrl, Float prize) {
-        this.id = id;
-        this.description = description;
-        this.productName = productName;
-        this.photoUrl = photoUrl;
-        this.prize = prize;
-    }
 
-    public ReturnValue() {
-    }
 
     public Long getId() {
         return this.id;

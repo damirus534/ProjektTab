@@ -33,7 +33,7 @@ export class SidenavComponent implements OnInit {
     })
   }
   ngOnChange() {
-    console.log(1)
+
   }
   getFilter(id: number) {
     this.productService.getProductsByFilter(id).subscribe(product => this.productList = product);
@@ -41,6 +41,7 @@ export class SidenavComponent implements OnInit {
 
   select($event: MouseEvent, type: Category) {
     this.getFilter(type.id!);
+    this.mainService.category=type.id!;
     this.returnId = 0;
     this.mainService.setMain(0);
   }
@@ -57,5 +58,5 @@ export class SidenavComponent implements OnInit {
   reset() {
     this.productService.getProducts().subscribe(data => this.productList = data);
   }
-  
+
 }

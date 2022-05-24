@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
+import {MatDatepicker} from "@angular/material/datepicker";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialogRef} from "@angular/material/dialog";
+import {OrderHistoryComponent} from "../../order-history/order-history.component";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-raport-user-dialog',
@@ -14,17 +18,19 @@ export class RaportUserDialogComponent implements OnInit {
     endingDateControl: new FormControl('', Validators.required)
   });
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,public dialogRef: MatDialogRef<OrderHistoryComponent>) { }
 
   ngOnInit(): void {
     this.authService.userToken.id;
   }
 
   generateRaport() {
-    const beginningDate = this.dateForm.controls['beginningDateControl'].value;
-    const endingDate = this.dateForm.controls['endingDateControl'].value;
+    const beginningDate =formatDate(this.dateForm.controls['beginningDateControl'].value,'yyyy-MM-dd','en-US')
 
-    
+    const endingDate = formatDate(this.dateForm.controls['endingDateControl'].value,'yyyy-MM-dd','en-US')
+
+    localStorage.setItem("beginningDate",beginningDate)
+    localStorage.setItem("endingDate",endingDate)
+    this.dialogRef.close()
   }
-
 }
