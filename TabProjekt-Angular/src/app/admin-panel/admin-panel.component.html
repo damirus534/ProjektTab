@@ -119,7 +119,7 @@
             <mat-label class="headerRaportLabel">Wypełnij co ma zawierać raport</mat-label>
             <div class="radioGroupButtons">
               <mat-radio-group>
-                <mat-radio-button value="1">Zyski</mat-radio-button>
+                <mat-radio-button value="1" [checked]="true">Zyski</mat-radio-button>
                 <mat-radio-button value="2">Przychody</mat-radio-button>
               </mat-radio-group>
             </div>
@@ -151,7 +151,7 @@
               </div>
             </div>
             <div class="buttonDivider">
-              <button mat-raised-button color="primary" class="buttonClass" [disabled]="!generateButton">Generate</button>
+              <button mat-raised-button color="primary" class="buttonClass">Generate</button>
             </div>
           </div>
         </mat-tab>

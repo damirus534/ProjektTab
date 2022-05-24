@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import pl.polsl.Exceptions.OrderHistoryNotFoundException;
 import pl.polsl.Exceptions.UserNotFoundException;
+import pl.polsl.ProjektTab.Filters.AdminRaportFilterProfit;
 import pl.polsl.ProjektTab.Filters.RaportFilter;
+import pl.polsl.ProjektTab.Filters.UserRaportFilterReqBody;
 import pl.polsl.ProjektTab.Order.Order;
 import pl.polsl.ProjektTab.User.User;
 import pl.polsl.ProjektTab.User.UserRepository;
@@ -69,4 +71,44 @@ public class OrderHistoryService {
     public List<RaportFilter>getUserRaport(Long userId, Date beginning, Date ending){
         return orderHistoryRepository.getUserRaport(userId, beginning, ending);
     }
+
+    public List<AdminRaportFilterProfit>getAdminRaport(Long categoryId, Date beginning, Date ending, Integer raportType){
+        if(categoryId==null && beginning==null && ending==null && raportType==1){
+            return orderHistoryRepository.getAdminIncomeRaport();
+        } else if (categoryId==null && beginning==null && ending==null && raportType==2) {
+            List<AdminRaportFilterProfit>CountProfit=orderHistoryRepository.getAdminProfitRaport();
+            for(AdminRaportFilterProfit myUnit:CountProfit){
+                myUnit.setOrderSellPrice(myUnit.getOrderSellPrice()-myUnit.getBuyingPrice());
+            }
+            return CountProfit;
+        } else if(categoryId!=null && beginning==null && ending==null && raportType==1){
+            return orderHistoryRepository.getAdminIncomeRaportCategory(categoryId);
+        }else if(categoryId!=null && beginning==null && ending==null && raportType==2){
+            List<AdminRaportFilterProfit>CountProfit=orderHistoryRepository.getAdminProfitRaportCategory(categoryId);
+            for(AdminRaportFilterProfit myUnit:CountProfit){
+                myUnit.setOrderSellPrice(myUnit.getOrderSellPrice()-myUnit.getBuyingPrice());
+            }
+            return CountProfit;
+        }else if(categoryId==null && beginning!=null && ending!=null && raportType==1){
+            return orderHistoryRepository.getAdminIncomeRaportDate(beginning, ending);
+        }else if(categoryId==null && beginning!=null && ending!=null && raportType==2){
+            List<AdminRaportFilterProfit>CountProfit=orderHistoryRepository.getAdminProfitRaportDate(beginning, ending);
+            for(AdminRaportFilterProfit myUnit:CountProfit){
+                myUnit.setOrderSellPrice(myUnit.getOrderSellPrice()-myUnit.getBuyingPrice());
+            }
+            return CountProfit;
+        }else if(categoryId!=null && beginning!=null && ending!=null && raportType==1){
+            return orderHistoryRepository.getAdminIncomeRaportDateCategory(categoryId, beginning, ending);
+        }else if(categoryId!=null && beginning!=null && ending!=null && raportType==2) {
+            List<AdminRaportFilterProfit>CountProfit=orderHistoryRepository.getAdminProfitRaportDateCategory(categoryId, beginning, ending);
+            for(AdminRaportFilterProfit myUnit:CountProfit){
+                myUnit.setOrderSellPrice(myUnit.getOrderSellPrice()-myUnit.getBuyingPrice());
+            }
+            return CountProfit;
+        }else{
+            return null;
+        }
+
+    }
+
 }
