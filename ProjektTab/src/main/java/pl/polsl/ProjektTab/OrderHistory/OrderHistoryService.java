@@ -1,5 +1,6 @@
 package pl.polsl.ProjektTab.OrderHistory;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pl.polsl.Exceptions.OrderHistoryNotFoundException;
 import pl.polsl.Exceptions.UserNotFoundException;
+import pl.polsl.ProjektTab.Filters.RaportFilter;
 import pl.polsl.ProjektTab.Order.Order;
 import pl.polsl.ProjektTab.User.User;
 import pl.polsl.ProjektTab.User.UserRepository;
@@ -62,5 +64,9 @@ public class OrderHistoryService {
         }
         orderHistoryRepository.delete(orderHistory);
         return orderHistory;
+    }
+
+    public List<RaportFilter>getUserRaport(Long userId, Date beginning, Date ending){
+        return orderHistoryRepository.getUserRaport(userId, beginning, ending);
     }
 }

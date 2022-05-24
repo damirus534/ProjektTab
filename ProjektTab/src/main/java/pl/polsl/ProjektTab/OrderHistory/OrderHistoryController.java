@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.polsl.ProjektTab.Filters.RaportFilter;
+import pl.polsl.ProjektTab.Filters.UserRaportFilterReqBody;
 
 @RestController
 @RequestMapping("/order-history")
@@ -48,6 +50,11 @@ public class OrderHistoryController {
     @DeleteMapping("/delete/{orderHistoryId}")
     public OrderHistory deleteOrderHistory(@PathVariable Long orderHistoryId) {
         return orderHistoryService.deleteOrderHistory(orderHistoryId);
+    }
+
+    @PostMapping("/{userId}")
+    public List<RaportFilter> getUserRaport(@PathVariable Long userId, @RequestBody UserRaportFilterReqBody reqBody){
+        return orderHistoryService.getUserRaport(userId, reqBody.getBeginning(), reqBody.getEnding());
     }
 
 }

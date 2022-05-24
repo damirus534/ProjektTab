@@ -120,3 +120,30 @@
     background-color: rgb(71, 192, 71);
 }
 
+.raport-tab{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  text-align: center;
+}
+
+.headerRaportLabel{
+  font-size: 22px;
+}
+
+.categoryMatSelect{
+}
+
+.mat-radio-button ~ .mat-radio-button{
+  margin-top: 1vh;
+  margin-left: 1vh;
+  margin-bottom: 1vh;
+}
+.buttonDivider{
+}
+
+.buttonClass{
+  bottom: 0;
+  left: 0;
+  width: 70%;
+}

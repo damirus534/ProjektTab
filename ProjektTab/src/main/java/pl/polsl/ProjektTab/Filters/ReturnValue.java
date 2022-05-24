@@ -5,8 +5,6 @@ import java.util.Objects;
 import lombok.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class ReturnValue {
     private Long id;
