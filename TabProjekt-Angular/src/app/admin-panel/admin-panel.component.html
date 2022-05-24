@@ -116,42 +116,47 @@
         </mat-tab>
         <mat-tab class="tab" label="Raporty">
           <div class="raport-tab">
-            <mat-label class="headerRaportLabel">Wypełnij co ma zawierać raport</mat-label>
-            <div class="radioGroupButtons">
-              <mat-radio-group>
-                <mat-radio-button value="1" [checked]="true">Zyski</mat-radio-button>
-                <mat-radio-button value="2">Przychody</mat-radio-button>
-              </mat-radio-group>
-            </div>
-            <div class="category">
-              <mat-form-field appearance="fill">
-                <mat-label>Wybierz Kategorie</mat-label>
-                <mat-select class="categoryMatSelect">
+            <mat-label class="headerRaportLabel">Wypełnij, co ma zawierać raport</mat-label>
+            <form [formGroup]="dateForm">
+              <div class="radioGroupButtons">
+                <mat-radio-group>
+                  <mat-radio-button value="1" [checked]="true">Zyski</mat-radio-button>
+                  <mat-radio-button value="2">Przychody</mat-radio-button>
+                </mat-radio-group>
+                </div>
+                <div class="category">
+                <mat-form-field appearance="fill">
+                  <mat-label>Wybierz Kategorie</mat-label>
+                  <mat-select class="categoryMatSelect">
                   <mat-option *ngFor="let category of categoryList" [value]="category.categoryName">{{category.categoryName}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="dataSorting">
-              <mat-checkbox class="example-margin" (change)="displayOrHideDatapickers()">Sortowanie po dacie</mat-checkbox>
-              <div class="dataPickersDivider">
-                <mat-form-field appearance="fill" *ngIf="!inputHidden">
-                  <mat-label>Begining from:</mat-label>
-                  <input matInput [matDatepicker]="picker1">
-                  <mat-hint>MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                  <mat-datepicker #picker1></mat-datepicker>
+                  </mat-select>
                 </mat-form-field>
-                <mat-form-field style="margin:5px" appearance="fill" *ngIf="!inputHidden">
-                  <mat-label>To:</mat-label>
-                  <input matInput [matDatepicker]="picker2">
-                  <mat-hint>MM/DD/YYYY</mat-hint>
-                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                  <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
+                </div>
+                <div class="dataSorting">
+                <mat-checkbox class="example-margin" (change)="displayOrHideDatapickers()">Sortowanie po dacie</mat-checkbox>
+                <div class="dataPickersDivider">
+                  <mat-form-field appearance="fill" *ngIf="!inputHidden">
+                    <mat-label>Od:</mat-label>
+                    <input matInput [matDatepicker]="picker1" formControlName="beginningDateControl">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field style="margin:5px" appearance="fill" *ngIf="!inputHidden">
+                    <mat-label>Do:</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="endingDateControl">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
               </div>
-            </div>
+              <div class="buttonDivider">
+                <button mat-raised-button color="primary" *ngIf="!inputHidden" type="submit" class="buttonClass" [disabled]="disableGenerateButton()" (click)="generateRaport()">Generuj raport</button>
+              </div>
+            </form>
             <div class="buttonDivider">
-              <button mat-raised-button color="primary" class="buttonClass">Generate</button>
+              <button mat-raised-button color="primary" *ngIf="inputHidden" class="buttonClass" [disabled]="disableGenerateButton()" (click)="generateRaport()">Generuj raport</button>
             </div>
           </div>
         </mat-tab>
