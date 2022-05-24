@@ -5,6 +5,8 @@ import {CartElement} from "../cart-element/cartElement";
 import {BuyService} from "../core/website-service/buy-service/buy.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AmountIncorrectSnackbarComponent } from '../snackbars/amount-incorrect-snackbar/amount-incorrect-snackbar.component';
+import {MatDialog} from "@angular/material/dialog";
+import { RaportUserDialogComponent } from '../dialogs/raport-user-dialog/raport-user-dialog.component';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +22,8 @@ export class CartComponent implements OnInit {
     private authService: AuthService,
     private cartService: CartService,
     private buyService: BuyService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
 
   }
@@ -31,6 +34,10 @@ export class CartComponent implements OnInit {
     } else {
       this.refreshAnonymousCart();
     }
+  }
+
+  openHistoryDialog(){
+    const dialogRef = this.dialog.open(RaportUserDialogComponent);
   }
 
   buyButt() {
@@ -99,7 +106,7 @@ export class CartComponent implements OnInit {
     });
     this.refreshSum();
   }
-  
+
   private refreshSum() {
     this.cartSum = 0;
     this.cartContent.forEach((cartElement) => {

@@ -9,7 +9,7 @@
                 <mat-grid-tile colspan="2">Rozmiar</mat-grid-tile>
                 <mat-grid-tile colspan="2">Ilość</mat-grid-tile>
                 <mat-grid-tile colspan="2">Cena za sztukę</mat-grid-tile>
-                <mat-grid-tile colspan="1">Usuń pozycję</mat-grid-tile>
+                <mat-grid-tile colspan="1">Usuń</mat-grid-tile>
             </mat-grid-list>
         </div>
     </div>
@@ -33,7 +33,7 @@
                 </button>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="log-button" *ngIf="getRole() === 'user'" mat-raised-button color="primary">
+                <button class="log-button" *ngIf="getRole() === 'user'" mat-raised-button color="primary" (click)="openHistoryDialog()">
                     Historia zamówień
                 </button>
             </mat-grid-tile>
