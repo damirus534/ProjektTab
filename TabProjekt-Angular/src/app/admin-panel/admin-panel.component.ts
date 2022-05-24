@@ -12,6 +12,11 @@ import { EditCategoryDialogComponent } from '../dialogs/edit-category-dialog/edi
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 import {ProductInfoAdmin} from "../core/product-info/ProductInfoAdmin";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {AdminRaportServiceService} from "../core/admin-raport-service/admin-raport-service.service";
+import {filter} from "rxjs";
+import {AdminRaportReqbody} from "../core/admin-raport-service/admin-raport-reqbody";
+import {AdminRaportService} from "../core/admin-raport-service/admin-raport-service";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-admin-panel',
@@ -19,12 +24,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-
+  categoryRadio:string[]=['Zyski','Przychody']
   public categoryList: Category[] = [];
   categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'delete-action'];
   categoryDataSource = new MatTableDataSource<Category>();
   private activeCategorySort: Sort | null = null;
-
+  categoryId:number|null=null
   private productInfoList: ProductInfoAdmin[] = [];
   productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'block-resume-action'];
   productInfoDataSource = new MatTableDataSource<ProductInfoAdmin>();
@@ -32,18 +37,21 @@ export class AdminPanelComponent implements OnInit {
 
   isCategoriesShown: boolean = true;
   isProductsShown: boolean = false;
-
+  raportBody!:AdminRaportService[]
   generateButton: boolean = false;
   inputHidden = true;
+  radio1:number=1;
+  outPut?:number;
   dateForm = new FormGroup({
-    beginningDateControl: new FormControl('', [Validators.required]),
-    endingDateControl: new FormControl('', [Validators.required])
+    beginningDateControl: new FormControl(null, [Validators.required]),
+    endingDateControl: new FormControl(null, [Validators.required])
   });
-  
+
   constructor(
     private categoryService: CategoryService,
     private productInfoService: ProductInfoService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private adminRaportServiceService : AdminRaportServiceService
   ) {
   }
 
@@ -69,7 +77,28 @@ export class AdminPanelComponent implements OnInit {
   }
 
   generateRaport() {
-    // WALIDACJA czy daty zostały wprowadzone
+    console.log(this.radio1)
+    console.log(this.categoryId)
+
+    if(this.dateForm.controls['beginningDateControl'].value != null && this.dateForm.controls['endingDateControl'].value != null){
+      const beginningDate =formatDate(this.dateForm.controls['beginningDateControl'].value,'yyyy-MM-dd','en-US')
+
+      const endingDate = formatDate(this.dateForm.controls['endingDateControl'].value,'yyyy-MM-dd','en-US')
+      this.adminRaportServiceService.getAdminRaport(new AdminRaportReqbody(this.categoryId,
+        beginningDate,endingDate,
+        this.radio1)).subscribe(date=>{
+        this.raportBody=date
+        console.log(date)
+      })
+    }
+    else {
+    this.adminRaportServiceService.getAdminRaport(new AdminRaportReqbody(this.categoryId,
+      null,null,
+      this.radio1)).subscribe(date=>{
+        this.raportBody=date
+      console.log(date)
+    })}
+    this.outPut=this.radio1
   }
 
   private getCategories() {

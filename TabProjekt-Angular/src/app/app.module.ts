@@ -46,6 +46,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { MatNativeDateModule } from '@angular/material/core';
+import { AdminRaportComponent } from './admin-raport/admin-raport/admin-raport.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     AddProductDialogComponent,
     EditProductDialogComponent,
     AmountIncorrectSnackbarComponent,
-    RaportUserDialogComponent
+    RaportUserDialogComponent,
+    AdminRaportComponent
   ],
   imports: [
     BrowserModule,
