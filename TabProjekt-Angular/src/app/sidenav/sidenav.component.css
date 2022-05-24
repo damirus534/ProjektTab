@@ -3,6 +3,10 @@
   height: 93vh;
 }
 
+.sidenav-main {
+  width: 200px;
+}
+
 .text1 {
   font-size: large;
 }
