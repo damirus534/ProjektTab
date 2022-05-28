@@ -32,6 +32,11 @@ public class CategoryController {
         return categoryService.getCategories();
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<Category>> getActiveCategories() {
+        return categoryService.getActiveCategories();
+    }
+
     @PostMapping
     public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String token, @RequestBody Category category) {
         return categoryService.addCategory(token.substring(7), category);

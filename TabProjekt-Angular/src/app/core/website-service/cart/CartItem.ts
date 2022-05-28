@@ -7,9 +7,9 @@ export class CartItem {
   productName!: string;
   sellingPrize!: number;
 
-  constructor(product: ProductOffer, amout: number, photo: string, name: string, prize: number) {
+  constructor(product: ProductOffer, amount: number, photo: string, name: string, prize: number) {
     this.product = product;
-    this.amount = amout;
+    this.amount = amount;
     this.photoUrl = photo;
     this.productName = name;
     this.sellingPrize = prize;

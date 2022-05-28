@@ -3,7 +3,7 @@
   <div class="title-container">
     <mat-card-title>
       <button (click)="select()" color="primary" class="title" mat-flat-button>
-        {{product.productName}}
+        {{product.productName.length > 50 ? product.productName.substring(0, 47) + '...' : product.productName}}
       </button>
     </mat-card-title>
   </div>

@@ -15,6 +15,14 @@ public class ReturnValue {
     private Float prize;
 
 
+    public ReturnValue(Long id, String description, String productName, String photoUrl, Float prize) {
+        this.id = id;
+        this.description = description;
+        this.productName = productName;
+        this.photoUrl = photoUrl;
+        this.prize = prize;
+    }
+
 
 
     public Long getId() {

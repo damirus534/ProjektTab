@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
@@ -16,6 +15,12 @@ public class ProductOff {
     String size;
 
 
+
+    public ProductOff(Long id, Integer amountAvailable, String size) {
+        this.id = id;
+        this.amountAvailable = amountAvailable;
+        this.size = size;
+    }
 
 
     public Long getId() {

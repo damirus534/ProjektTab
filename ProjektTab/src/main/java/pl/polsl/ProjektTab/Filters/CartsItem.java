@@ -19,6 +19,16 @@ public class CartsItem {
     Integer amountAvailable;
 
 
+    public CartsItem(Long id, String name, String size, String imageUrl, Float price, Integer amount, Integer amountAvailable) {
+        this.id = id;
+        this.name = name;
+        this.size = size;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.amount = amount;
+        this.amountAvailable = amountAvailable;
+    }
+
     public Long getId() {
         return this.id;
     }

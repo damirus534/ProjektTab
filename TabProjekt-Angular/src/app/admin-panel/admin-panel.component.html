@@ -1,5 +1,4 @@
 <div class="main">
-    <mat-card-title class="main-title">Panel administratora</mat-card-title>
     <mat-tab-group mat-stretch-tabs class="tab-group">
         <mat-tab class="tab" label="Zarządzanie">
             <div class="add-and-delete-tab">
@@ -38,11 +37,11 @@
                                 </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="delete-action">
-                                <th mat-header-cell *matHeaderCellDef>Usuń pozycję</th>
+                            <ng-container matColumnDef="block-resume-action">
+                                <th mat-header-cell *matHeaderCellDef>Stan kategorii</th>
                                 <td mat-cell *matCellDef="let category">
-                                    <button mat-icon-button (click)="deleteCategory(category.id)">
-                                        <mat-icon>delete</mat-icon>
+                                    <button class="block-resume-button" mat-flat-button (click)="blockOrResumeCategory(category)" [class.red]="!category.isActive" [class.green]="category.isActive">
+                                        {{ category.isActive ? 'Aktywna' : 'Nieaktywna' }}
                                     </button>
                                 </td>
                             </ng-container>

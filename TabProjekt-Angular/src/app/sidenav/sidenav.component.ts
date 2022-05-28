@@ -19,7 +19,7 @@ export class SidenavComponent implements OnInit {
   constructor(private productService: ProductService, public mainService: MainSideService, private categoryService: CategoryService) {
     this.productService.getProducts().subscribe(product => this.productList = product);
     this.returnId = 0;
-    this.categoryService.getCategories().subscribe(date => this.categories = date);
+    this.categoryService.getActiveCategories().subscribe(activeCategories => this.categories = activeCategories);
   }
   returnId!: number;
   categories!: Category[];
