@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProductMainSide} from "../core/product/productMainSide";
-import {$e} from "@angular/compiler/src/chars";
 
 @Component({
   selector: 'app-product-list',
@@ -11,12 +10,13 @@ export class ProductListComponent implements OnInit {
 
   constructor() { }
   @Input() productList!: Array<ProductMainSide>;
-  @Output() eventTask=new EventEmitter<number>();
+  @Output() eventTask = new EventEmitter<number>();
+  
   ngOnInit(): void {
   }
 
   selected($event: number) {
-    let id: number = $event
-    this.eventTask.emit(id)
+    let id: number = $event;
+    this.eventTask.emit(id);
   }
 }

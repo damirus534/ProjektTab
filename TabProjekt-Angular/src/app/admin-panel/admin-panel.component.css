@@ -5,15 +5,9 @@
 
 .main {
     display: flex;
-    flex-grow: 1; /* ! might need changes later */
+    flex-grow: 1;
     flex-direction: column;
     align-items: center;
-}
-
-.main-title {
-    font-size: 30px;
-    margin-top: 3vh;
-    height: 4vh;
 }
 
 .tab-group {
@@ -61,16 +55,16 @@
 }
 
 .add-button-container {
-    width: 5vh;
-    height: 5vh;
+    width: 45px;
+    height: 45px;
 }
 
 .add-button {
     padding: 0;
     margin-top: 4px;
     min-width: 5vh;
-    width: 5vh;
-    height: 5vh;
+    width: 45px;
+    height: 45px;
     background-color: rgb(115, 233, 115);
 }
 
@@ -88,8 +82,10 @@
     border-right: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.mat-column-category-name, .mat-column-product-name {
-    padding-left: 24px;
+.mat-column-category-name, .mat-column-product-name, .mat-column-product-category {
+    padding: 0 12px;
+    overflow-wrap: break-word;
+    max-width: 10vw;
 }
 
 .mat-column-delete-action, .mat-column-edit-action {
@@ -120,3 +116,25 @@
     background-color: rgb(71, 192, 71);
 }
 
+.raport-tab {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  text-align: center;
+}
+
+.headerRaportLabel {
+  font-size: 22px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-top: 1vh;
+  margin-left: 1vh;
+  margin-bottom: 1vh;
+}
+
+.buttonClass {
+  bottom: 0;
+  left: 0;
+  width: 70%;
+}

@@ -117,4 +117,8 @@ public class UserService {
         }
     }
 
+    public ResponseEntity<User> getUserByEmail(String userEmail) {
+        return ResponseEntity.ok(userRepository.findUserByLogin(userEmail));
+    }
+
 }

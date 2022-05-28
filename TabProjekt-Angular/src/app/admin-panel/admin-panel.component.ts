@@ -11,6 +11,12 @@ import { AddProductDialogComponent } from '../dialogs/add-product-dialog/add-pro
 import { EditCategoryDialogComponent } from '../dialogs/edit-category-dialog/edit-category-dialog.component';
 import { EditProductDialogComponent } from '../dialogs/edit-product-dialog/edit-product-dialog.component';
 import {ProductInfoAdmin} from "../core/product-info/ProductInfoAdmin";
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {AdminRaportServiceService} from "../core/admin-raport-service/admin-raport-service.service";
+import {filter} from "rxjs";
+import {AdminRaportReqbody} from "../core/admin-raport-service/admin-raport-reqbody";
+import {AdminRaportService} from "../core/admin-raport-service/admin-raport-service";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-admin-panel',
@@ -19,11 +25,12 @@ import {ProductInfoAdmin} from "../core/product-info/ProductInfoAdmin";
 })
 export class AdminPanelComponent implements OnInit {
 
-  private categoryList: Category[] = [];
-  categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'delete-action'];
+  categoryRadio: string[] = ['Zyski','Przychody'];
+  public categoryList: Category[] = [];
+  categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'block-resume-action'];
   categoryDataSource = new MatTableDataSource<Category>();
   private activeCategorySort: Sort | null = null;
-
+  categoryId: number | null = null;
   private productInfoList: ProductInfoAdmin[] = [];
   productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'block-resume-action'];
   productInfoDataSource = new MatTableDataSource<ProductInfoAdmin>();
@@ -31,17 +38,68 @@ export class AdminPanelComponent implements OnInit {
 
   isCategoriesShown: boolean = true;
   isProductsShown: boolean = false;
+  raportBody!: AdminRaportService[];
+  generateButton: boolean = false;
+  inputHidden = true;
+  radio1: number = 1;
+  outPut?: number;
+  dateForm = new FormGroup({
+    beginningDateControl: new FormControl(null, [Validators.required]),
+    endingDateControl: new FormControl(null, [Validators.required])
+  });
 
   constructor(
     private categoryService: CategoryService,
     private productInfoService: ProductInfoService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private adminRaportServiceService : AdminRaportServiceService
   ) {
   }
 
   ngOnInit(): void {
     this.getCategories();
     this.getProductInfo();
+  }
+
+  displayOrHideDatapickers() {
+    this.inputHidden= !this.inputHidden;
+  }
+
+  disableGenerateButton(): boolean {
+    if (!this.inputHidden && this.dateForm.invalid) {
+      return true;
+    }
+    else if (this.inputHidden || !this.inputHidden && this.dateForm.valid) {
+      return false;
+    }
+    else {
+      return true;
+    };
+  }
+
+  generateRaport() {
+    console.log(this.radio1)
+    console.log(this.categoryId)
+
+    if(this.dateForm.controls['beginningDateControl'].value != null && this.dateForm.controls['endingDateControl'].value != null){
+      const beginningDate =formatDate(this.dateForm.controls['beginningDateControl'].value,'yyyy-MM-dd','en-US')
+
+      const endingDate = formatDate(this.dateForm.controls['endingDateControl'].value,'yyyy-MM-dd','en-US')
+      this.adminRaportServiceService.getAdminRaport(new AdminRaportReqbody(this.categoryId,
+        beginningDate,endingDate,
+        this.radio1)).subscribe(date=>{
+        this.raportBody=date
+        console.log(date)
+      })
+    }
+    else {
+    this.adminRaportServiceService.getAdminRaport(new AdminRaportReqbody(this.categoryId,
+      null,null,
+      this.radio1)).subscribe(date=>{
+        this.raportBody=date
+      console.log(date)
+    })}
+    this.outPut=this.radio1
   }
 
   private getCategories() {
@@ -105,16 +163,9 @@ export class AdminPanelComponent implements OnInit {
     return value ? value[0] : null;
   }
 
-  deleteCategory(id: number) {
-    try {
-      this.categoryService.delete(id).subscribe();
-      this.categoryList = this.categoryList.filter((category) => {
-        return category.id !== id;
-      });
-      this.refreshCategoryDataSource();
-    } catch (e) {
-      console.log(e);
-    }
+  blockOrResumeCategory(category: Category) {
+    category.isActive = !category.isActive;
+    this.categoryService.changeIsActive(category).subscribe();
   }
 
   openAddProductDialog() {

@@ -51,6 +51,8 @@ public class CategoryService {
             );
             if(category.getCategoryName() != null)
                 editedCategory.setCategoryName(category.getCategoryName());
+            if(category.getIsActive() != null)
+                editedCategory.setIsActive(category.getIsActive());
             return ResponseEntity.ok(categoryRepository.save(editedCategory));
         } catch (JWTVerificationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -76,5 +78,9 @@ public class CategoryService {
 
     public List<Category> getCategoriesUnLog() {
         return categoryRepository.findAll();
+    }
+
+    public ResponseEntity<List<Category>> getActiveCategories() {
+        return ResponseEntity.ok(categoryRepository.findActiveCategories());
     }
 }

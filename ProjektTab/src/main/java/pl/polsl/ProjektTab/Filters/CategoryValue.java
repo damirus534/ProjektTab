@@ -1,17 +1,16 @@
 package pl.polsl.ProjektTab.Filters;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.ToString;
 
 @Data
-@NoArgsConstructor
-
 @ToString
+@AllArgsConstructor
 public class CategoryValue {
     private Long id;
     private String description;
@@ -24,5 +23,84 @@ public class CategoryValue {
         this.productName = productName;
         this.photoUrl=new ArrayList<>();
         this.photoUrl.add(photoURL);
+    }
+
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getProductName() {
+        return this.productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public List<String> getPhotoUrl() {
+        return this.photoUrl;
+    }
+
+    public void setPhotoUrl(List<String> photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public CategoryValue id(Long id) {
+        setId(id);
+        return this;
+    }
+
+    public CategoryValue description(String description) {
+        setDescription(description);
+        return this;
+    }
+
+    public CategoryValue productName(String productName) {
+        setProductName(productName);
+        return this;
+    }
+
+    public CategoryValue photoUrl(List<String> photoUrl) {
+        setPhotoUrl(photoUrl);
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof CategoryValue)) {
+            return false;
+        }
+        CategoryValue categoryValue = (CategoryValue) o;
+        return Objects.equals(id, categoryValue.id) && Objects.equals(description, categoryValue.description) && Objects.equals(productName, categoryValue.productName) && Objects.equals(photoUrl, categoryValue.photoUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, productName, photoUrl);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", productName='" + getProductName() + "'" +
+            ", photoUrl='" + getPhotoUrl() + "'" +
+            "}";
     }
 }

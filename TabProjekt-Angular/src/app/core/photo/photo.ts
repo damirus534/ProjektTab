@@ -1,10 +1,10 @@
-import { ProductInfo } from "../product-info/product-info";
+import { ProductInfoAdmin } from "../product-info/ProductInfoAdmin";
 
 export class Photo {
 
     constructor(
         public id: number | null,
-        public productInfo: ProductInfo | null,
+        public productInfo: ProductInfoAdmin | null,
         public photoUrl: string = ''
     ) {}
 

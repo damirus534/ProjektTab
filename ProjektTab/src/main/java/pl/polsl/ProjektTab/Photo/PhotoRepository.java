@@ -8,6 +8,10 @@ import java.util.List;
 
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
+
+    @Query("SELECT p from Photo p WHERE p.productInfo.id = ?1")
+    List<Photo> findByProductInfoId(Long productInfoId);
+
     @Query(value = "SELECT p.photoUrl FROM Photo p where p.productInfo.id=?1")
     List<String> findAllPhotos(Long id);
 }

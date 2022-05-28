@@ -31,11 +31,11 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getCategories() {
         return categoryService.getCategories();
     }
-    @GetMapping("/all")
-    public List<Category> getCategoriesUnLog(){
-        return categoryService.getCategoriesUnLog();
-    }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<Category>> getActiveCategories() {
+        return categoryService.getActiveCategories();
+    }
 
     @PostMapping
     public ResponseEntity<Category> addCategory(@RequestHeader(value = "Authorization") String token, @RequestBody Category category) {

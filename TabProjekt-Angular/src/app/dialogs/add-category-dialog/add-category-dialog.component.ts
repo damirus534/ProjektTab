@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Category } from 'src/app/core/category/category';
 import { CategoryService } from 'src/app/core/category/category.service';
 
 @Component({
@@ -10,7 +11,6 @@ import { CategoryService } from 'src/app/core/category/category.service';
 })
 export class AddCategoryDialogComponent implements OnInit {
 
-  public name = '';
   public nameEmpty = false;
 
   addForm: FormGroup = new FormGroup({
@@ -35,8 +35,8 @@ export class AddCategoryDialogComponent implements OnInit {
     }
     this.nameEmpty = false;
 
-    this.name = this.addForm.controls['name'].value;
-    this.categoryService.add(this.name).subscribe((savedCategory) => {
+    const newCategory = new Category(null, true, this.addForm.controls['name'].value);
+    this.categoryService.add(newCategory).subscribe((savedCategory) => {
       this.data.categoryList.push(savedCategory);
       this.dialogRef.close({
         categoryList: this.data.categoryList

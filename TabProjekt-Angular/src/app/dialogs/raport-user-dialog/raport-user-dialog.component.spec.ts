@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OfferComponent } from './offer.component';
+import { RaportUserDialogComponent } from './raport-user-dialog.component';
 
-describe('OfferComponent', () => {
-  let component: OfferComponent;
-  let fixture: ComponentFixture<OfferComponent>;
+describe('RaportUserDialogComponent', () => {
+  let component: RaportUserDialogComponent;
+  let fixture: ComponentFixture<RaportUserDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OfferComponent ]
+      declarations: [ RaportUserDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OfferComponent);
+    fixture = TestBed.createComponent(RaportUserDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

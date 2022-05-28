@@ -1,9 +1,12 @@
+import { ProductAdmin } from "../../product/productAdmin";
+import { User } from "../../user/user";
+
 export class Cart {
 
     constructor(
-    id: number = 0,
-    user_id: number = 0,
-    product_id: number = 0,
-    amount: number = 0
+        public id: number = 0,
+        public amount: number = 0,
+        public user: User | null = null,
+        public product: ProductAdmin | null = null
     ) {}
 }

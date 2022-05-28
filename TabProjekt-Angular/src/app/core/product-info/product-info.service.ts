@@ -10,19 +10,21 @@ import {ProductInfoAdmin} from "./ProductInfoAdmin";
   providedIn: 'root'
 })
 export class ProductInfoService {
- private baseUrl="http://localhost:8080/product-info";
 
   constructor(private httpClient: HttpClient) { }
+  
   getInfoById(id:number):Observable<ProductInfo>{
-    return this.httpClient.get<ProductInfo>(`${this.baseUrl}/info?id=`+id)
+    return this.httpClient.get<ProductInfo>(`${environment.baseUrl}/product-info/info?id=` + id)
   }
+  
   getProductInfo(): Observable<ProductInfoAdmin[]> {
     return this.httpClient.get<ProductInfoAdmin[]>(`${environment.baseUrl}/product-info`);
   }
 
   saveProductInfo(form: FormGroup): Observable<ProductInfoAdmin> {
-    let productInfo: ProductInfo = new ProductInfo;
+    let productInfo: ProductInfoAdmin = new ProductInfoAdmin;
     productInfo.productName = form.controls['name'].value;
+    productInfo.category = form.controls['category'].value;
     productInfo.description = form.controls['descrption'].value;
     productInfo.buyingPrice = form.controls['buyingPrice'].value;
     productInfo.sellingPrice = form.controls['sellingPrice'].value;

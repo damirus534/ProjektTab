@@ -7,5 +7,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 20px !important;
   }
 
+.success-snackbar {
+  background: #00AA00;
+  color: #FFFFFF;
+}
 
+.success-snackbar .mat-button {
+  color: #fff2db;
+}
+
+.success-snackbar .mat-simple-snackbar {
+  font-size: 16px;
+}
 
