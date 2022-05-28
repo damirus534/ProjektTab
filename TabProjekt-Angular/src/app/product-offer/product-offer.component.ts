@@ -37,7 +37,7 @@ export class ProductOfferComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private _snackBar: MatSnackBar,
-    private mainService:MainSideService
+    private mainService: MainSideService
   ) { }
 
   images!: Array<ImageItem>;
@@ -84,21 +84,39 @@ export class ProductOfferComponent implements OnInit {
       if (token) {
         const userToken = this.authService.getUserToken(token);
         if (userToken) {
-          this.cartService.addToCart(userToken.id, this.selectedValue.id, this.amountValue).subscribe();
+          this.cartService.findCartItemByProductIdAndUserId(this.selectedValue.id, userToken.id).subscribe((result) => {
+            if (result && result.amount + this.amountValue > result.product?.amountAvailable!) {
+                this._snackBar.open("Produkt nie został dodany, ponieważ suma produktów w koszyku przekroczyła by ilość w magazynie.", "OK");
+            } else {
+              this.cartService.addToCart(userToken.id, this.selectedValue.id, this.amountValue).subscribe();
+              this.displaySuccessSnackbar();
+            }
+          });
+          
         }
       } else {
-        if (this.images[0].data.src != null)
-          this.cartService.addItem(new CartItem(this.selectedValue,this.amountValue,this.images[0].data.src,this.productInfo.productName,this.productInfo.sellingPrice));
+        const duplicatedCartRecords = this.cartService.actualCartList.filter((cartItem) => {
+          return cartItem.product.id === this.selectedValue.id;
+        });
+        if (duplicatedCartRecords.length > 0 && duplicatedCartRecords[0].amount + this.amountValue > duplicatedCartRecords[0].product.amountAvailable) {
+            this._snackBar.open("Produkt nie został dodany, ponieważ suma produktów w koszyku przekroczyła by ilość w magazynie.", "OK");
+        } else {
+          this.cartService.addItem(new CartItem(this.selectedValue, this.amountValue, this.images[0].data.src!, this.productInfo.productName, this.productInfo.sellingPrice));
+          this.displaySuccessSnackbar();
+        }
       }
-      this._snackBar.open("Element został dodany do koszyka", "OK", {
-        duration: 3000,
-        panelClass: ['added-to-cart-snackbar']
-      });
     }
   }
 
   change($event: Event) {
 
+  }
+
+  private displaySuccessSnackbar() {
+    this._snackBar.open("Element został dodany do koszyka!", "OK", {
+      duration: 3000,
+      panelClass: ['success-snackbar']
+    });
   }
 
   return() {

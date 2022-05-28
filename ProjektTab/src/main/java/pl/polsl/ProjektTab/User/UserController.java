@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:4200") // necessary for request from frontend to work
+@CrossOrigin // necessary for request from frontend to work
 public class UserController {
         
     private final UserService userService;
@@ -31,7 +31,12 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> getUsers() {
         return userService.getUsers();
-    } 
+    }
+
+    @GetMapping("/{userEmail}")
+    ResponseEntity<User> getUserByEmail(@PathVariable String userEmail) {
+        return userService.getUserByEmail(userEmail);
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody User user) {

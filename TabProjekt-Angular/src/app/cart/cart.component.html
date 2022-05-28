@@ -28,8 +28,11 @@
                 </p>
             </mat-grid-tile>
             <mat-grid-tile>
-                <button class="buy-button" *ngIf="getRole() === 'user'" mat-raised-button color="primary" (click)="buyButt()">
+                <button class="buy-button" *ngIf="getRole() === 'user'" mat-raised-button color="primary" (click)="buyCart()">
                     Dokonaj zakupu
+                </button>
+                <button class="buy-button" *ngIf="getRole() === 'guest'" mat-raised-button color="primary" (click)="saveAnonCart()">
+                    Zapisz zawartość na koncie
                 </button>
             </mat-grid-tile>
             <mat-grid-tile>

@@ -14,9 +14,13 @@ export class CategoryService {
   getCategories(): Observable<Category[]> {
     return this.httpClient.get<Category[]>(`${environment.baseUrl}/categories`);
   }
+  
+  getActiveCategories(): Observable<Category[]> {
+    return this.httpClient.get<Category[]>(`${environment.baseUrl}/categories/active`);
+  }
 
-  add(name: string): Observable<Category> {
-    return this.httpClient.post<Category>(`${environment.baseUrl}/categories`, { categoryName: name });
+  add(category: Category): Observable<Category> {
+    return this.httpClient.post<Category>(`${environment.baseUrl}/categories`, category);
   }
 
   delete(id: number): Observable<Category> {
@@ -25,6 +29,10 @@ export class CategoryService {
 
   edit(category: Category): Observable<Category> {
     return this.httpClient.put<Category>(`${environment.baseUrl}/categories/edit/${category.id}`, category);
+  }
+
+  changeIsActive(category: Category) {
+    return this.httpClient.put<Category>(`${environment.baseUrl}/categories/edit/${category.id}`, { isActive: category.isActive });
   }
 
 }

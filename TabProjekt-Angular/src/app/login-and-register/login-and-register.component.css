@@ -1,3 +1,13 @@
+.save-anon-cart-info {
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    background: rgb(255, 147, 147);
+    padding: 0 10px;
+}
+
 .mat-card {
     border: 1px solid rgb(161, 161, 161);
 }
@@ -29,5 +39,11 @@
     background-color: green;
     font-size: normal;
     color: white;
+}
+
+.error-outline {
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 4px;
 }
 

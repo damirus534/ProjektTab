@@ -3,12 +3,13 @@ package pl.polsl.ProjektTab.Cart;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.polsl.ProjektTab.Filters.CartsItem;
 
 @RestController
 @RequestMapping("/carts")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class CartController {
     
     private final CartService cartService;
@@ -60,4 +61,10 @@ public class CartController {
     public List<CartsItem> getCartsItemByUserId(@RequestParam Long id) {
         return cartService.findCartItemByUserId(id);
     }
+
+    @GetMapping("/product/{productId}/user/{userId}")
+    public ResponseEntity<Cart> findCartItemByProductIdAndUserId(@PathVariable Long productId, @PathVariable Long userId) {
+        return cartService.findCartItemByProductIdAndUserId(productId, userId);
+    }
+
 }

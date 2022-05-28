@@ -4,10 +4,21 @@
 }
 
 .sidenav-main {
-  width: 200px;
+  width: 15%;
 }
 
 .text1 {
   font-size: large;
+}
+
+.category-button-container {
+  width: 100%;
+}
+
+.category-button {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 

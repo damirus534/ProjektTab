@@ -1,12 +1,14 @@
 <mat-toolbar class="navibar-main" color="primary">
-  <button color="primary" class="title" mat-flat-button routerLink="" (click)="checkURL()" >Sklep</button>
+  <button color="primary" class="title" mat-flat-button routerLink="" (click)="checkURL()">
+    {{ (authService.userToken.role === 'admin' && (authService.isLoggedIn$ | async)) ? 'Panel administratora' : 'Sklep' }}
+  </button>
   <button routerLink="/cart" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Koszyk" *ngIf="authService.userToken.role !== 'admin'">
     <mat-icon>shopping_cart</mat-icon>
   </button>
-  <button routerLink="/login" *ngIf="!(this.authService.isLoggedIn$ | async)" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Zaloguj/Zarejestruj">
+  <button routerLink="/login" *ngIf="!(authService.isLoggedIn$ | async)" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Zaloguj/Zarejestruj">
     <mat-icon>login</mat-icon>
   </button>
-  <button routerLink="/login" *ngIf="this.authService.isLoggedIn$ | async" (click)="this.authService.logout()" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Wyloguj">
+  <button routerLink="/login" *ngIf="authService.isLoggedIn$ | async" (click)="authService.logout()" mat-icon-button matTooltipClass="tooltip" class="button" matTooltip="Wyloguj">
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

@@ -28,13 +28,13 @@ export class AddProductDialogComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     descrption: new FormControl(''),
     category: new FormControl('', [Validators.required]),
-    buyingPrice: new FormControl('', [Validators.required]),
-    sellingPrice: new FormControl('', [Validators.required]),
-    sizeS: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeM: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeXXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")])
+    buyingPrice: new FormControl('', [Validators.required, Validators.pattern("^[0-9]+([.][0-9]{1,2})?$")]),
+    sellingPrice: new FormControl('', [Validators.required, Validators.pattern("^[0-9]+([.][0-9]{1,2})?$")]),
+    sizeS: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeM: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeXXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")])
   });
 
   constructor(

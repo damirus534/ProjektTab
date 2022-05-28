@@ -69,7 +69,7 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
     EditProductDialogComponent,
     AmountIncorrectSnackbarComponent,
     RaportUserDialogComponent,
-    AdminRaportComponent
+    AdminRaportComponent,
     OrderHistoryComponent
   ],
   imports: [
