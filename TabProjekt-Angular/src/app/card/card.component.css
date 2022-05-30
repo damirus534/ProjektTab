@@ -48,7 +48,7 @@
 .description {
   height: 60%;
   font-size: large;
-  word-break: break-word;
+  word-break: normal;
   flex-grow: 1;
 }
 
