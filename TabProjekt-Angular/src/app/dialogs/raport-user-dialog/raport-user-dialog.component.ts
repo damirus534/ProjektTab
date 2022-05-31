@@ -17,6 +17,10 @@ export class RaportUserDialogComponent implements OnInit {
     beginningDateControl: new FormControl('', [Validators.required]),
     endingDateControl: new FormControl('', Validators.required)
   });
+  range= new FormGroup({
+    start: new FormControl(null, [Validators.required]),
+    end: new FormControl(null, [Validators.required]),
+  });
 
   constructor(private authService: AuthService,public dialogRef: MatDialogRef<OrderHistoryComponent>) { }
 
@@ -25,10 +29,12 @@ export class RaportUserDialogComponent implements OnInit {
   }
 
   generateRaport() {
+    /*
     const beginningDate =formatDate(this.dateForm.controls['beginningDateControl'].value,'yyyy-MM-dd','en-US')
+    const endingDate = formatDate(this.dateForm.controls['endingDateControl'].value,'yyyy-MM-dd','en-US')*/
 
-    const endingDate = formatDate(this.dateForm.controls['endingDateControl'].value,'yyyy-MM-dd','en-US')
-
+    const beginningDate = formatDate(this.range.controls['start'].value, 'yyyy-MM-ddT00:00:00', 'en-US');
+    const endingDate = formatDate(this.range.controls['end'].value, 'yyyy-MM-ddT23:59:59', 'en-US');
     localStorage.setItem("beginningDate",beginningDate)
     localStorage.setItem("endingDate",endingDate)
     this.dialogRef.close()

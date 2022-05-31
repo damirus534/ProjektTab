@@ -105,5 +105,13 @@ export class ProductOfferComponent implements OnInit {
     this.mainService.setMain(0)
     this.mainService.setEvent(true);
   }
+
+  validateNo($event: KeyboardEvent):boolean {
+    const charCide=$event.which?$event.which:$event.keyCode;
+    if(charCide>31&&(charCide<48||charCide>57)){
+      return false
+    }
+    return true
+  }
 }
 

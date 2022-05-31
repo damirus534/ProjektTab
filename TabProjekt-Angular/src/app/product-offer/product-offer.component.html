@@ -20,7 +20,7 @@
       <mat-card-content class="size-amount">
         <mat-form-field class="size-amount" *ngIf="selectedValue" >
           <mat-label>Ilość (dostępnych: {{selectedValue.amountAvailable}})</mat-label>
-          <input (ngModelChange)="error = ''" name="amount" matInput [(ngModel)]='amountValue' type="number" max="{{selectedValue.amountAvailable}}" min="0">
+          <input (ngModelChange)="error = ''" name="amount" matInput [(ngModel)]='amountValue' type="number" (keypress)="validateNo($event)" max="{{selectedValue.amountAvailable}}" min="0">
         </mat-form-field>
       </mat-card-content>
       <mat-card-content class="size-amount">

@@ -6,10 +6,11 @@
       <mat-grid-list cols="11" rowHeight="5vh">
         <mat-grid-tile colspan="2">Data</mat-grid-tile>
         <mat-grid-tile colspan="2">Nazwa Produktu</mat-grid-tile>
-        <mat-grid-tile colspan="2">Ilość</mat-grid-tile>
+        <mat-grid-tile colspan="1">Ilość</mat-grid-tile>
 
         <mat-grid-tile *ngIf="id===1" colspan="2">Cena sprzedarzy</mat-grid-tile>
         <mat-grid-tile *ngIf="id===2" colspan="2">Zyski</mat-grid-tile>
+        <mat-grid-tile colspan="1">Łącznie</mat-grid-tile>
         <mat-grid-tile colspan="1">Rozmiar</mat-grid-tile>
         <mat-grid-tile colspan="1">Cena kupna</mat-grid-tile>
         <mat-grid-tile colspan="1">Kategoria</mat-grid-tile>
@@ -27,11 +28,14 @@
           <mat-grid-tile colspan="2">
             <p> {{ element.productName }} </p>
           </mat-grid-tile>
-          <mat-grid-tile colspan="2">
+          <mat-grid-tile colspan="1">
             <p> {{ element.orderAmount }} </p>
           </mat-grid-tile>
           <mat-grid-tile colspan="2">
-            <p> {{ element.orderSellPrice }} </p>
+            <p> {{ element.orderSellPrice }}</p>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="1">
+            <p> {{element.wholeSum}}</p>
           </mat-grid-tile>
           <mat-grid-tile colspan="1">
             <p> {{ element.productSize }} </p>
@@ -49,4 +53,7 @@
     </div>
 
   </mat-card-content>
+  <footer>
+    <div class="textbot" style="height: 50px;position: center" style="color:white">Suma: {{suma}}zł</div>
+  </footer>
 </mat-card>

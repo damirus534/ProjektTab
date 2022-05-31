@@ -78,3 +78,28 @@ p {
   overflow-wrap: break-word;
   margin-bottom: 0;
 }
+.element-list{
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+
+footer{
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  background-color:blueviolet;
+  text-align: center;
+  padding-top: 0px;
+  font-size: x-large;
+  width: 100%;
+  min-height: 50px;
+  max-height: 50px;
+}
+.textbot{
+  height: 100%;
+  transform:translateY(50%);
+}
+
+.text{
+
+}
