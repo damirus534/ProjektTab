@@ -1,5 +1,5 @@
 <div class="main">
-    <mat-tab-group mat-stretch-tabs class="tab-group">
+    <mat-tab-group mat-stretch-tabs class="tab-group" [(selectedIndex)]="matTabIndex">
         <mat-tab class="tab" label="Zarządzanie">
             <div class="add-and-delete-tab">
                 <div class="control-panel">
@@ -176,4 +176,4 @@
         </mat-tab>
       </mat-tab-group>
 </div>
-<app-admin-raport [body]="raportBody" [id]="outPut" [suma]="suma" *ngIf="raportBody"></app-admin-raport>
+<app-admin-raport [body]="raportBody" [id]="outPut" [suma]="suma"  *ngIf="matTabIndex==1 && raportBody"></app-admin-raport>

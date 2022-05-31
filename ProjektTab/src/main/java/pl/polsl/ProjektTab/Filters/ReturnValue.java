@@ -6,7 +6,6 @@ import lombok.*;
 
 @Data
 @ToString
-@AllArgsConstructor
 public class ReturnValue {
     private Long id;
     private String description;

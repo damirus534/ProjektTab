@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Data
 @ToString
-@AllArgsConstructor
 public class RaportFilter {
     private Date orderHistoryDate;
     private String productName;

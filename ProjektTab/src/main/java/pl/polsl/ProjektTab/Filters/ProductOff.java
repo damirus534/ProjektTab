@@ -8,7 +8,6 @@ import lombok.ToString;
 
 @Data
 @ToString
-@AllArgsConstructor
 public class ProductOff {
     Long id;
     Integer amountAvailable;

@@ -49,12 +49,11 @@ export class AdminPanelComponent implements OnInit {
     start: new FormControl(null, [Validators.required]),
     end: new FormControl(null, [Validators.required]),
   });
-  radio1: number = 1;
-  outPut?: number;
   dateForm = new FormGroup({
     beginningDateControl: new FormControl(null, [Validators.required]),
     endingDateControl: new FormControl(null, [Validators.required])
   });
+  matTabIndex?: number;
 
 
 
@@ -100,6 +99,7 @@ export class AdminPanelComponent implements OnInit {
         console.log(date)
       })
     }*/
+    this.suma=0;
     if(this.range.controls['start'].value != null && this.range.controls['end'].value !=null){
       const beginningDate = formatDate(this.range.controls['start'].value, 'yyyy-MM-ddT00:00:00', 'en-US');
       const endingDate = formatDate(this.range.controls['end'].value, 'yyyy-MM-ddT23:59:59', 'en-US');
