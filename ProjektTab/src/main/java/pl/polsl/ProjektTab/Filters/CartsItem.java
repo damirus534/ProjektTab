@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@AllArgsConstructor
 @ToString
 public class CartsItem {
     Long id;

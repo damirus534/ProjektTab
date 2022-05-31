@@ -33,6 +33,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderHistory, Long
     @Query("SELECT new pl.polsl.ProjektTab.Filters.AdminRaportFilterProfit(oh.date,pi.productName, o.amountPurchased, o.sellingPrice, p.size, pi.buyingPrice, c.categoryName)FROM OrderHistory oh JOIN Order o ON o.orderHistory.id=oh.id JOIN Product p ON o.product.id=p.id JOIN ProductInfo pi ON p.productInfo.id=pi.id JOIN Category c ON pi.category.id=c.id AND pi.category.id=?1 AND oh.date >= ?2 AND oh.date <= ?3")
     public List<AdminRaportFilterProfit> getAdminIncomeRaportDateCategory(Long categoryId, Date beginning, Date ending);
 
+    @Query("SELECT new pl.polsl.ProjektTab.Filters.AdminRaportFilterProfit(oh.date,pi.productName, o.amountPurchased, o.sellingPrice, p.size, pi.buyingPrice, c.categoryName)FROM OrderHistory oh JOIN Order o ON o.orderHistory.id=oh.id JOIN Product p ON o.product.id=p.id JOIN ProductInfo pi ON p.productInfo.id=pi.id JOIN Category c ON pi.category.id=c.id AND pi.category.id=?1 AND oh.date > ?2 AND oh.date < ?3")
     public List<AdminRaportFilterProfit> getAdminProfitRaportDateCategory(Long categoryId, Date beginning, Date ending);
 
     @Query("SELECT new pl.polsl.ProjektTab.Filters.AdminRaportFilterProfit(oh.date,pi.productName, o.amountPurchased, o.sellingPrice, p.size, pi.buyingPrice, c.categoryName)FROM OrderHistory oh JOIN Order o ON o.orderHistory.id=oh.id JOIN Product p ON o.product.id=p.id JOIN ProductInfo pi ON p.productInfo.id=pi.id JOIN Category c ON pi.category.id=c.id AND pi.category.id=?1")
