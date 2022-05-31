@@ -35,18 +35,28 @@ export class AdminPanelComponent implements OnInit {
   productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'block-resume-action'];
   productInfoDataSource = new MatTableDataSource<ProductInfoAdmin>();
   private activeProductSort: Sort | null = null;
+  suma=0;
 
   isCategoriesShown: boolean = true;
   isProductsShown: boolean = false;
   raportBody!: AdminRaportService[];
   generateButton: boolean = false;
   inputHidden = true;
+
+  radio1:number=1;
+  outPut?:number;
+  range= new FormGroup({
+    start: new FormControl(null, [Validators.required]),
+    end: new FormControl(null, [Validators.required]),
+  });
   radio1: number = 1;
   outPut?: number;
   dateForm = new FormGroup({
     beginningDateControl: new FormControl(null, [Validators.required]),
     endingDateControl: new FormControl(null, [Validators.required])
   });
+
+
 
   constructor(
     private categoryService: CategoryService,
@@ -66,10 +76,10 @@ export class AdminPanelComponent implements OnInit {
   }
 
   disableGenerateButton(): boolean {
-    if (!this.inputHidden && this.dateForm.invalid) {
+    if (!this.inputHidden && this.range.invalid) {
       return true;
     }
-    else if (this.inputHidden || !this.inputHidden && this.dateForm.valid) {
+    else if (this.inputHidden || !this.inputHidden && this.range.valid) {
       return false;
     }
     else {
@@ -78,18 +88,32 @@ export class AdminPanelComponent implements OnInit {
   }
 
   generateRaport() {
-    console.log(this.radio1)
-    console.log(this.categoryId)
-
-    if(this.dateForm.controls['beginningDateControl'].value != null && this.dateForm.controls['endingDateControl'].value != null){
+    /*if(this.dateForm.controls['beginningDateControl'].value != null && this.dateForm.controls['endingDateControl'].value != null){
       const beginningDate =formatDate(this.dateForm.controls['beginningDateControl'].value,'yyyy-MM-dd','en-US')
 
       const endingDate = formatDate(this.dateForm.controls['endingDateControl'].value,'yyyy-MM-dd','en-US')
+
       this.adminRaportServiceService.getAdminRaport(new AdminRaportReqbody(this.categoryId,
         beginningDate,endingDate,
         this.radio1)).subscribe(date=>{
         this.raportBody=date
         console.log(date)
+      })
+    }*/
+    if(this.range.controls['start'].value != null && this.range.controls['end'].value !=null){
+      const beginningDate = formatDate(this.range.controls['start'].value, 'yyyy-MM-ddT00:00:00', 'en-US');
+      const endingDate = formatDate(this.range.controls['end'].value, 'yyyy-MM-ddT23:59:59', 'en-US');
+      this.adminRaportServiceService.getAdminRaport(new AdminRaportReqbody(this.categoryId,
+        beginningDate,endingDate,
+        this.radio1)).subscribe(date=>{
+        this.raportBody=date
+        console.log(date)
+        this.raportBody.forEach(date=>{
+          if(date.orderAmount&&date.orderSellPrice){
+            date.wholeSum=date.orderAmount*date.orderSellPrice;
+            this.suma= this.suma + date.wholeSum;
+          }
+        })
       })
     }
     else {
@@ -98,6 +122,12 @@ export class AdminPanelComponent implements OnInit {
       this.radio1)).subscribe(date=>{
         this.raportBody=date
       console.log(date)
+      this.raportBody.forEach(date=>{
+        if(date.orderAmount&&date.orderSellPrice){
+          date.wholeSum=date.orderAmount*date.orderSellPrice;
+          this.suma= this.suma + date.wholeSum;
+        }
+      })
     })}
     this.outPut=this.radio1
   }
@@ -290,4 +320,7 @@ export class AdminPanelComponent implements OnInit {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+  onChange(id:number) {
+    this.categoryId=id;
+  }
 }

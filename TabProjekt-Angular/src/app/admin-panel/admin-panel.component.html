@@ -118,7 +118,7 @@
             <mat-label class="headerRaportLabel">Wypełnij, co ma zawierać raport</mat-label>
             <form [formGroup]="dateForm">
               <div class="radioGroupButtons">
-                <mat-radio-group [(ngModel)]="radio1" >
+                <mat-radio-group >
 
                   <mat-radio-button  [value]="1" [checked]="true" (click)="radio1=1">Przychody</mat-radio-button>
                   <mat-radio-button [value]="2" (click)="radio1=2">Zyski</mat-radio-button>
@@ -126,10 +126,11 @@
 
                 </div>
                 <div class="category">
-                <mat-form-field appearance="fill" [(ngModel)]="categoryId">
+                <mat-form-field appearance="fill">
                   <mat-label>Wybierz Kategorie</mat-label>
-                  <mat-select class="categoryMatSelect">
-                  <mat-option *ngFor="let category of categoryList" (onSelectionChange)="categoryId=category.id" [value]="category.id">{{category.categoryName}}</mat-option>
+                  <mat-select class="categoryMatSelect" (selectionChange)="onChange($event.value)">
+                  <mat-option [value]="null">Brak kategorii</mat-option>
+                  <mat-option *ngFor="let category of categoryList" [value]="category.id">{{category.categoryName}}</mat-option>
                   </mat-select>
                 </mat-form-field>
                 </div>
@@ -137,7 +138,19 @@
                 <mat-checkbox class="example-margin" (change)="displayOrHideDatapickers()">Sortowanie po dacie</mat-checkbox>
                 <div class="dataPickersDivider">
                   <mat-form-field appearance="fill" *ngIf="!inputHidden">
-                    <mat-label>Od:</mat-label>
+                    <mat-label>Wprowadź zakres dat</mat-label>
+                    <mat-date-range-input [formGroup]="range" [rangePicker]="picker1">
+                      <input matStartDate formControlName="start" placeholder="Od:">
+                      <input matEndDate formControlName="end" placeholder="Do: ">
+                    </mat-date-range-input>
+                    <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker1></mat-date-range-picker>
+
+                    <mat-error *ngIf="range.controls['start'].hasError('startError')">Niepoprawna data początkowa</mat-error>
+                    <mat-error *ngIf="range.controls['start'].hasError('endError')">Niepoprawna data końcowa</mat-error>
+
+                    <!--mat-label>Od:</mat-label>
                     <input matInput [matDatepicker]="picker1" formControlName="beginningDateControl">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
@@ -148,7 +161,7 @@
                     <input matInput [matDatepicker]="picker2" formControlName="endingDateControl">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
+                    <mat-datepicker #picker2></mat-datepicker-->
                   </mat-form-field>
                 </div>
               </div>
@@ -163,4 +176,4 @@
         </mat-tab>
       </mat-tab-group>
 </div>
-<app-admin-raport [body]="raportBody" [id]="outPut" *ngIf="raportBody"></app-admin-raport>
+<app-admin-raport [body]="raportBody" [id]="outPut" [suma]="suma" *ngIf="raportBody"></app-admin-raport>
