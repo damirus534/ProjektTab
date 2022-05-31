@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AmountIncorrectSnackbarComponent } from '../snackbars/amount-incorrect-snackbar/amount-incorrect-snackbar.component';
 import {MatDialog} from "@angular/material/dialog";
 import { RaportUserDialogComponent } from '../dialogs/raport-user-dialog/raport-user-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -23,9 +24,10 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private buyService: BuyService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) {
-
+    
   }
 
   ngOnInit() {
@@ -36,11 +38,11 @@ export class CartComponent implements OnInit {
     }
   }
 
-  openHistoryDialog(){
-    const dialogRef = this.dialog.open(RaportUserDialogComponent);
+  openHistoryDialog() {
+    this.dialog.open(RaportUserDialogComponent);
   }
 
-  buyButt() {
+  buyCart() {
     const userToken = this.authService.getUserToken(this.authService.token!);
     const invalidAmountToBuy: CartElement[] = this.cartContent.filter((cartElement) => {
       return cartElement.amount > cartElement.amountAvailable;
@@ -58,13 +60,23 @@ export class CartComponent implements OnInit {
       this.cartSum = 0;
       this._snackBar.open("Dokonano zakupu! Dziękujemy!", "OK", {
         duration: 3000,
-        panelClass: ['added-to-cart-snackbar']
+        panelClass: ['success-snackbar']
       });
     });
   }
 
+  saveAnonCart() {
+    this.cartService.saveAnonCart = true;
+    this.cartService.saveAnonCartVerificationId = btoa(performance.now().toString(36) + Math.random().toString(36).replace(/\./g,""));
+    this.router.navigate(['login'], {
+      queryParams: {
+        _replaceId: this.cartService.saveAnonCartVerificationId
+      }
+    });
+  }
+
   getRole(): string {
-    return this.authService.token ? this.authService.userToken.role : "";
+    return this.authService.userToken.role;
   }
 
   getContent() {

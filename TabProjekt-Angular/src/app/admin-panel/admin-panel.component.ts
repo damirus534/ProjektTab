@@ -24,12 +24,13 @@ import {formatDate} from "@angular/common";
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-  categoryRadio:string[]=['Zyski','Przychody']
+
+  categoryRadio: string[] = ['Zyski','Przychody'];
   public categoryList: Category[] = [];
-  categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'delete-action'];
+  categoryColumnNames = ['category-id', 'category-name', 'edit-action', 'block-resume-action'];
   categoryDataSource = new MatTableDataSource<Category>();
   private activeCategorySort: Sort | null = null;
-  categoryId:number|null=null
+  categoryId: number | null = null;
   private productInfoList: ProductInfoAdmin[] = [];
   productColumnNames = ['product-id', 'product-name', 'product-category', 'product-buying-price', 'product-selling-price', 'edit-action', 'block-resume-action'];
   productInfoDataSource = new MatTableDataSource<ProductInfoAdmin>();
@@ -38,15 +39,18 @@ export class AdminPanelComponent implements OnInit {
 
   isCategoriesShown: boolean = true;
   isProductsShown: boolean = false;
-  raportBody!:AdminRaportService[]
+  raportBody!: AdminRaportService[];
   generateButton: boolean = false;
   inputHidden = true;
+
   radio1:number=1;
   outPut?:number;
   range= new FormGroup({
     start: new FormControl(null, [Validators.required]),
     end: new FormControl(null, [Validators.required]),
   });
+  radio1: number = 1;
+  outPut?: number;
   dateForm = new FormGroup({
     beginningDateControl: new FormControl(null, [Validators.required]),
     endingDateControl: new FormControl(null, [Validators.required])
@@ -189,16 +193,9 @@ export class AdminPanelComponent implements OnInit {
     return value ? value[0] : null;
   }
 
-  deleteCategory(id: number) {
-    try {
-      this.categoryService.delete(id).subscribe();
-      this.categoryList = this.categoryList.filter((category) => {
-        return category.id !== id;
-      });
-      this.refreshCategoryDataSource();
-    } catch (e) {
-      console.log(e);
-    }
+  blockOrResumeCategory(category: Category) {
+    category.isActive = !category.isActive;
+    this.categoryService.changeIsActive(category).subscribe();
   }
 
   openAddProductDialog() {

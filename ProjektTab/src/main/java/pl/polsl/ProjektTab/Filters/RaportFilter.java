@@ -16,4 +16,12 @@ public class RaportFilter {
     private Float orderSellPrice;
     private String productSize;
 
+    public RaportFilter(Date orderHistoryDate, String productName, Integer orderAmount, Float orderSellPrice, String productSize) {
+        this.orderHistoryDate = orderHistoryDate;
+        this.productName = productName;
+        this.orderAmount = orderAmount;
+        this.orderSellPrice = orderSellPrice;
+        this.productSize = productSize;
+    }
+
 }

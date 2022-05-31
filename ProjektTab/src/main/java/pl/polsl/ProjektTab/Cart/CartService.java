@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import pl.polsl.Exceptions.CartNotFoundException;
@@ -106,8 +107,12 @@ public class CartService {
         return cart;
     }
 
-    public List<CartsItem> findCartItemByUserId(Long userId){
+    public List<CartsItem> findCartItemByUserId(Long userId) {
         return cartRepository.findCartByUserId(userId);
+    }
+
+    public ResponseEntity<Cart> findCartItemByProductIdAndUserId(Long productId, Long userId) {
+        return ResponseEntity.ok(cartRepository.findCartItemByProductIdAndUserId(productId, userId));
     }
     
 }

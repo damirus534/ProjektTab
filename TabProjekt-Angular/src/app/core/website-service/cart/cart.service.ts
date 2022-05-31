@@ -4,6 +4,7 @@ import {CartItem} from "./CartItem";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {CartElement} from "../../../cart-element/cartElement";
+import { Cart } from './cart';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ import {CartElement} from "../../../cart-element/cartElement";
 export class CartService {
 
   actualCartList: Array<CartItem> = new Array<CartItem>();
+  saveAnonCart: boolean = false;
+  saveAnonCartVerificationId: string | null = null;
 
   constructor(private httpClient: HttpClient) {
     
@@ -47,6 +50,10 @@ export class CartService {
       this.actualCartList[i].amount += item.amount;
     else
       this.actualCartList.push(item);
+  }
+
+  findCartItemByProductIdAndUserId(productId: number, userId: number): Observable<Cart> {
+    return this.httpClient.get<Cart>(`${environment.baseUrl}/carts/product/${productId}/user/${userId}`);
   }
 
 }

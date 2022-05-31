@@ -26,13 +26,17 @@
 .title-card {
   text-align: center;
   font-weight: bold;
-  height: 10vh;
+  min-height: 10vh;
+  max-height: 15vh;
+  word-break: normal;
+  line-height: 28px;
 }
 
 .text-card {
   margin-top: 4%;
   font-size: larger;
   height: 60%;
+  word-break: normal;
 }
 
 .size-amount {

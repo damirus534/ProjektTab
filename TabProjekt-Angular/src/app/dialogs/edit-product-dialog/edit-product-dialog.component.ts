@@ -28,13 +28,13 @@ export class EditProductDialogComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     descrption: new FormControl(''),
     category: new FormControl('', [Validators.required]),
-    buyingPrice: new FormControl('', [Validators.required]),
-    sellingPrice: new FormControl('', [Validators.required]),
-    sizeS: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeM: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")]),
-    sizeXXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]*$")])
+    buyingPrice: new FormControl('', [Validators.required, Validators.pattern("^[0-9]+([.][0-9]{1,2})?$")]),
+    sellingPrice: new FormControl('', [Validators.required, Validators.pattern("^[0-9]+([.][0-9]{1,2})?$")]),
+    sizeS: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeM: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")]),
+    sizeXXL: new FormControl('0', [Validators.required, Validators.pattern("^[0-9]+$")])
   });
 
   constructor(
@@ -70,7 +70,7 @@ export class EditProductDialogComponent implements OnInit {
 
   addUrl() {
     this.urlListEmpty = false;
-    if(this.isValidUrl(this.urlFromInput)) {
+    if (this.isValidUrl(this.urlFromInput)) {
       this.photoList.push(new Photo(null, null, this.urlFromInput));
       this.urlInvalid = false;
       this.urlFromInput = '';
@@ -95,17 +95,18 @@ export class EditProductDialogComponent implements OnInit {
 
   edit() {
     this.urlInvalid = false;
-    if((this.photoList.length === 0 && this.savedPhotoList.length === 0) || this.editForm.invalid) {
-      if(this.photoList.length === 0 && this.savedPhotoList.length === 0) {
-        this.urlListEmpty = true;
-      }
+    if (this.photoList.length === 0 && this.savedPhotoList.length === 0) {
+      this.urlListEmpty = true;
+      return;
+    }
+    if (this.editForm.invalid) {
       return;
     }
     this.urlListEmpty = false;
 
     this.loadAmountAvailable(this.editForm);
     this.productInfoService.editProductInfo(this.editForm, this.data.productInfo.id).subscribe((updatedProductInfo) => {
-      if(this.photoList.length !== 0) {
+      if (this.photoList.length !== 0) {
         this.setProductInfoOfPhotos(updatedProductInfo);
         this.photoService.batchSavePhoto(this.photoList).subscribe();
       }
